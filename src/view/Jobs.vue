@@ -1,13 +1,18 @@
 <template>
     <div>
         <h1>JOBS API</h1>
-        <ul>
+        <div v-if="jobs.length">
+            <ul>
             <li v-for="job in jobs" :key="job.id">
                 <router-link :to="{ name: 'JobDetails', params: { id: job.id }}">
                 <h2>{{ job.title }}</h2>
                  </router-link>
             </li>
         </ul>
+        </div>
+      <div v-else>
+        <p> Carregando os dados</p>
+      </div>
     </div>
 </template>
 
@@ -15,14 +20,7 @@
 export default {
    data() {
     return {
-        jobs: [
-        {title:"Web development", description:"net beam web development 2032",id: 1},
-        {title:"mobile development", description:"net beam mobile development 2032",id: 2},
-        {title:"desktop development", description:"net beam desktop development 2032",id: 3},
-        {title:"iot development", description:"net beam iot development 2032",id: 4},
-        {title:"tv development", description:"net beam tv development 2032",id: 5},
-
-    ] 
+        jobs: []
     }
    },
    methods: {
@@ -31,7 +29,10 @@ export default {
         }
    },
    mounted() {
-        
+        fetch('http://localhost:3000/jobs').
+        then(res => res.json()).
+        then(data => this.jobs = data).
+        catch(error => console.log(error.message));
    },
 }
 </script>
