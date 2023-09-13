@@ -1,8 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import About from '../view/About.vue';
-import Home from '../view/Home.vue';
-import Jobs from '../view/Jobs.vue';
-import JobDetails from '../view/JobDetails.vue';
+import nProgress from 'nprogress';
 
 
 
@@ -11,26 +8,107 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'Home',
-      component: Home
+      name: 'login',
+      component: () => import('../view/page/login/Login.vue')
     },
       {
-        path: '/about',
-        name: 'About',
-        component: About
+        path: '/register',
+        name: 'register',
+        component: () => import('../view/page/register/Register.vue')
       },
       {
-        path: '/jobs',
-        name: 'Jobs',
-        component: Jobs
+        path: '/home',
+        name: 'home',
+        component: ()=> import('../view/page/home/Home.vue')
       },
+      {
+        path: '/hosts',
+        name: 'hosts',
+        component: ()=> import('../view/page/host/Host.vue')
+      },
+      {
+        path: '/settings',
+        name: 'settings',
+        component: ()=> import('../view/page/settings/Settings.vue')
+      },
+      {
+        path: '/script',
+        name: 'script',
+        component: ()=> import('../view/page/scripts/Scripts.vue')
+      },
+      {
+        path: '/chat',
+        name: 'chat',
+        component: ()=> import('../view/page/chat/Chat.vue')
+      },
+      {
+        path: '/chat/:id',
+        name: 'conversations',
+        component: ()=> import('../view/page/conversations/Conversations.vue'),
+        props: true
+      },
+      {
+      path: '/app',
+      name: 'app',
+      component: ()=> import('../view/page/app/App.vue')
+      },
+      {
+        path: '/whatsapphome',
+        name: 'whatsapphome',
+        component: ()=> import('../view/page/app/tabs/WhatsappHome.vue'),
+      },
+      {
+        path: '/whatsappbot',
+        name: 'whatsappbot',
+        component: ()=> import('../view/page/app/tabs/WhatsappBot.vue'),
+      },
+      {
+        path: '/whatsappchat',
+        name: 'whatsappchat',
+        component: ()=> import('../view/page/app/tabs/Whatsappchat.vue'),
+      },
+      {
+        path: '/whatsappsettings',
+        name: 'whatsappSettings',
+        component: ()=> import('../view/page/app/tabs/WhatsappSettings.vue'),
+      },
+      {
+        path: '/codemaker',
+        name: 'codemaker',
+        component: ()=> import('../view/page/codeMaker/CodeMaker.vue'),
+      },
+      {
+        path: '/codejava',
+        name: 'codejava',
+        component: ()=> import('../view/page/codeMaker/codeMakerJava/Java.vue'),
+      },
+      {
+        path: '/javacodebox/:id',
+        name: 'javacodebox',
+        props: true,
+        component: ()=> import('../view/page/codeMaker/codeMakerJava/JavaChat.vue'),
+      },
+   
       {
         path: '/jobs/:id',
         name: 'JobDetails',
-        component: JobDetails,
+        // component: JobDetails,
         props: true
       },
+     
+      
   ]
+});
+
+router.beforeResolve((to, from, next)=>{
+  if(to.name){
+    nProgress.start();
+  }
+  next();
+})  
+
+router.afterEach((to, from)=>{
+  nProgress.done();
 })
 
 export default router
