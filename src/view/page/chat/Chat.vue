@@ -71,7 +71,7 @@
 </template>
 
 <script>
-import ChatComponent from '../../../components/chat/ChatComponent.vue';
+import ChatComponent from '../../../components/chat/chatComponent.vue';
 import Chat from '../../../services/chat';
 import vuejwtdecode from 'vue-jwt-decode';
 import conversationService from '../../../services/conversationService';
