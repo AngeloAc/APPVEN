@@ -62,11 +62,11 @@ const router = createRouter({
         name: 'whatsappbot',
         component: ()=> import('../view/page/app/tabs/WhatsappBot.vue'),
       },
-      {
-        path: '/whatsappchat',
-        name: 'whatsappchat',
-        component: ()=> import('../view/page/app/tabs/Whatsappchat.vue'),
-      },
+      // {
+      //   path: '/whatsappchat',
+      //   name: 'whatsappchat',
+      //   component: ()=> import('../view/page/app/tabs/Whatsappchat.vue'),
+      // },
       {
         path: '/whatsappsettings',
         name: 'whatsappSettings',
