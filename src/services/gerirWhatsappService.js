@@ -1,4 +1,4 @@
-import APIWWJS from "./APIWW.JS";
+import APIWWJS from "./APIWW";
 import swal from "sweetalert";
 
 
