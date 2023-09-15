@@ -4,6 +4,6 @@ import axios from 'axios';
 export default () => axios.create(
     {
         
-        baseURL: "http://127.0.0.1:3030/user"
+        baseURL: "http://localhost:3030/user"
     }
 );
