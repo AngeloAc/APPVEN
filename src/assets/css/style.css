@@ -1,7 +1,7 @@
 
 
   /* Define styles for the default root window element */
-  :root.dark-theme  { 
+  :root  { 
   --background-color-primary: #ebebeb;
   --background-color-secondary: #fafafa;
   --accent-color: #cacaca;
@@ -13,7 +13,7 @@
 }
 
 /* Define styles for the root window with dark - mode preference */
-  :root {
+ :root.dark-theme  {
   --background-color-primary: #27374D;
   --background-color-secondary: #526D82;
   --accent-color: #3f3f3f;
