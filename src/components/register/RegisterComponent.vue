@@ -7,8 +7,9 @@
 
 <template>
     <div class="main-container">
-    <div class="logo"><img src="../../assets/img/logo.png" alt="" style="width: 50px; height: 50px; margin-bottom: 20px;"></div>
+    
     <div class="form-container">
+      <div class="logo"><img src="../../assets/img/logo.png" alt="" style="width: 50px; height: 50px; margin-bottom: 20px;"></div>
       <form class="form" @submit.prevent="registerSubmitUserForm">
         <h6 class="form-title">Criar uma conta gratuita</h6>
         <div class="form-group">
@@ -29,17 +30,17 @@
           id="email"
           name="email"
           class="form-input"
-          placeholder="Digite o seu email..."
+          placeholder="Digite o seu email válido"
           v-model="registerForm.email"
         />
         <label for="telefone" class="form-label">Telefone</label>
            <input
           required 
-          type="phone"
+          type="tel"
           id="telefone"
           name="telefone"
           class="form-input"
-          placeholder="Digite o seu telefone..."
+          placeholder="Digite o seu telefone"
           v-model="registerForm.telefone"
         />
         <label for="name" class="form-label">Senha</label>
@@ -49,7 +50,7 @@
           id="password"
           name="password"
           class="form-input"
-          placeholder="Digite a sua senha..."
+          placeholder="Digite a sua senha"
           v-model="registerForm.password"
         />
         <label class="password-hint"> (6 caracteres mínimos)</label>    
@@ -80,14 +81,18 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  background: var(--background-color-primary);
+  /* height: 100vh; */
+  /* background: var(--background-color-primary); */
+  font-family: 'Montserrat', sans-serif;
+  padding: 20px;
+font-family: 'Open Sans', sans-serif;
 }
 
 .logo {
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 20px;
+  text-align: center;
 }
 
 .form-container {

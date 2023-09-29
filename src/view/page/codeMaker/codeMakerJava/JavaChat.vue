@@ -8,7 +8,15 @@
                 <h3>Code Maker</h3>
                 <button class="create-chat-btn" @click="showModal = true">Novo code</button>
             </div>
-            <div class="conversation-list">
+            <div v-if="loading" class="loading-container">
+                    <div class="loading-indicator"></div>
+                </div>
+                <div class="conversation-list">
+                    <!-- Verifica se o array conversations está vazio -->
+                  
+
+                    <!-- Lista de conversas -->
+                    <div  >
                 <div class="conversation" v-for="(javaChat, index) in javaChat" :key="index" @click="selectChat(index)">
                     <svg v-if="javaChat.code === 'java'" class="avatar" xmlns="http://www.w3.org/2000/svg" height="1em"
                         viewBox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
@@ -36,9 +44,21 @@
                         <path
                             d="M0 32l34.9 395.8L191.5 480l157.6-52.2L384 32H0zm308.2 127.9H124.4l4.1 49.4h175.6l-13.6 148.4-97.9 27v.3h-1.1l-98.7-27.3-6-75.8h47.7L138 320l53.5 14.5 53.7-14.5 6-62.2H84.3L71.5 112.2h241.1l-4.4 47.7z" />
                     </svg>
-                    <svg  v-if="javaChat.code === 'cisco'" class="avatar" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 640 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M256 64H384v64H256V64zM240 0c-26.5 0-48 21.5-48 48v96c0 26.5 21.5 48 48 48h48v32H32c-17.7 0-32 14.3-32 32s14.3 32 32 32h96v32H80c-26.5 0-48 21.5-48 48v96c0 26.5 21.5 48 48 48H240c26.5 0 48-21.5 48-48V368c0-26.5-21.5-48-48-48H192V288H448v32H400c-26.5 0-48 21.5-48 48v96c0 26.5 21.5 48 48 48H560c26.5 0 48-21.5 48-48V368c0-26.5-21.5-48-48-48H512V288h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H352V192h48c26.5 0 48-21.5 48-48V48c0-26.5-21.5-48-48-48H240zM96 448V384H224v64H96zm320-64H544v64H416V384z"/></svg>
-                    <svg  v-if="javaChat.code === 'huawei'" class="avatar" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 640 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M256 64H384v64H256V64zM240 0c-26.5 0-48 21.5-48 48v96c0 26.5 21.5 48 48 48h48v32H32c-17.7 0-32 14.3-32 32s14.3 32 32 32h96v32H80c-26.5 0-48 21.5-48 48v96c0 26.5 21.5 48 48 48H240c26.5 0 48-21.5 48-48V368c0-26.5-21.5-48-48-48H192V288H448v32H400c-26.5 0-48 21.5-48 48v96c0 26.5 21.5 48 48 48H560c26.5 0 48-21.5 48-48V368c0-26.5-21.5-48-48-48H512V288h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H352V192h48c26.5 0 48-21.5 48-48V48c0-26.5-21.5-48-48-48H240zM96 448V384H224v64H96zm320-64H544v64H416V384z"/></svg>
-                    <svg  v-if="javaChat.code === 'mikrotik'" class="avatar" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 640 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M256 64H384v64H256V64zM240 0c-26.5 0-48 21.5-48 48v96c0 26.5 21.5 48 48 48h48v32H32c-17.7 0-32 14.3-32 32s14.3 32 32 32h96v32H80c-26.5 0-48 21.5-48 48v96c0 26.5 21.5 48 48 48H240c26.5 0 48-21.5 48-48V368c0-26.5-21.5-48-48-48H192V288H448v32H400c-26.5 0-48 21.5-48 48v96c0 26.5 21.5 48 48 48H560c26.5 0 48-21.5 48-48V368c0-26.5-21.5-48-48-48H512V288h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H352V192h48c26.5 0 48-21.5 48-48V48c0-26.5-21.5-48-48-48H240zM96 448V384H224v64H96zm320-64H544v64H416V384z"/></svg>
+                    <svg v-if="javaChat.code === 'cisco'" class="avatar" xmlns="http://www.w3.org/2000/svg" height="1em"
+                        viewBox="0 0 640 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                        <path
+                            d="M256 64H384v64H256V64zM240 0c-26.5 0-48 21.5-48 48v96c0 26.5 21.5 48 48 48h48v32H32c-17.7 0-32 14.3-32 32s14.3 32 32 32h96v32H80c-26.5 0-48 21.5-48 48v96c0 26.5 21.5 48 48 48H240c26.5 0 48-21.5 48-48V368c0-26.5-21.5-48-48-48H192V288H448v32H400c-26.5 0-48 21.5-48 48v96c0 26.5 21.5 48 48 48H560c26.5 0 48-21.5 48-48V368c0-26.5-21.5-48-48-48H512V288h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H352V192h48c26.5 0 48-21.5 48-48V48c0-26.5-21.5-48-48-48H240zM96 448V384H224v64H96zm320-64H544v64H416V384z" />
+                    </svg>
+                    <svg v-if="javaChat.code === 'huawei'" class="avatar" xmlns="http://www.w3.org/2000/svg" height="1em"
+                        viewBox="0 0 640 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                        <path
+                            d="M256 64H384v64H256V64zM240 0c-26.5 0-48 21.5-48 48v96c0 26.5 21.5 48 48 48h48v32H32c-17.7 0-32 14.3-32 32s14.3 32 32 32h96v32H80c-26.5 0-48 21.5-48 48v96c0 26.5 21.5 48 48 48H240c26.5 0 48-21.5 48-48V368c0-26.5-21.5-48-48-48H192V288H448v32H400c-26.5 0-48 21.5-48 48v96c0 26.5 21.5 48 48 48H560c26.5 0 48-21.5 48-48V368c0-26.5-21.5-48-48-48H512V288h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H352V192h48c26.5 0 48-21.5 48-48V48c0-26.5-21.5-48-48-48H240zM96 448V384H224v64H96zm320-64H544v64H416V384z" />
+                    </svg>
+                    <svg v-if="javaChat.code === 'mikrotik'" class="avatar" xmlns="http://www.w3.org/2000/svg" height="1em"
+                        viewBox="0 0 640 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                        <path
+                            d="M256 64H384v64H256V64zM240 0c-26.5 0-48 21.5-48 48v96c0 26.5 21.5 48 48 48h48v32H32c-17.7 0-32 14.3-32 32s14.3 32 32 32h96v32H80c-26.5 0-48 21.5-48 48v96c0 26.5 21.5 48 48 48H240c26.5 0 48-21.5 48-48V368c0-26.5-21.5-48-48-48H192V288H448v32H400c-26.5 0-48 21.5-48 48v96c0 26.5 21.5 48 48 48H560c26.5 0 48-21.5 48-48V368c0-26.5-21.5-48-48-48H512V288h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H352V192h48c26.5 0 48-21.5 48-48V48c0-26.5-21.5-48-48-48H240zM96 448V384H224v64H96zm320-64H544v64H416V384z" />
+                    </svg>
 
                     <div class="info">
                         <h5>{{ javaChat.name }}</h5>
@@ -57,11 +77,18 @@
                         <p v-if="javaChat.code === 'html'"
                             style="background: yellowgreen; padding: 2px; font-size: 8px; border: none; border-radius: 5px; text-align: center; width: 42px;">
                             {{ javaChat.code }}</p>
-                            <p v-if="javaChat.code === 'cisco'"  style="background: yellowgreen; padding: 2px; font-size: 8px; border: none; border-radius: 5px; text-align: center; width: 42px;">{{ javaChat.code }}</p>
-                            <p v-if="javaChat.code === 'huawei'"  style="background: yellowgreen; padding: 2px; font-size: 8px; border: none; border-radius: 5px; text-align: center; width: 42px;">{{ javaChat.code }}</p>
-                            <p v-if="javaChat.code === 'mikrotik'"  style="background: yellowgreen; padding: 2px; font-size: 8px; border: none; border-radius: 5px; text-align: center; width: 42px;">{{ javaChat.code }}</p>
+                        <p v-if="javaChat.code === 'cisco'"
+                            style="background: yellowgreen; padding: 2px; font-size: 8px; border: none; border-radius: 5px; text-align: center; width: 42px;">
+                            {{ javaChat.code }}</p>
+                        <p v-if="javaChat.code === 'huawei'"
+                            style="background: yellowgreen; padding: 2px; font-size: 8px; border: none; border-radius: 5px; text-align: center; width: 42px;">
+                            {{ javaChat.code }}</p>
+                        <p v-if="javaChat.code === 'mikrotik'"
+                            style="background: yellowgreen; padding: 2px; font-size: 8px; border: none; border-radius: 5px; text-align: center; width: 42px;">
+                            {{ javaChat.code }}</p>
 
                     </div>
+                </div>
                 </div>
             </div>
         </div>
@@ -79,8 +106,9 @@
                         <form @submit.prevent="createChat">
                             <div class="form-group">
                                 <label for="chatTitle">Título:</label>
-                                <input type="text" id="chatTitle" class="form-control" placeholder="Escreva um título amigável. Ex.: Clone Whatsapp."
-                                    v-model="newChat.name" required />
+                                <input type="text" id="chatTitle" class="form-control"
+                                    placeholder="Escreva um título amigável. Ex.: Clone Whatsapp." v-model="newChat.name"
+                                    required />
                             </div>
                             <div class="form-group" style="margin: 7px 0px 7px 0px">
                                 <label for="languageSelect" style="margin: 5px 0px 5px 0px;">Linguagem:</label>
@@ -109,39 +137,47 @@
         </div>
         <!--END Modal para a criação de chat -->
 
-        <div class="flex flex-col text-sm dark:bg-gray-800 h-full">
 
-            <div class="w-full mx-auto md:max-w-2xl lg:max-w-3xl md:flex md:flex-col px-6 dark:text-gray-100">
-                <div class="shadow-sm">
+        <div class="chat-container">
+            <div class="text-salute"><i class="bi bi-tools"></i> Seja bem vindo ao novo Chat Code, use palavras claras e
+                    simples. Agora poderás gerar programas com interface gráfica.</div>
 
-
-                    <!-- <p class="text-center" style="font-size: 10px; color: gray; padding: 4px;">AI powered by STARTIC <a
-                            href=""
-                            style="background: greenyellow; color:black; border-radius: 5px; text-decoration: none; padding-left: 15px; padding-right: 15px; text-align: center;">{{
-                                code }}</a> </p> -->
-
+                    <div v-if="loading" class="loading-container">
+                    <div class="loading-indicator"></div>
                 </div>
+                     <!-- Verifica se o array conversations está vazio -->
+                     <div v-if="messages.length === 0 " class="empty-conversations">
+                        <!-- Exibe a mensagem "Nenhuma conversa iniciada..." -->
+                        <p class="badge bg-white m-2" style="color: black; font-weight: normal;">Faça um codigo que lê os números primos <i>135</i> </p>
+                        <p class="badge bg-white m-2" style="color: black; font-weight: normal;">Faça um programa com interface gráfica que ... <i class="bi bi-laptop"></i></p>
+                        <p class="badge bg-white m-2" style="color: black; font-weight: normal;">Faça um programa com interface gráfica para o jogo da cobra <i class="bi bi-controller"></i></p>
+                        <p class="badge bg-white m-2" style="color: black; font-weight: normal;">Faça um site elegante e responsivo para uma escola ... <i class="bi bi-book"></i></p>
+                        
+                    </div>
+                    <div>
+            <div v-for="(message, index) in messages" :key="index" class="chat"
+                :class="{ outgoing: message.isUser, incoming: !message.isUser }">
+                <div class="chat-content">
+                    <div class="chat-details">
+                        <img src="../../../../assets/img/avatar.png" alt="" v-show="message.isUser">
+                        <img src="../../../../assets/img/bot.png" alt="" v-show="!message.isUser">
 
-                <div class="chat-container">
-                    <div v-for="(message, index) in messages" :key="index" class="chat"
-                        :class="{ outgoing: message.isUser, incoming: !message.isUser }">
-                        <div class="chat-content">
-                            <div class="chat-details">
-                                <img src="../../../../assets/img/avatar.png" alt="" v-show="message.isUser">
-                                <img src="../../../../assets/img/bot.png" alt="" v-show="!message.isUser">
 
-                                <!-- <p v-if="!message.isTyping">{{ message.text }}</p> -->
-                                <div v-if="!message.isTyping">
-                                    <JavaCodeBlock :javaCode="message.text"/>
-                                </div>
-                                <div v-else class="typing-animation">
-                                    <div class="typing-dot" style="--delay: 0.2s"></div>
-                                    <div class="typing-dot" style="--delay: 0.3s"></div>
-                                    <div class="typing-dot" style="--delay: 0.4s"></div>
-                                </div>
-                            </div>
-                            <div v-show="!message.isUser">
-                                <!-- <span class="copy text-black" @click="copyCode(message.text)"><i class="bi bi-clipboard"></i></span> -->
+                        <div v-if="!message.isTyping" class="">
+                            <JavaCodeBlock :class="{ 'd-none': message.isUser }" :javaCode="message.text" />
+                            <p :class="{ 'd-none': !message.isUser }" style=" background-color: #f7f7f7;
+                            border: 1px solid greenyellow;
+                            color: black;
+                            margin-left: 10px;
+                            border-radius: 8px">{{ message.text }}</p>
+                        </div>
+                        <div v-else class="typing-animation">
+                            <div class="typing-dot" style="--delay: 0.2s"></div>
+                            <div class="typing-dot" style="--delay: 0.3s"></div>
+                            <div class="typing-dot" style="--delay: 0.4s"></div>
+                        </div>
+                    </div>
+                    <!-- <div v-show="!message.isUser">
                                 <span class="icon-actions" @click="copyCode(message.text)"
                                     :class="{ 'checkmark-icon': copied }">
                                     <i :class="iconCopy"></i>
@@ -152,28 +188,26 @@
                                 <span class="icon-actions-bug" >
                                     <i class="bi bi-bug"></i>
                                 </span>
-                                <!-- <span class="icon-actions">
-                                    <i class="bi bi-link"></i>
-                                </span> -->
-                            </div>
+                            
+                            </div> -->
 
-                        </div>
-                    </div>
                 </div>
-                <!-- <div class="chat-container">
+            </div>
+            </div>
+                </div>
+        <!-- <div class="chat-container">
                     <h1>tips</h1> 
                 </div> -->
 
-            </div>
-        </div>
+
 
         <div class="typing-container" tabindex="-1">
             <div class="typing-content">
                 <div class="typing-textarea">
                     <textarea v-model="inputMessage" @keyup.enter="sendMessage" id="chat-input"
-                        placeholder="Escreva a instrução do seu codigo aqui..." required></textarea>
-                    <span @click="sendMessage"><img src="../../../../assets/img/send.png"
-                            style="height: 10px; height: 25px;" alt=""></span>
+                        placeholder="Escreva o prompt do seu codigo..." required></textarea>
+                    <span @click="sendMessage"><img src="../../../../assets/img/send.png" style="height: 20px;"
+                            alt=""></span>
                 </div>
             </div>
         </div>
@@ -227,7 +261,8 @@ export default {
             selectedConversationIndex: null,
             code: null,
             copied: false,
-            iconCopy: 'bi bi-clipboard'
+            iconCopy: 'bi bi-clipboard',
+            loading: false,
 
         };
     },
@@ -323,7 +358,7 @@ export default {
                         for (let i = 0; i < element.messages.length; i++) {
                             this.messages.push(element.messages[i]);
 
-
+                          
                         }
                         break;
                     }
@@ -331,13 +366,14 @@ export default {
                 }
 
             });
+              this.loading = false;
         },
         async selectChat(index) {
             this.messages.splice(0, this.messages.length);
             this.selectedConversationIndex = index;
 
-                 // Remova a classe "active-conversation" de todas as conversas
-                 const conversations = document.querySelectorAll('.conversation');
+            // Remova a classe "active-conversation" de todas as conversas
+            const conversations = document.querySelectorAll('.conversation');
             conversations.forEach((conversation) => {
                 conversation.classList.remove('active-conversation');
             });
@@ -371,7 +407,7 @@ export default {
                 .then(result => {
 
                     this.javaChat = result;
-
+                    // this.loading = false;
                     return result.reverse();
                 });
             return res;
@@ -483,6 +519,7 @@ export default {
 
     },
     mounted() {
+        this.loading = true;
         this.initWithId();
         this.getId();
         this.getHistoryJavaChat();
@@ -492,13 +529,23 @@ export default {
 
 <style scoped>
 .menu-container {
-    margin: 0px 0px 0px 0px;
+    background: var(--background-color-secondary);
+    color: var(--text-primary-color);
+    font-size: 10px;
+    height: 100vh;
+    font-family: 'Montserrat', sans-serif;
+font-family: 'Open Sans', sans-serif;
+}
+
+.output-text {
+    white-space: pre-wrap;
+    /* Outras propriedades de estilo conforme necessário */
 }
 
 .chat-container .chat {
     /* margin-top: 60px; */
     /* margin-left: 50px; */
-    padding: 15px 10px;
+    padding: 5px 10px;
     display: flex;
     justify-content: center;
     color: white;
@@ -518,8 +565,8 @@ export default {
 }
 
 :where(.chat-container, textarea)::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    width: 3px;
+    height: 1px;
 }
 
 :where(.chat-container, textarea)::-webkit-scrollbar-track {
@@ -528,7 +575,7 @@ export default {
 }
 
 :where(.chat-container, textarea)::-webkit-scrollbar-thumb {
-    background: gray;
+    background: green;
     border-radius: 25px;
 }
 
@@ -545,6 +592,7 @@ export default {
 .chat .chat-content {
     display: flex;
     /* max-width: 1200px; */
+    /* background: red; */
     width: 100%;
     align-items: flex-start;
     justify-content: space-between;
@@ -552,7 +600,7 @@ export default {
 
 .chat .chat-content span {
     font-size: .690rem;
-    padding-right: 20px;
+    padding-right: 100px;
     visibility: hidden;
 }
 
@@ -564,7 +612,7 @@ export default {
     display: flex;
     align-items: center;
     padding-left: 150px;
-    /* padding-right: 150px; */
+    padding-right: 150px;
 
 }
 
@@ -581,7 +629,7 @@ export default {
 .chat .chat-details p {
     margin-left: 10px;
     border-radius: 0 15px 15px 15px;
-    background: #6e6e80;
+    background: green;
     white-space: pre-wrap;
     font-size: 13px;
     /* letter-spacing: .5px; */
@@ -590,7 +638,7 @@ export default {
     font-variation-settings: normal;
     line-height: 1.5;
     tab-size: 4;
-    padding: 10px 20px 10px 25px;
+    padding: 10px 10px 10px 15px;
 }
 
 span {
@@ -611,6 +659,16 @@ span {
     border-radius: 50%;
     background: black;
     animation: animationDots 1.5s var(--delay) ease-in-out infinite;
+}
+
+.text-salute {
+    margin: 20px;
+    padding: 12px;
+    background: gray;
+    border: none;
+    border-radius: 10px;
+    text-align: center;
+    color: white;
 }
 
 @keyframes animationDots {
@@ -651,6 +709,7 @@ span {
     width: 600px;
     display: flex;
     align-items: flex-end;
+
 }
 
 .typing-content .typing-textarea {
@@ -658,6 +717,7 @@ span {
     display: flex;
     position: relative;
     left: 250px;
+
 }
 
 .typing-textarea textarea {
@@ -697,19 +757,6 @@ span {
     font-size: 1.2rem;
 }
 
-/* 
-.typing-controls {
-    display: flex;
-}
-
-.typing-controls span {
-    margin-left: 7px;
-    font-size: 1.2rem;
-
-    background: gray;
-    border-radius: 4px;
-}
- */
 
 /* side-chat */
 .side-chat {
@@ -723,8 +770,8 @@ span {
     left: 60px;
     background: var(--background-color-primary);
     color: var(--text-primary-color);
-        /* Adicionando a propriedade position: fixed */
-        /* Definindo a posição da esquerda */
+    /* Adicionando a propriedade position: fixed */
+    /* Definindo a posição da esquerda */
 }
 
 .header {
@@ -824,22 +871,27 @@ span {
     z-index: 9999;
 }
 
-.icon-actions{
+.icon-actions {
     /* Estilo padrão do ícone antes da cópia */
     /* Adicione seu estilo de ícone aqui */
     color: var(--text-primary-color);
-    
-    
+
+
 }
-.icon-actions-bug  {
+
+.icon-actions-bug {
     color: orange;
 }
-.icon-actions i, .icon-actions-bug i{
+
+.icon-actions i,
+.icon-actions-bug i {
     font-size: 18px;
     border: none;
-    
+
 }
-.icon-actions i:hover, .icon-actions-bug i:hover{
+
+.icon-actions i:hover,
+.icon-actions-bug i:hover {
     /* box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); */
     color: var(--accent-secondary-color);
 }
@@ -849,6 +901,7 @@ span {
     /* Estilo do ícone após a cópia com sucesso */
     /* Adicione seu estilo de ícone após a cópia com sucesso aqui */
 }
+
 .modal-content {
     background: var(--background-color-secondary);
     color: var(--text-primary-color);
@@ -879,4 +932,124 @@ span {
     color: white;
     /* Cor do texto de destaque quando selecionada */
 }
-</style>
+
+/* Estilo do contêiner pai */
+.loading-container {
+    display: flex;
+    justify-content: center;
+    /* Centraliza horizontalmente */
+    align-items: center;
+    /* Centraliza verticalmente */
+    height: 100%;
+    /* Define a altura do contêiner para ocupar todo o espaço disponível verticalmente */
+}
+
+/* Estilo do indicador de carregamento */
+.loading-indicator {
+    width: 24px;
+    height: 24px;
+    border: 2px solid #63e5af;
+    /* Cor da borda do círculo */
+    border-top: 2px solid #0056b3;
+    /* Cor da borda do círculo quando está girando */
+    border-radius: 50%;
+    /* Torna-o circular */
+    animation: spin 1s linear infinite;
+    /* Aplica a animação de rotação */
+}
+
+
+/* Defina a animação de rotação */
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Estilo do indicador de carregamento */
+.loading-indicator {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    border: 2px solid #63e5af;
+    /* Cor da borda do círculo */
+    border-top: 2px solid #0056b3;
+    /* Cor da borda do círculo quando está girando */
+    border-radius: 50%;
+    /* Torna-o circular */
+    animation: spin 1s linear infinite;
+    /* Aplica a animação de rotação */
+}
+
+.empty-conversations {
+  text-align: center;
+  /* justify-items: center; */
+  padding: 20px 0px 0px 0px;
+  font-size: 13px;
+  color: green;
+  animation: pulse 1s infinite alternate; /* Adiciona a animação "pulse" */
+}
+
+.empty-conversations img{
+    margin-left: 20px;
+}
+/* Define a animação "pulse" */
+@keyframes pulse {
+  from {
+    opacity: 1; /* Começa com opacidade 1 (visível) */
+  }
+  to {
+    opacity: 0.5; /* Alterna para opacidade 0.5 (semi-visível) */
+  }
+}
+.chat-phone {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .side-chat {
+        display: none;
+    }
+
+    .chat-container {
+        top: 50px;
+        left: 0px;
+        width: 100%;
+        margin: 0;
+        padding: 10px;
+        /* background-color: red; */
+        overflow-y: auto;
+    }
+
+    .chat .chat-details {
+        /* background: red; */
+        width: 100%;
+        padding-left: 0px;
+        padding-right: 0px;
+
+    }
+
+    .typing-container {
+        left: 0px;
+        padding: 30px 0px;
+    }
+
+    .typing-container .typing-content {
+        width: 100%;
+        display: flex;
+        align-items: flex-end;
+        padding: 10px 10px 0px 10px;
+
+    }
+
+    .typing-content .typing-textarea {
+        width: 100%;
+        display: flex;
+        position: relative;
+        left: 0px;
+    }
+}</style>

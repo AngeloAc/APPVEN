@@ -40,5 +40,21 @@ export default{
                 icon: "error"
             })
         }
-    }
+    },
+
+    async delete (id, data){
+        try {
+            console.log(data);
+            console.log(id)
+           const res =  await Api().post('/deleteconversation/'+id, data);
+           return res.data;
+            
+        } catch (error) {
+            swal({
+                title: "Ooops!",
+                text: "Alguma coisa correu mal ao criar o chat.",
+                icon: "error"
+            })
+        }
+    },
 }

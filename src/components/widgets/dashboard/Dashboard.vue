@@ -1,218 +1,45 @@
 <template>
     <div class="main-content">
+        <div class="row">
 
-
-        <div class="row mt-4">
-
-            <h5>Bem-vindo a STARTIC <i class="bi bi-star"></i></h5>
-            <p style="font-size: 14px;">Conecte suas páginas de negócios do WhatsApp, faça seus codigos com ajuda de
+            <h6>Bem-vindo a STARTIC <i class="bi bi-star"></i></h6>
+            <p style="font-size: 10px;">Conecte suas páginas de negócios do WhatsApp, faça seus codigos com ajuda de
                 inteligência artificial e melhore seus conhecimentos com o nosso chat STARTIC.</p>
-
 
 
             <!-- whatsapp code ...  -->
             <div class="col-md-4">
-                <div class="card border-0 shadow">
-                    <div>
-
-                        <div class="progress-bar">
-                            <div class="progress" :style="{ width: progress + '%' }"></div>
-                        </div>
-
-                        <!-- <button @click="startInstallation">Start Installation</button> -->
-                    </div>
-                    <div class="card-body text-center">
-                        <div class="py-3">
-                            <i class="bi bi-whatsapp" style="font-size: 40px;"></i>
-                        </div>
-                        <div>
-                            <div class="mb-2">
-                                <h6 class="h5">WhatsApp</h6>
-                                <p v-if="usuario_conectado === true" class="badge bg-success">Conectado</p>
-                                <p v-else class="badge bg-black">Offline</p>
-                            </div>
-                            <p class="small">WhatsApp Web QR (integração não oficial)</p>
-                            <p class="small">Conecte sua conta do WhatsApp digitalizando seu código QR da Web. <a
-                                    style="color: green; font-weight: bold; cursor: pointer;" @click="callScript"> Crie
-                                    sua base de conhecimento.</a></p>
-                        </div>
-                    </div>
-                    <div class="card-footer text-end" style="display: flex; justify-content: space-between;">
-                        <p style="font-size: 10px;">{{ progress }}%</p>
-                        <button class="btn btn-outline-secondary btn-sm" @click="callInstallWhatsapp">
-                            <span v-show="app_status === 'install'"><i class="bi bi-hdd"></i> Instalar</span>
-                            <span v-show="app_status === 'connect'"><i class="bi bi-power"></i> Conectar</span>
-                            <span v-show="app_status === 'edit'"><i class="bi bi-power"></i> Desconectar</span>
-                            <span v-show="app_status === 'refresh'"><i class="bi bi-power"></i> Atualizar</span>
-                        </button>
-                    </div>
-                </div>
+                <AppCard myIcon="bi bi-whatsapp" title="WhatsApp" :status="code_status"
+                    headerDescription="WhatsApp Web QR (integração não oficial)"
+                    bodyDescription="Conecte o seu WhatsApp usando seu código QR da Web." :buttonText="buttonText"
+                    @buttonAction="callInstallWhatsapp" @href_Action="callScript" />
             </div>
             <!-- end whatsapp code ..  -->
+
+
+
+            <!-- CHAT RPRO MAX ...  -->
+            <div class="col-md-4">
+                <AppCard myIcon="bi bi-chat-left-dots" title="Chat RPRO-MAX" status="free" headerDescription="RPRO - I4"
+                    bodyDescription="Diverte-te com o chat RPRO baseado no chatGPT" buttonText="Abrir"
+                    @buttonAction="callChat" />
+            </div>
+            <!-- end CHAT RPRO MAX ...  -->
 
             <!-- programmer code ...  -->
             <div class="col-md-4">
-                <div class="card border-0 shadow">
-                    <div class="card-body text-center">
-                        <div class="py-3">
-
-                            <i class="bi bi-terminal" style="font-size: 40px;"></i>
-                        </div>
-                        <div>
-                            <div class="mb-2">
-                                <h6 class="h5">Maker Code</h6>
-                                <p class="badge bg-black">Free</p>
-                            </div>
-                            <p class="small">Programador AI</p>
-                            <p class="small">Instale o seu programador e faça codigos simples e rapidos com a nossa AI.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="card-footer text-end">
-                        <button class="btn btn-outline-secondary btn-sm" @click="makeCode"
-                            style="background: green; color: white">
-                            <span><i class="bi bi-power"></i> Começar</span>
-                        </button>
-                    </div>
-                </div>
+                <AppCard myIcon="bi bi-terminal" title="Programador" status="free" headerDescription="stark - K9"
+                    bodyDescription="Comece gerando codigos de computador com a Stark - k9" buttonText="Abir"
+                    @buttonAction="callStartK9" />
             </div>
             <!-- end programmer code ..  -->
 
-            <!-- facebook code ...  -->
-            <div class="col-md-4">
-                <div class="card border-0 shadow">
-                    <div class="card-body text-center">
-                        <div class="py-3">
-                            <i class="bi bi-chat" style="font-size: 40px;"></i>
-                        </div>
-                        <div>
-                            <div class="mb-2">
-                                <h6 class="h5">Chat </h6>
-                                <p class="badge bg-black">Free</p>
-                            </div>
-                            <p class="small">Messager</p>
-                            <p class="small">Conecte sua conta do Messager digitalizando seu código QR da Web.</p>
-                        </div>
-                    </div>
-                    <div class="card-footer text-end">
-                        <button class="btn btn-outline-secondary btn-sm" @click="callChat"
-                            style="background: green; color: white">
-                            <span><i class="bi bi-power"></i> Começar</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <!-- end whatsapp code ..  -->
-
-            <!-- telegram code ...  -->
-            <div class="col-md-4">
-                <div class="card border-0 shadow">
-                    <div class="card-body text-center">
-                        <div class="py-3">
-                            <i class="bi bi-camera" style="font-size: 40px;"></i>
-                        </div>
-                        <div>
-                            <div class="mb-2">
-                                <h6 class="h5">Image Generator</h6>
-                                <p class="badge bg-black">free</p>
-                            </div>
-                            <p class="small">BOT IMAGE AI</p>
-                            <p class="small">Conecte sua conta do Telegram digitalizando seu código QR da Web.</p>
-                        </div>
-                    </div>
-                    <div class="card-footer text-end">
-                        <button class="btn btn-outline-secondary btn-sm" disabled>
-                            <!-- <span v-show="app_status === 'install'"><i class="bi bi-hdd"></i> Instalar</span> -->
-                            <span><i class="bi bi-power"></i> Começar</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <!-- end telegram code ..  -->
-
-            <!-- Instagram code ...  -->
-            <div class="col-md-4">
-                <div class="card border-0 shadow">
-                    <div class="card-body text-center">
-                        <div class="py-3">
-                            <i class="bi bi-instagram" style="font-size: 40px;"></i>
-                        </div>
-                        <div>
-                            <div class="mb-2">
-                                <h6 class="h5">Instagram</h6>
-                                <p class="badge bg-success">Conectado</p>
-                            </div>
-                            <p class="small">Instagram Messager</p>
-                            <p class="small">Conecte sua conta do Instagram digitalizando seu código QR da Web.</p>
-                        </div>
-                    </div>
-                    <div class="card-footer text-end">
-                        <button class="btn btn-outline-secondary btn-sm" @click="callInstallWhatsapp" disabled>
-                            <span v-show="app_status === 'install'"><i class="bi bi-hdd"></i> Instalar</span>
-                            <span v-show="app_status === 'connect'"><i class="bi bi-power"></i> Conectar</span>
-                            <span v-show="app_status === 'edit'"><i class="bi bi-power"></i> Desconectar</span>
-                            <span v-show="app_status === 'refresh'"><i class="bi bi-power"></i> Atualizar</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <!-- end instagram code ..  -->
-
-            <!-- x code ...  -->
-            <div class="col-md-4">
-                <div class="card border-0 shadow">
-                    <div class="card-body text-center">
-                        <div class="py-3">
-                            <i class="bi bi-twitter" style="font-size: 40px;"></i>
-                        </div>
-                        <div>
-                            <div class="mb-2">
-                                <h6 class="h5">X</h6>
-                                <p class="badge bg-success">Conectado</p>
-                            </div>
-                            <p class="small">X Messager</p>
-                            <p class="small">Conecte sua conta do X Twitter digitalizando seu código QR da Web.</p>
-                        </div>
-                    </div>
-                    <div class="card-footer text-end">
-                        <button class="btn btn-outline-secondary btn-sm" @click="callInstallWhatsapp" disabled>
-                            <span v-show="app_status === 'install'"><i class="bi bi-hdd"></i> Instalar</span>
-                            <span v-show="app_status === 'connect'"><i class="bi bi-power"></i> Conectar</span>
-                            <span v-show="app_status === 'edit'"><i class="bi bi-power"></i> Desconectar</span>
-                            <span v-show="app_status === 'refresh'"><i class="bi bi-power"></i> Atualizar</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <!-- end x code ..  -->
-
-            <!-- Outros code ...  -->
+            <!-- CHAT RPRO MAX ...  -->
             <!-- <div class="col-md-4">
-                    <div class="card border-0 shadow">
-                        <div class="card-body text-center">
-                            <div class="py-3">
-                                <i class="bi bi-gear" style="font-size: 40px;"></i>
-                            </div>
-                            <div>
-                                <div class="mb-2">
-                                    <h6 class="h5">GEAR</h6>
-                                    <p v-if="usuario_conectado === true" class="badge bg-success">Conectado</p>
-                                </div>
-                                <p class="small">WHATSAPP FOR MIKROTIK</p>
-                                <p class="small">Conecte sua conta do WhatsApp digitalizando seu código QR da Web.</p>
-                            </div>
-                        </div>
-                        <div class="card-footer text-end">
-                            <button class="btn btn-outline-secondary btn-sm" @click="callInstallWhatsapp">
-                                <span v-show="app_status === 'install'"><i class="bi bi-hdd"></i> Instalar</span>
-                                <span v-show="app_status === 'connect'"><i class="bi bi-power"></i> Conectar</span>
-                                <span v-show="app_status === 'edit'"><i class="bi bi-power"></i> Desconectar</span>
-                                <span v-show="app_status === 'refresh'"><i class="bi bi-power"></i> Atualizar</span>
-                            </button>
-                        </div>
-                    </div>
-                </div> -->
-            <!-- end outros code ..  -->
+                <AppCard myIcon="bi bi-calculator" title="Calculadora AI" status="free" headerDescription="CENTI - A7"
+                    bodyDescription="CENTI - A7, ideal para os seus cálculos matemáticos." buttonText="Abrir" />
+            </div> -->
+            <!-- end CHAT RPRO MAX ...  -->
 
         </div>
     </div>
@@ -231,7 +58,14 @@
                             style="background-color: rgba(255, 255, 255, 0.05); box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);">
                             <img v-if="dataQrcode.qrCode !== null" id="qrcode" :src="dataQrcode.qrCode" alt="QR Code"
                                 class="qrcodeImg img-fluid">
-                            <p v-else class="m-0">Aponte a camera do seu telefone no codigo QR</p>
+                            <div v-else style="font-size: 12px;">
+                                <p class="m-0">Aponte a camera do seu telefone no codigo QR... Aqui!</p>
+                                <p class="m-0">1. Caso não tem dinheiro da sua conta, vai em <a href="/pagamento" style="text-decoration: none; color: black;">Pagamentos</a></p>
+                                <p  class="m-0">2. Em caso, de levar muito tempo para obter o QR code, <a href="" style="text-decoration: none; color: black;">informe ao suporte.</a></p>
+                            
+                            </div>
+
+
                         </div>
                     </div>
                 </div>
@@ -249,6 +83,7 @@ import vuejwtdecode from 'vue-jwt-decode';
 import whatsappweb from '../../../services/whatsappwebService';
 import gerirWhatsappService from '../../../services/gerirWhatsappService';
 import swal from 'sweetalert';
+import AppCard from '../card/AppCard.vue'
 
 export default {
     data() {
@@ -264,7 +99,8 @@ export default {
             },
             showModal: false,
             app_status: null,
-            code_status: 'install',
+            buttonText: 'Instalar',
+            code_status: 'offline',
             usuario_conectado: false,
             progress: 0,
             installationInterval: null,
@@ -282,18 +118,22 @@ export default {
 
             if (user.addons[0].status === "install") {
                 this.app_status = "install";
+                this.buttonText = "Instalar"
+
                 // console.log("STATE OF THE BUTON " + this.app_status);
 
             } else if (user.addons[0].status === "connect") {
                 this.app_status = "connect";
+                this.buttonText = "Conectar"
                 // console.log("STATE OF THE BUTON " + this.app_status);
             }
             else if (user.addons[0].status === "edit") {
                 this.app_status = "edit";
+                this.buttonText = "Desconectar";
                 this.usuario_conectado = true;
                 // console.log("STATE OF THE BUTON " + this.app_status);
             } else {
-                this.app_status = "refresh";
+                this.app_status = "Actualizar";
             }
 
         },
@@ -306,6 +146,7 @@ export default {
                 const connect = await whatsappweb.connect(token);
                 this.usuario_conectado = true;
                 this.app_status = "edit";
+                this.buttonText = 'Desconectar';
                 this.showModal = false;
 
             }
@@ -324,9 +165,11 @@ export default {
             }, 1000); // Update every 1 second (adjust as needed)
         },
 
-
+        // async callInstallWhatsapp() {
+        //     console.log('i am installing 90')
+        // },
         async callInstallWhatsapp() {
-
+            console.log('install')
             const _token = localStorage.getItem('jwt');
             const token = vuejwtdecode.decode(_token);
             let porta_test = token.porta;
@@ -350,6 +193,7 @@ export default {
                 }, 1000); // Update every 1 second (adjust as needed)
                 setTimeout(() => {
                     this.app_status = "connect";
+                    this.buttonText = "Conectar"
                     swal({
                         title: "Instalado com sucesso!",
                         text: "instado!",
@@ -365,7 +209,7 @@ export default {
 
                 try {
 
-                    const ws = new WebSocket(`ws://localhost:${porta_test}`);
+                    const ws = new WebSocket(`ws://104.255.216.215:${porta_test}`);
                     // // Lidar com eventos de mensagem recebida do servidor
                     ws.addEventListener('message', async (event) => {
                         const data = JSON.parse(event.data);
@@ -417,21 +261,29 @@ export default {
 
             }
         },
+
         callScript() {
             this.$router.push('/hosts');
         },
-        makeCode() {
+        callStartK9() {
             this.$router.push('/codejava');
         },
         callChat() {
             this.$router.push('/chat');
+        },
+        callImageAI() {
+            this.$router.push('/images');
         },
     },
     created() {
 
         this.User();
 
-    }
+
+    },
+    components: {
+        AppCard,
+    },
 }
 </script>
 
@@ -439,11 +291,12 @@ export default {
 /* ...código anterior do estilo da Sidebar... */
 
 .main-content {
-    margin-top: 0px;
     padding: 20px;
-    margin-left: 60px;
     margin-right: 10px;
     margin-bottom: 10px;
+    margin-top: 10px;
+
+
     color: var(--text-primary-color);
 }
 
@@ -477,5 +330,23 @@ export default {
     height: 100%;
     background-color: #4caf50;
     transition: width 0.5s;
+}
+
+@media (max-width: 768px) {
+
+    /* Estilos para a App Bar em telas menores */
+    .main-content {
+        margin-top: 50px;
+    }
+
+
+    /* Outros estilos para telas menores (como no código anterior) */
+}
+
+@media (min-width: 768px) {
+    .main-content {
+        margin-left: 50px;
+    }
+
 }
 </style>

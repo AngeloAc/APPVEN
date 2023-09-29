@@ -11,11 +11,11 @@ export default {
 
         localStorage.setItem('jwt', token);
         if(token){
-            swal({
-                title:"Excelente!",
-                text: "Usuario logado com sucesso",
-                icon: 'success'
-            })
+            // swal({
+            //     title:"Excelente!",
+            //     text: "Usuario logado com sucesso",
+            //     icon: 'success'
+            // });
         }
 
        } catch (error) {

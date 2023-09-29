@@ -5,10 +5,24 @@
         <!-- START Side bar contendo todos os chats do usuario...  -->
         <div class="side-chat shadow-lg">
             <div class="header">
-                <h3>Code Maker</h3>
-                <button class="create-chat-btn" @click="showModal = true">Novo code</button>
+                <h3>Stark - k9</h3>
+                <button class="float-button" @click="showModal = true"><i class="bi bi-pencil"></i></button>
             </div>
-            <div class="conversation-list">
+
+
+            <div v-if="loading" class="loading-container">
+                    <div class="loading-indicator"></div>
+                </div>
+                <div class="conversation-list">
+                    <!-- Verifica se o array conversations está vazio -->
+                    <div v-if="javaChat.length === 0" class="empty-conversations">
+                        <!-- Exibe a mensagem "Nenhuma conversa iniciada..." -->
+                        <p >Toque no lápis para iniciar um novo chat</p>
+                        <img src="../../../../assets/img/codemaker.png" alt="" class="chat-phone">
+                    </div>
+
+                    <!-- Lista de conversas -->
+                    <div v-else>
              
                 <div class="conversation" v-for="(javaChat, index) in javaChat" :key="index"
                     @click="selectChat(index)">
@@ -33,6 +47,7 @@
                         <p v-if="javaChat.code === 'mikrotik'"  style="background: yellowgreen; padding: 2px; font-size: 8px; border: none; border-radius: 5px; text-align: center; width: 42px;">{{ javaChat.code }}</p>
 
                     </div>
+                </div>
                 </div>
             </div>
         </div>
@@ -79,27 +94,11 @@
         <!--END Modal para a criação de chat -->
 
 
-        <div class="flex flex-col text-sm dark:bg-gray-800 h-full" style="margin-left: 180px;">
+        <div class="container-center flex flex-col text-sm" style="margin-left: 180px;">
 
             <div class="text-center">
                 <img src="../../../../assets/img/codemaker.png" alt="" style="width: 400px; height: 300px;">
                 <h6>Crie os seus códigos com ajuda de inteligência artificial.</h6>
-                <!-- <p style="font-size: 10px;">1. Instale o Java Development Kit (JDK) em seu computador.</p>
-                <p style="font-size: 10px;">2. Abra um editor de texto ou uma IDE (Integrated Development Environment), como
-                    o Eclipse ou o
-                    IntelliJ.</p>
-                <p style="font-size: 10px;">3. Escreva o código Java no editor de texto ou IDE.</p>
-                <p style="font-size: 10px;">4. Salve o arquivo com a extensão .java.</p>
-                <p style="font-size: 10px;"> 5. Abra o prompt de comando ou terminal e navegue até o diretório onde o
-                    arquivo .java está salvo.</p>
-                <p style="font-size: 10px;">6. Compile o código digitando "javac nomeDoArquivo.java" no prompt de comando ou
-                    terminal e pressionando
-                    Enter.</p>
-                <p style="font-size: 10px;">7. Se não houver erros de compilação, será gerado um arquivo .class.</p>
-                <p style="font-size: 10px;">8. Execute o arquivo compilado digitando "java nomeDoArquivo" no prompt de
-                    comando ou terminal e
-                    pressionando Enter.</p>
-                <p style="font-size: 10px;">9. O programa Java será executado e você poderá ver a saída no console.</p> -->
 
                 <p style="font-size: 8px;">Desenvolvido pela Startic, lda</p>
                 <p style="font-size: 8px;">Versão: 0.0.1-beta, ultima actualização: 08-2023</p>
@@ -149,7 +148,8 @@ export default {
                 // Adicione mais conversas conforme necessário
             ],
             selectedConversationIndex: null,
-            code: null
+            code: null,
+            loading: false,
 
         };
     },
@@ -257,7 +257,7 @@ export default {
             const res = await codeMakerService.historyJavaChat(_token._id, token)
                 .then(result => {
                     this.javaChat = result;
-                    
+                    this.loading = false;
                     return result.reverse();
                 });
                 
@@ -270,13 +270,13 @@ export default {
         this.getHistoryJavaChat();
         // console.log(this.messages)
     },
+    mounted() {
+        this.loading = true;
+    },
 }
 </script>
 
 <style scoped>
-.menu-container {
-    margin: 0px 0px 0px 0px;
-}
 
 .chat-container .chat {
     /* margin-top: 60px; */
@@ -635,4 +635,151 @@ background: var(--accent-color)
     /* Cor do texto de destaque quando selecionada */
 }
 
+.float-button {
+  position: fixed;
+  bottom: 40px; /* Ajuste a distância da parte inferior conforme necessário */
+  right: 20px; /* Ajuste a distância da direita conforme necessário */
+  width: 60px; /* Largura do botão */
+  height: 60px; /* Altura do botão */
+  background-color: green; /* Cor de fundo do botão */
+  color: white; /* Cor do ícone ou texto do botão */
+  border-radius: 50%; /* Para torná-lo circular */
+  font-size: 24px; /* Tamanho da fonte do ícone */
+  text-align: center;
+  line-height: 60px; /* Para centralizar o ícone verticalmente */
+  cursor: pointer;
+  z-index: 9999; /* Coloca o botão sobre outros elementos */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  transition: background-color 0.3s, transform 0.2s; /* Transições suaves */
+}
+
+.float-button:hover {
+  background-color: rgb(17, 142, 17); /* Cor de fundo ao passar o mouse */
+  transform: scale(1.1); /* Efeito de escala ao passar o mouse */
+}
+
+
+/* Estilo do contêiner pai */
+.loading-container {
+    display: flex;
+    justify-content: center;
+    /* Centraliza horizontalmente */
+    align-items: center;
+    /* Centraliza verticalmente */
+    height: 100%;
+    /* Define a altura do contêiner para ocupar todo o espaço disponível verticalmente */
+}
+
+/* Estilo do indicador de carregamento */
+.loading-indicator {
+    width: 24px;
+    height: 24px;
+    border: 2px solid #63e5af;
+    /* Cor da borda do círculo */
+    border-top: 2px solid #0056b3;
+    /* Cor da borda do círculo quando está girando */
+    border-radius: 50%;
+    /* Torna-o circular */
+    animation: spin 1s linear infinite;
+    /* Aplica a animação de rotação */
+}
+
+
+/* Defina a animação de rotação */
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Estilo do indicador de carregamento */
+.loading-indicator {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    border: 2px solid #63e5af;
+    /* Cor da borda do círculo */
+    border-top: 2px solid #0056b3;
+    /* Cor da borda do círculo quando está girando */
+    border-radius: 50%;
+    /* Torna-o circular */
+    animation: spin 1s linear infinite;
+    /* Aplica a animação de rotação */
+}
+
+.empty-conversations {
+  text-align: center;
+  /* justify-items: center; */
+  padding: 20px 0px 0px 0px;
+  font-size: 13px;
+  color: green;
+  animation: pulse 1s infinite alternate; /* Adiciona a animação "pulse" */
+}
+
+.empty-conversations img{
+    margin-left: 20px;
+}
+/* Define a animação "pulse" */
+@keyframes pulse {
+  from {
+    opacity: 1; /* Começa com opacidade 1 (visível) */
+  }
+  to {
+    opacity: 0.5; /* Alterna para opacidade 0.5 (semi-visível) */
+  }
+}
+.chat-phone {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .chat-phone{
+        display: block;
+        width: 310px; 
+        height: 200px;
+    }
+    .create-chat-btn {
+        display: none;
+    }
+    .chat-container {
+    margin: 0px 0px 0px 0px;
+    /* background: red; */
+
+}
+  .chat-home {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .main-content {
+    margin-left: 0;
+    order: 1;
+  }
+  .container-center {
+    display: none;
+  }
+
+  .side-chat {
+    top: 50px;
+    width: 100%;
+    height: 100%;
+    left: 0px;
+}
+  .float-button {
+    bottom: 10px;
+    right: 10px;
+  }
+  .avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 20%;
+}
+.info h5 {
+    font-size: 16px;
+}
+}
 </style>

@@ -1,6 +1,6 @@
 <template>
-   <div class="shadown-lg"
-    style="position: fixed; margin-top: 0px; margin-left: 55px; background: black; width: 60px; height: 100%; padding: 8px; box-sizing: border-box;">
+   <div class="main-content shadown-lg"
+ >
 
     <div style="display: block; align-items: center; max-height: 500px; ">
       <div style="margin-bottom: 17px;">
@@ -65,5 +65,17 @@ export default {
 </script>
 
 <style scoped>
+    .main-content {
+      position: fixed; margin-top: 0px; margin-left: 55px; background: black; width: 60px; height: 100%; padding: 8px; box-sizing: border-box;
+    }
+@media (max-width: 768px) {
+
+
+    .main-content {
+    margin-top: 55px;
+    margin-left: 0px;
+    color: var(--text-primary-color);
+    }
+}
 
 </style>

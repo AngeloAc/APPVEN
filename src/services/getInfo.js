@@ -31,7 +31,6 @@ export default {
         try {
            
            const response = await Api().get("/"+_id)
-           console.log(response.data)
            return response.data;
        
         } catch (error) {
@@ -46,7 +45,6 @@ export default {
     async updateAddons(_id, data){
         try {
            const response = await Api().post("/app/whatsapp/web/addons/"+_id, data);
-           console.log(response.data);
            return response.data;
        
         } catch (error) {

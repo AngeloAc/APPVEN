@@ -28,12 +28,19 @@ export default {
   margin-left: 10px;
   border-radius: 8px;
   overflow: auto;
-  max-width: 500px;
+  width: 500px;
+
 }
 .codeStyle{
   font-size: 10px;
   min-width: 500px;
 }
+
+@media (max-width: 768px) {
+  .java-code-block {
+    width: 300px;
+    }
+  }
 
 /* .java {
     font-family: 'Courier New', monospace;

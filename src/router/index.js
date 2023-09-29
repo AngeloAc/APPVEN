@@ -83,6 +83,16 @@ const router = createRouter({
         component: ()=> import('../view/page/codeMaker/codeMakerJava/Java.vue'),
       },
       {
+        path: '/invite',
+        name: 'invite',
+        component: ()=> import('../view/page/invite/Invite.vue'),
+      },
+      {
+        path: '/pagamento',
+        name: 'pagamento',
+        component: ()=> import('../view/page/payment/Payment.vue'),
+      },
+      {
         path: '/javacodebox/:id',
         name: 'javacodebox',
         props: true,

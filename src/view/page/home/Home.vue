@@ -1,7 +1,8 @@
 <template>
     <div class="home">
-        <Home />
+
         <Dashboard />
+        <Home />
     </div>
 </template>
 
@@ -18,7 +19,9 @@ export default {
 
 <style scoped>
 .home {
-    background: var(--background-color-secondary);
-    height: 100vh;
+    /* background: var(--background-color-secondary); */
+    /* height: 100vh; */
+    font-family: 'Montserrat', sans-serif;
+    font-family: 'Open Sans', sans-serif;
 }
 </style>

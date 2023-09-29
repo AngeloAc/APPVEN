@@ -142,8 +142,11 @@ export default {
 .main-content {
     /* margin-top: 20px; */
     padding: 20px;
-    margin-left: 120px;
+    margin-left: 55px;
     color: var(--text-primary-color);
+}
+.container{
+    margin-left: 120px;
 }
 
 .link-add {
@@ -187,6 +190,15 @@ export default {
   justify-content: center;
   align-items: center;
   z-index: 9999;
+}
+@media (max-width: 768px) {
+    .main-content {
+
+    margin-left: 0px;
+   
+    }
+
+
 }
 </style>
 

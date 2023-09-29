@@ -1,77 +1,89 @@
 <template>
     <div class="main-container">
-        <div class="logo"><img src="../../assets/img/logo.png" alt=""
-                style="width: 50px; height: 50px; margin-bottom: 30px;"></div>
-        <div class="form-container">
-            <form action="" @submit.prevent="loginSubmitUserForm">
-                <h6 class="form-title">Login</h6>
-                <div class="form-group">
-                    
-                    <label for="name" class="form-label">E-mail</label>
-                    <input required type="email" id="email" name="email" class="form-input"
-                        placeholder="Digite o seu email..." v-model="loginSubmitForm.email" />
-                </div>
-
-                <label for="name" class="form-label">Senha</label>
-                <input required type="password" id="password" name="password" class="form-input"
-                    placeholder="Digite a sua senha..." v-model="loginSubmitForm.password" />
-
-                <p class="login-link">
-                    Não tem uma conta cadastrada?<router-link to="/register" class="cadastre"> Cadastre aqui.</router-link>
-                </p>
-
-                <div><button @click="submitLoginUser" class="submit-button">Entrar</button></div>
-            </form>
-        </div>
+   
+      <div class="form-container">
+        <div class="logo">
+        <img src="../../assets/img/logo.png" alt="Logo" style="width: 50px; height: 50px;"/>
+      </div>
+        <form action="" @submit.prevent="loginSubmitUserForm">
+          <h6 class="form-title">Login</h6>
+          <div class="form-group">
+            <!-- <label for="email" class="form-label">E-mail</label> -->
+            <input
+              required
+              type="email"
+              id="email"
+              name="email"
+              class="form-input"
+              placeholder="Email do usuario"
+              v-model="loginSubmitForm.email"
+            />
+          </div>
+          <div class="form-group">
+            <!-- <label for="password" class="form-label">Senha</label> -->
+            <input
+              required
+              type="password"
+              id="password"
+              name="password"
+              class="form-input"
+              placeholder="Senha"
+              v-model="loginSubmitForm.password"
+            />
+          </div>
+          <p class="login-link">
+            Não tem uma conta cadastrada?
+            <router-link to="/register" class="cadastre"> Cadastre aqui.</router-link>
+          </p>
+          <button @click="submitLoginUser" class="submit-button">Entrar</button>
+        </form>
+      </div>
+      <div class="text-center" style="max-width: 350px;font-size: 12px; margin-top: 40px; color: var(--text-primary-color);">
+        Sobre a plataforma <a href="" style="text-decoration: none; color: var(--text-primary-color);">Como funciona</a>
+        <p>© 2022 - 2023 startic Angola - Todos os direitos reservados.</p>
+      </div>
     </div>
-</template>
+  </template>
 
-<script src="./Login.js">
+  <script src="./Login.js">
 </script>
 
-<style scoped>
-.main-container {
+  <style scoped>
+  .main-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
-    background-color: var(--text-primary-color);
-    background: var(--background-color-primary)
-}
-
-.logo {
-    font-size: 24px;
-    font-weight: bold;
+    margin-top: 50px;
+    /* height: 100vh; */
+    /* background-color: var(--background-color-primary); */
+  }
+  
+  .logo {
     margin-bottom: 20px;
-}
-
-.form-container {
+  }
+  
+  .form-container {
     background-color: var(--background-color-secondary);
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-    /* ... restante do estilo ... */
     max-width: 400px;
-    /* Defina o tamanho máximo do container */
     margin: 0 auto;
-    /* Centralize horizontalmente */
-
-}
-
-.form {
-    text-align: center;
-}
-
-.form-title {
+    text-align: center; /* Centralize o texto */
+    font-family: 'Montserrat', sans-serif;
+font-family: 'Open Sans', sans-serif;
+  }
+  
+  .form-title {
     font-size: 20px;
     font-weight: bold;
     margin-bottom: 15px;
     color: var(--text-primary-color);
-    text-align: center;
-}
 
-.form-input {
+  }
+  
+  .form-input {
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
@@ -81,45 +93,29 @@
     background: var(--background-color-primary);
     color: var(--text-primary-color);
 
-}
-
-.form-label {
+  }
+  
+  .form-label {
     display: block;
     text-align: start;
     margin-bottom: 5px;
-    /* Adicione um espaçamento inferior para separar a label */
     font-size: 12px;
-    /* Ajuste o tamanho da fonte da label conforme necessário */
     color: var(--text-primary-color);
-    /* Ajuste a cor da label conforme necessário */
-}
 
-.form-group {
+  }
+  
+  .form-group {
     margin-bottom: 20px;
-    /* Adicione um espaçamento inferior entre os campos */
-}
-
-.password-hint {
-    display: block;
-    text-align: start;
-    font-style: italic;
-    font-size: 10px;
-    color: #999;
-}
-
-.terms {
-    font-size: 12px;
-    margin-top: 20px;
-    color: var(--text-primary-color);
-}
-
-.login-link {
+  }
+  
+  .login-link {
     font-size: 12px;
     margin-top: 15px;
     color: var(--text-primary-color);
-}
 
-.submit-button {
+  }
+  
+  .submit-button {
     width: 100%;
     background-color: #63e5af;
     color: var(--button-primary-color);
@@ -129,15 +125,42 @@
     border-radius: 3px;
     font-size: 12px;
     transition: background-color 0.3s;
-}
 
-.submit-button:hover {
+  }
+  
+  .submit-button:hover {
     background-color: #0056b3;
     color: white;
-}
-.login-link .cadastre {
+  }
+  
+  .login-link .cadastre {
     text-decoration: none;
-    /* font-weight: bold; */
     color: var(--accent-secondary-color);
-}
-</style>
+  }
+  
+  /* Estilos responsivos */
+  @media screen and (max-width: 480px) {
+    .main-container {
+      padding: 20px; /* Adicione algum espaçamento às margens */
+    }
+    .logo img {
+      width: 40px; /* Reduza o tamanho do logotipo */
+      height: 40px;
+    }
+    .form-container {
+      max-width: 100%; /* Faça o formulário ocupar a largura total */
+    }
+    .form-input,
+    .form-label,
+    .submit-button {
+      font-size: 16px; /* Aumente o tamanho da fonte para telas menores */
+    }
+    .submit-button {
+      padding: 12px 20px; /* Aumente o preenchimento do botão */
+    }
+  }
+  </style>
+  
+
+
+

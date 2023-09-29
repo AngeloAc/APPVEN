@@ -1,5 +1,5 @@
 <template>
-    <Navbar :message="user" :logOut="logOutUser"/>
+    <Navbar :message="user" :logOut="logOutUser" />
 
 </template>
 

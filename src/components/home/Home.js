@@ -29,7 +29,8 @@ export default {
         showSection(section){
             this.currentSection = section;
             console.log(this.currentSection);
-        }
+        },
+        
     },
         created() {
         this.getUser();
