@@ -164,7 +164,15 @@
 
 
                             </div>
-                            <!-- <span class="copy"><i class="bi bi-clipboard"></i></span> -->
+                           
+                            <div >
+                                <span class="copy" style="font-size: 20px;" v-show="!message.isUser" @click="copyCode(message.text)"
+                                    :class="{ 'checkmark-icon': copied }">
+                                    <i :class="iconCopy"></i>
+                                </span>
+                         
+                            
+                            </div>
                         </div>
 
                     </div>
@@ -276,7 +284,9 @@ export default {
       selectedImageUrl: null,
       path: 'folder/2.jpg',
       url: 'https://placehold.co/400',
-      file: ''
+      file: '',
+      copied: false,
+      iconCopy: 'bi bi-clipboard',
 
         };
     },
@@ -501,6 +511,37 @@ export default {
                     console.log(error);
                 })
 
+        },
+
+        copyCode(code) {
+            // Crie um elemento de área de texto temporário para copiar o código
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = code;
+
+            // Adicione o elemento temporário ao DOM
+            document.body.appendChild(tempTextArea);
+
+            // Selecione o texto dentro da área de texto
+            tempTextArea.select();
+
+            // Tente copiar o texto para a área de transferência
+            try {
+                document.execCommand('copy');
+                // Lidar com a lógica de sucesso da cópia (por exemplo, exibir uma mensagem de sucesso)
+                this.copied = true; // Defina a variável copied como true para ativar a animação
+                this.iconCopy = 'bi bi-clipboard-check';
+                // Use setTimeout para reverter a classe após 2 segundos (ou qualquer valor desejado)
+                setTimeout(() => {
+                    this.copied = false; // Reverta a classe
+                    this.iconCopy = 'bi bi-clipboard';
+                }, 2000); // 2 segundos (ajuste conforme necessário)
+            } catch (err) {
+                // Lidar com erros de cópia (por exemplo, mostrar uma mensagem de erro)
+                alert('Erro ao copiar o código.');
+            } finally {
+                // Remova o elemento temporário
+                document.body.removeChild(tempTextArea);
+            }
         },
 
     },
@@ -984,12 +1025,18 @@ span .bi.bi-clipboard {
     /* Aplica a animação de rotação */
 }
 
+.copy {
+        color: black;
+    }
+
 
 @media (max-width: 768px) {
     .side-chat {
         display: none;
     }
-
+    .copy {
+        display: none;
+    }
     .chat-container {
         top: 50px;
         left: 0px;

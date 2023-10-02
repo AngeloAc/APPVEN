@@ -158,11 +158,10 @@
       <div class="card mx-auto" style="max-width: 400px;"> <!-- Defina o tamanho máximo desejado aqui -->
         <img v-if="isImageSelected" :src="selectedImageUrl" alt="Imagem selecionada" class="modal-image">
         <img v-else :src="url" alt="" class="modal-image">
-
         <div class="card-footer" style="display: flex; color: green; padding-top: 7px; padding-bottom: 7px; justify-content: space-around;">
           <input type="file" ref="fileInput" style="display: none;" @change="handleFileUpload" accept="image/*" />
           <i class="bi bi-camera icon" @click="openGallery"></i>
-          <i class="bi bi-exclamation-circle icon"></i>
+          <!-- <i class="bi bi-exclamation-circle icon"></i> -->
           <button class="btn btn-sm" :class="{ 'btn-success': isImageSelected, 'btn-secondary': !isImageSelected }" style="border: 1px solid green; border-radius: 15px; padding: 0px 20px 0px 20px;" @click="upload" :disabled="!isImageSelected">editar</button>
         
         </div>
