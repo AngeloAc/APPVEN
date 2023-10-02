@@ -905,7 +905,7 @@ span .bi.bi-clipboard {
 .text-salute {
     margin: 20px;
     padding: 12px;
-    background: gray;
+    background: rgb(138, 165, 135);
     border: none;
     border-radius: 10px;
     text-align: center;
