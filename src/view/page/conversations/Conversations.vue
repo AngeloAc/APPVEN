@@ -3,7 +3,7 @@
         <!-- START Side bar contendo todos os chats do usuario...  -->
         <div class="side-chat shadow-lg">
             <div class="header">
-                <h3>Chat</h3>
+                <h3 style="padding: 10px;">Chat.ai</h3>
                 <button class="create-chat-btn" @click="showModal = true">+ Criar chat</button>
             </div>
             <div v-if="loading" class="loading-container">
@@ -21,7 +21,7 @@
                 <div v-else>
                         <div class="conversation" v-for="(conversation, index) in conversations" :key="index">
                             <div style="display: flex; width: 100%;">
-                                <img class="avatar" src="../../../assets/img/robo.jpg" alt="">
+                                <img class="avatar" :src="conversation.avatar" alt="" @click="profileAvatarPicture">
                                 <div style="display: flex; width: 100%; justify-content: space-between;">
                                     <div class="info" @click="selectConversation(index)">
                                         <div>
@@ -40,7 +40,7 @@
                                         <div>
                                             <div style="font-size: 8px; color: gray;">{{ conversation.messages.length > 0
                                                 ? conversation.messages[conversation.messages.length - 1].time
-                                                : 'Nenhuma conversa iniciada....' }}</div>
+                                                : '' }}</div>
                                         </div>
                                     </div>
                                     <div @click="deleteConversation(index, conversation._id)">
@@ -126,8 +126,10 @@
 
                         <div class="chat-content">
                             <div class="chat-details">
-                                <img src="../../../assets/img/avatar.png" alt="" v-show="message.isUser">
-                                <img src="../../../assets/img/robo.jpg" alt="" v-show="!message.isUser">
+                                <img :src="url" alt="" v-show="message.isUser">
+                                
+                                    <img :src="avatar_selected" alt="" v-show="!message.isUser">
+                           
                                 <!-- Verifique se a mensagem começa com 'https' para exibi-la como imagem -->
                                 
                                 <div v-if="isImage(message.text)" style="background: transparent;">
@@ -209,18 +211,22 @@
 import ChatComponent from '../../../components/chat/chatComponent.vue';
 import Chat from '../../../services/chat';
 import vuejwtdecode from 'vue-jwt-decode';
+import { storage } from "../../../services/firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import conversationService from '../../../services/conversationService';
 import swal from 'sweetalert';
 import getInfoScript from '../../../services/getInfo';
 import image from '../../../services/imageupload';
-import Pica from 'pica';
 
-const pica = Pica();
 
 
 export default {
     props: {
-        id: 'id'
+        id: {
+      type: String,
+      required: true
+    },
+
     },
     data() {
         return {
@@ -238,9 +244,19 @@ export default {
                 name: '',
                 description: '',
                 messages: [],
-                script_Title: '',
-                script_Text: '',
+                avatar: '',
+             
             },
+            avatar: [
+                'https://startic.ao/image/lady1.jpg',
+                'https://startic.ao/image/lady2.jpg',
+                'https://startic.ao/image/lady3.jpg',
+                'https://startic.ao/image/man1.jpg',
+                'https://startic.ao/image/man2.jpg',
+                'https://startic.ao/image/man3.jpg',
+                
+            ],
+            avatar_selected: '',
 
             showChatContainer: false,
             data: {
@@ -255,10 +271,12 @@ export default {
             ],
             loading: false,
             selectedConversationIndex: null,
-            clock: '',
             isImageSelected: false,
       selectedFile: null,
       selectedImageUrl: null,
+      path: 'folder/2.jpg',
+      url: 'https://placehold.co/400',
+      file: ''
 
         };
     },
@@ -268,12 +286,17 @@ export default {
     methods: {
 
         submitFormMessage() { },
+        avatarRandom(avatar) {
+                const indiceAleatorio = Math.floor(Math.random() * avatar.length);
+                return avatar[indiceAleatorio];
+            },
         async createChat() {
             // Lógica para criar o novo chat
             try {
                 const token = localStorage.getItem('jwt');
                 const _token = vuejwtdecode.decode(token);
-                console.log("new Chat:", this.newChat);
+                this.newChat.avatar = this.avatarRandom(this.avatar);
+              
                 await conversationService.conversations(this.newChat, _token._id, token);
                 this.conversations.unshift(this.newChat)
                 // Após criar o chat, redefinimos o formulário para o estado original
@@ -282,6 +305,7 @@ export default {
                     description: '',
                 };
                 this.showModal = false;
+                window.location.reload();
             } catch (error) {
                 console.log("error > " + error)
             }
@@ -320,6 +344,7 @@ export default {
                 for (let i = 0; i < data.length; i++) {
                     const element = data[i];
 
+                   this.avatar_selected = data[i].avatar
                     if (this.id === element._id) {
                         this.chatHeaderTitle = element.name;
                         for (let i = 0; i < element.messages.length; i++) {
@@ -345,12 +370,15 @@ export default {
 
             // Adicione a classe "active-conversation" à conversa selecionada
             const selectedConversation = conversations[index];
+           
             if (selectedConversation) {
                 selectedConversation.classList.add('active-conversation');
             }
 
             await this.getHistoryChat().then(data => {
                 this.chatHeaderTitle = data[index].name;
+                this.avatar_selected = data[index].avatar;
+                
                 this.message_id = data[index]._id;
                 for (let i = 0; i < data[index].messages.length; i++) {
                     this.messages.push(data[index].messages[i])
@@ -369,6 +397,7 @@ export default {
         async initWithId() {
 
             this.message_id = this.id;
+            
 
 
 
@@ -380,6 +409,7 @@ export default {
             const res = await conversationService.historyChat(_token._id, token)
                 .then(result => {
                     this.conversations = result;
+                    
                     this.loading = false;
                     return result.reverse();
                 });
@@ -451,7 +481,27 @@ export default {
       }
     },
 
+    async deleteConversation(index, conversationID) {
+            this.bg = "bg-black"
+            const token = localStorage.getItem('jwt');
+            const _token = vuejwtdecode.decode(token);
+            this.selectedConversationIndex = index;
+            console.log(conversationID)
+            const data = {
+                index: index,
+                conversationID: conversationID
+            };
 
+            await conversationService.delete(_token._id, data).
+                then(
+                    res => {
+                        window.location.reload();
+                    }
+                ).catch(error => {
+                    console.log(error);
+                })
+
+        },
 
     },
     created() {
@@ -461,8 +511,20 @@ export default {
     },
     mounted() {
         this.loading = true; // Iniciar o indicador de carregamento
+        const token = localStorage.getItem('jwt');
+        const _token = vuejwtdecode.decode(token);
+    this.path = `folder/${_token._id}.jpg`;
+    
+    getDownloadURL(ref(storage, this.path))
+    .then((download_url) => (this.url = download_url))
+    .catch(
+      error => {
+       console.log(error)
+      }
+    )
+  },
 
-    },
+    
 }
 </script>
 
@@ -503,12 +565,12 @@ export default {
 }
 
 :where(.chat-container, textarea)::-webkit-scrollbar-track {
-    background: white;
+    background: var(--background-color-primary);
     border-radius: 25px;
 }
 
 :where(.chat-container, textarea)::-webkit-scrollbar-thumb {
-    background: green;
+    background: var(--background-color-primary);
     border-radius: 25px;
 }
 
@@ -593,7 +655,7 @@ span .bi.bi-clipboard {
     opacity: 0.7;
     margin: 0 3px;
     border-radius: 50%;
-    background: black;
+    background: var(--text-primary-color);
     animation: animationDots 1.5s var(--delay) ease-in-out infinite;
 }
 
@@ -746,12 +808,12 @@ span .bi.bi-clipboard {
 }
 
 :where(.side-chat, .conversation-list)::-webkit-scrollbar-track {
-    background: white;
+    background: var(--background-color-primary);
     border-radius: 25px;
 }
 
 :where(.side-chat, .conversation-list)::-webkit-scrollbar-thumb {
-    background: gray;
+    background: var(--background-color-primary);
     border-radius: 25px;
 }
 
@@ -771,9 +833,9 @@ span .bi.bi-clipboard {
     color: var(--text-primary-color);
 }
 
-.avatar img {
-    width: 20px;
-    height: 20px;
+.avatar {
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     margin-right: 10px;
 }
@@ -945,7 +1007,10 @@ span .bi.bi-clipboard {
         padding-right: 0px;
 
     }
-
+    .avatar {
+        width: 60px;
+        height: 60px;
+    }
     .typing-container {
         left: 0px;
         padding: 30px 0px;

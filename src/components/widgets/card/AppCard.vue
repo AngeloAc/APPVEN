@@ -5,20 +5,20 @@
         <div class="card shadow">
             <div class="card-body text-center">
                 <div class="py-3">
-                    <i :class="myIcon" style="font-size: 30px;"></i>
+                    <i :class="myIcon" style="font-size: 25px;"></i>
                 </div>
-                <h5 class="card-title">{{ title }}</h5>
+                <h6 class="card-title">{{ title }}</h6>
                 <p class="badge bg-black">{{ status }}</p>
                 <p class="card-text">{{ headerDescription }}</p>
                 <p class="card-text">{{ bodyDescription }}</p>
-                <p class="description" @click="href_Action"> {{ description }}</p>
+                <!-- <p class="description" @click="href_Action"> {{ description }}</p> -->
           
 
             </div>
 
-            <div class="card-footer">
-                <button class="btn btn-outline-secondary btn-sm" @click="buttonAction">
-                    <span><i class="bi bi-power"></i> {{ buttonText }}</span>
+            <div class="card-footer" style="border: none;">
+                <button class="btn btn-outline-secondary btn-sm" @click="buttonAction" style="font-size: 12px;">
+                    <span><i class="bi bi-power" ></i> {{ buttonText }}</span>
                 </button>
             </div>
         </div>
@@ -65,22 +65,30 @@ export default {
   
 <style scoped>
 .app-card {
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
+    margin: 10px;
+    min-width: 150px;
+    
+    
 }
 
 .card {
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
     background: var(--background-color-primary);
     color: var(--text-primary-color);
+    border-radius: 20px;
+    border: 1px solid gray;
 }
 
 .card-title {
-    font-size: 18px;
+    font-size: 13px;
     font-weight: bold;
+    color: var(--text-primary-color);
 }
 
 .card-text {
     font-size: 12px;
+    color: var(--text-primary-color);
 }
 
 .progress {
@@ -93,8 +101,13 @@ export default {
 
 .card-body .description {
     cursor: pointer;
-    color: green;
+    color: var(--text-primary-color);
     font-size: 12px;
+}
+.btn{
+    border-radius: 20px;
+    color: var(--text-primary-color);
+    border: 1px solid var(--accent-color);
 }
 </style>
   

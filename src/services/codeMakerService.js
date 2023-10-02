@@ -59,5 +59,15 @@ export default {
         } catch (error) {
            
         }
+    },
+
+    async deleteCode(token_id, data){
+        try {
+            const res = await Api().post('/deletecode/' + token_id, data);
+    
+            return res.data;
+        } catch (error) {
+           
+        }
     }
 }

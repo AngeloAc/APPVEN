@@ -6,9 +6,31 @@
         <div class="chat-container shadow-lg">
             <!-- START Side bar contendo todos os chats do usuario...  -->
             <div class="side-chat shadow-lg">
+                <!-- <div>
+                    <div class="card shadow-lg"
+                        style="margin-right: 10px; padding: 7px; background: var(--background-color-secondary);">
+
+                        <div style="display: flex; justify-content: space-between;">
+                            <img src="../../../assets/img/logo.png" alt="" style="width: 25px; height: 25px; margin: 5px;">
+                            <p style="font-size: 10px; font-weight: bold;">
+                                Obtém a app Messager para experimentar formas ainda mais divertidas de estar em contacto com
+                                outras pessoas
+                            </p>
+                        </div>
+                        <button class="btn" style="font-size: 12px; ">Obter Startic</button>
+                    </div>
+                </div> -->
                 <div class="header">
-                    <h3>Chat</h3>
-                    <button class="float-button" @click="showModal = true"><i class="bi bi-pencil"></i></button>
+
+                    <h3 style="padding: 10px;">Chat.ai</h3>
+                    <!-- <div class="avatar-list">
+                        <div v-for="(conversation, index) in conversations" :key="index" class="avatar-item">
+
+                            <img class="avatar-image" src="../../../assets/img/man3.jpg" alt="">
+                            <p style="font-size: 8px;">Euclides de carvalho</p>
+                        </div>
+                    </div> -->
+                    <button class="float-button" @click="callCreateNewChat"><i class="bi bi-pencil"></i></button>
                 </div>
                 <div v-if="loading" class="loading-container">
                     <div class="loading-indicator"></div>
@@ -16,39 +38,41 @@
                 <div class="conversation-list">
                     <!-- Verifica se o array conversations está vazio -->
                     <div v-if="conversations.length === 0" class="empty-conversations">
-                        <!-- Exibe a mensagem "Nenhuma conversa iniciada..." -->
                         <p>Toque no lápis para iniciar um novo chat</p>
-                        <img src="../../../assets/img/codemaker.png" alt="" class="chat-phone">
+                        <!-- <img src="../../../assets/img/codemaker.png" alt="" class="chat-phone"> -->
+                        <p>{{ displayLogoName }}</p>
+                        <p style="font-size: 8px;">Versão: 0.0.1-beta</p>
                     </div>
 
                     <!-- Lista de conversas -->
-                    <div v-else>
+                    <div>
                         <div class="conversation" v-for="(conversation, index) in conversations" :key="index">
                             <div style="display: flex; width: 100%;">
-                                <img class="avatar" src="../../../assets/img/robo.jpg" alt="">
+                                <img class="avatar" :src="conversation.avatar" alt="" @click="profileAvatarPicture">
                                 <div style="display: flex; width: 100%; justify-content: space-between;">
                                     <div class="info" @click="selectConversation(index)">
                                         <div>
                                             <h5>{{ conversation.name }}</h5>
-                                            
+
                                             <p>
-                                                
+
                                                 {{ conversation.messages.length > 0
                                                     ? limitarTexto(conversation.messages[conversation.messages.length - 1].text,
                                                         30)
                                                     : 'Nenhuma conversa iniciada....' }}
-                                                    <!-- <i class="bi bi-file-earmark-image" style="color: gray"></i> -->
+                                                <!-- <i class="bi bi-file-earmark-image" style="color: gray"></i> -->
                                             </p>
-                                            
+
                                         </div>
                                         <div>
                                             <div style="font-size: 8px; color: gray;">{{ conversation.messages.length > 0
                                                 ? conversation.messages[conversation.messages.length - 1].time
-                                                : 'Nenhuma conversa iniciada....' }}</div>
+                                                : '' }}</div>
                                         </div>
                                     </div>
                                     <div @click="deleteConversation(index, conversation._id)">
-                                        <i class="bi bi-trash" style="color: black; font-size: 20px;"></i>
+                                        <i class="bi bi-trash"
+                                            style="color: var(--text-primary-color); font-size: 20px;"></i>
 
                                     </div>
                                 </div>
@@ -78,9 +102,10 @@
                                     <label for="chatTitle">Título:</label>
                                     <input type="text" id="chatTitle" class="form-control"
                                         placeholder="Escreva um título amigável" v-model="newChat.name" required />
+                                        <p style="padding: 5px; font-size: 10px; color: green;">* {{ displayText }}</p>
                                 </div>
 
-
+                                
                                 <div class="modal-footer" style="border: none;">
                                     <button type="submit" class="btn"> Criar</button>
                                     <button type="button" class="btn" @click="showModal = false">Fechar</button>
@@ -91,6 +116,27 @@
                 </div>
             </div>
             <!--END Modal para a criação de chat -->
+
+            <!--START Modal para a image profile -->
+            <!-- <div class="modal modal-overlay" tabindex="-1" role="dialog" @click="showModalProfile = false"
+                :class="{ 'show': showModalProfile, 'd-block': showModalProfile }">
+                <div class="modal-dialog" role="document">
+
+                    <div class="card">
+                        <img src="../../../assets/img/lady1.jpg" alt="" class="card-img-top modal-image">
+                        <div class="card-footer"
+                            style="display: flex; color: green; padding-top: 7px; padding-bottom: 7px; justify-content: space-around;">
+                         
+                            <i class="bi bi-exclamation-circle icon"></i>
+                        </div>
+
+
+                    </div>
+              
+
+                </div>
+            </div> -->
+            <!--END Modal para a image profile -->
         </div>
 
 
@@ -125,12 +171,21 @@ export default {
             message_id: null,
             messages: [],
             showModal: false,
+            showModalProfile: false,
             newChat: {
                 name: '',
                 description: '',
-                messages: []
+                messages: [],
+                avatar: '',
             },
-
+            avatar: [
+                'https://startic.ao/image/lady1.jpg',
+                'https://startic.ao/image/lady2.jpg',
+                'https://startic.ao/image/lady3.jpg',
+                'https://startic.ao/image/man1.jpg',
+                'https://startic.ao/image/man2.jpg',
+                'https://startic.ao/image/man3.jpg',
+            ],
             showChatContainer: false,
             data: {
                 text: '',
@@ -144,8 +199,24 @@ export default {
             ],
             loading: false,
             selectedConversationIndex: null,
-            clock: '',
-            bg: 'bg-white'
+            textArray: [
+            'Sujestão: Meu Projecto final 2023',
+            'Sujestão: Mensagens para o meu namorado',
+            'Sujestão: Receitas de bolo',
+            'Sujestão: Conceitos sobre química',
+            'Sujestão: Mecânica quântica',
+            'Sujestão: Geometria Euclideana',
+            'Sujestão: Relaorio de vendas',
+            'Sujestão: Modelo de email para emprego'
+            ],
+            fullText: '',
+            displayText: '',
+            currentIndex: 0,
+
+            fullTextLogo: 'Startic.ao',
+            displayLogoName: '',
+            currentIndexLogo: 0,
+            
 
         };
     },
@@ -168,12 +239,18 @@ export default {
         // },
 
         submitFormMessage() { },
-
+        avatarRandom(avatar) {
+            const indiceAleatorio = Math.floor(Math.random() * avatar.length);
+            return avatar[indiceAleatorio];
+        },
         async createChat() {
+
+
             // Lógica para criar o novo chat
             try {
                 const token = localStorage.getItem('jwt');
                 const _token = vuejwtdecode.decode(token);
+                this.newChat.avatar = this.avatarRandom(this.avatar);
                 await conversationService.conversations(this.newChat, _token._id, token);
 
                 this.conversations.unshift(this.newChat)
@@ -181,6 +258,7 @@ export default {
                 this.newChat = {
                     name: '',
                     description: '',
+                    avatar: '',
                 };
                 this.showModal = false;
                 window.location.reload();
@@ -188,6 +266,12 @@ export default {
                 console.log("error > " + error)
             }
 
+        },
+        callCreateNewChat(){
+            this.showModal = true;
+            this.fullText = ''
+            this.typeANewTextRandom(this.textArray);
+            this.typeText();
         },
         // Outros métodos do chat (como enviar mensagem, etc.)
 
@@ -235,7 +319,7 @@ export default {
         },
 
         async deleteConversation(index, conversationID) {
-            this.bg = "bg-black"
+
             const token = localStorage.getItem('jwt');
             const _token = vuejwtdecode.decode(token);
             this.selectedConversationIndex = index;
@@ -246,13 +330,13 @@ export default {
             };
 
             await conversationService.delete(_token._id, data).
-            then(
-                res => {
-                    window.location.reload();
-                }
-            ).catch(error => {
-                console.log(error);
-            })
+                then(
+                    res => {
+                        window.location.reload();
+                    }
+                ).catch(error => {
+                    console.log(error);
+                })
 
         },
         async getHistoryChat() {
@@ -262,7 +346,7 @@ export default {
                 .then(result => {
                     this.conversations = result;
                     this.loading = false;
-
+                    
                     return result.reverse();
                 });
             return res;
@@ -280,6 +364,38 @@ export default {
         isImage(text) {
             return text.startsWith('https');
         },
+        profileAvatarPicture() {
+            console.log("image");
+            this.showModalProfile = true;
+        },
+
+        typeANewTextRandom(textArray) {
+            const indiceAleatorio = Math.floor(Math.random() * textArray.length);
+            this.fullText = textArray[indiceAleatorio];
+            return textArray[indiceAleatorio];
+        },
+
+        typeText() {
+            console.log(this.fullText)
+            if (this.currentIndex < this.fullText.length) {
+                this.displayText += this.fullText[this.currentIndex];
+                this.currentIndex++;
+                setTimeout(this.typeText, 200); // Adiciona um atraso de 200ms entre cada letra
+            } else {
+                
+            }
+        },
+
+        typeTextLogo() {
+            if (this.currentIndexLogo < this.fullTextLogo.length) {
+                this.displayLogoName += this.fullTextLogo[this.currentIndexLogo];
+                this.currentIndexLogo++;
+                setTimeout(this.typeTextLogo, 200); // Adiciona um atraso de 200ms entre cada letra
+            } else {
+                
+            }
+        },
+        
     },
     created() {
         this.getHistoryChat();
@@ -287,6 +403,7 @@ export default {
     },
     mounted() {
         this.loading = true; // Iniciar o indicador de carregamento
+        this.typeTextLogo();
         // this.p5 = new p5(this.sketch, this.$refs.canvas);
     },
     beforeDestroy() {
@@ -319,7 +436,7 @@ export default {
     width: 240px;
     height: 100%;
     padding-top: 10px;
-     padding-bottom: 10px;
+    padding-bottom: 10px;
     box-sizing: border-box;
     font-family: 'Montserrat', sans-serif;
     font-family: 'Open Sans', sans-serif;
@@ -368,16 +485,16 @@ export default {
 }
 
 :where(.side-chat, .conversation-list)::-webkit-scrollbar {
-    width: 3px;
+    width: 0px;
 }
 
 :where(.side-chat, .conversation-list)::-webkit-scrollbar-track {
-    background: white;
+    background: var(--background-color-primary);
     border-radius: 25px;
 }
 
 :where(.side-chat, .conversation-list)::-webkit-scrollbar-thumb {
-    background: green;
+    background: var(--background-color-primary);
     border-radius: 25px;
 }
 
@@ -564,7 +681,9 @@ export default {
 }
 
 .empty-conversations img {
-    margin-left: 20px;
+    margin-left: 50px;
+    width: 250px;
+    height: 150px;
 }
 
 /* Define a animação "pulse" */
@@ -643,6 +762,94 @@ export default {
         bottom: 10px;
         right: 10px;
     }
+}
+
+.avatar-list {
+    display: flex;
+    overflow-x: auto;
+    padding: 10px;
+}
+
+.avatar-item {
+    margin-right: 10px;
+}
+
+.avatar-image {
+    width: 50px;
+    /* Defina a largura desejada para os avatares */
+    height: 50px;
+    /* Defina a altura desejada para os avatares */
+    border-radius: 50%;
+}
+
+
+
+
+.modal {
+    /* display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  overflow: auto; */
+}
+
+.modal-dialog {
+    /* background: white;
+  border-radius: 10px;
+  max-width: 80%;
+  margin: 10px;
+  padding: 20px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); */
+}
+
+.card-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.modal-avatar {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+
+.modal-icons {
+    display: flex;
+    gap: 20px;
+    font-size: 24px;
+    margin-top: 20px;
+}
+
+.icon {
+    cursor: pointer;
+    color: green;
+    font-size: 20px;
+    transition: color 0.3s ease;
+}
+
+.icon:hover {
+    color: #0056b3;
+}
+
+.card {
+    /* width: 200px;  */
+    /* Ajuste a largura da div conforme necessário */
+}
+
+.modal-image {
+    object-fit: cover;
+    width: 100%;
+    height: 200px;
+    /* Altura desejada para a imagem */
 }
 </style>
 

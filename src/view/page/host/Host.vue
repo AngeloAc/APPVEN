@@ -1,7 +1,7 @@
 <template>
-    <div class="hosts">
+ 
         <Hosts />
-        <navBarApp />
+        <!-- <navBarApp /> -->
         <div class="main-content">
             <div class="container">
                 <!-- Conteúdo do Dashboard "script" -->
@@ -18,7 +18,7 @@
 
                 <div class="row" style="display: flex; align-items: center; justify-content: center;">
                     <div class="text-center" v-if="showCard === false">
-                        <img src="../../../assets/img/list.png" alt="" style=" width: 400px; height: 300px;">
+                        <img src="../../../assets/img/list.png" alt="" style=" width: 200px; height: 150px;">
                         <div>
                             <p class="text-center" style="font-size: 12px;">Não tens nenhum script criado, crie e permita que os seus clientes sejam respondidos no tempo certo por uma inteligencia artificial.</p>
                         </div>
@@ -26,7 +26,7 @@
 
                     <!-- CARD 1  -->
                     <div class="col-md-6 mt-5 " v-if="showCard === true">
-                        <div class="card rounded-0 ">
+                        <div class="card" style="border: 1px solid gray; border-radius: 20px;">
                             <div class="card-header">
                                 <p class="card-title" style="font-size: 12px;">Script AI</p>
                             </div>
@@ -67,8 +67,8 @@
                 <div class="modal-content shadow-lg">
                     <div class="modal-header">
                         <h6 class="modal-title">Seu Script </h6>
-                        <i class="bi bi-pencil" style="margin-left: 10x; padding-left: 10px; padding-right: 10px; cursor: pointer;"></i>
-                        <button class="btn-close" @click="showModal = false"></button>
+                        <!-- <i class="bi bi-pencil" style="margin-left: 10x; padding-left: 10px; padding-right: 10px; cursor: pointer;"></i> -->
+                        <button class="btn-close bg-white" @click="showModal = false" style=""></button>
                     </div>
                     <div class="modal-body">
                         <h6>{{ this.cardData.title }}</h6>
@@ -80,7 +80,7 @@
             <!--END Modal para a criação de chat -->
             </div>
         </div>
-    </div>
+  
 </template>
 
 <script>
@@ -140,13 +140,13 @@ export default {
 /* ...código anterior do estilo da Sidebar... */
 
 .main-content {
-    /* margin-top: 20px; */
+    margin-top: 20px;
     padding: 20px;
     margin-left: 55px;
     color: var(--text-primary-color);
 }
 .container{
-    margin-left: 120px;
+    margin: 0px;
 }
 
 .link-add {
@@ -192,11 +192,23 @@ export default {
   z-index: 9999;
 }
 @media (max-width: 768px) {
-    .main-content {
 
+/* Estilos para a App Bar em telas menores */
+.main-content {
+    /* margin-top: 20px; */
+    padding: 20px;
     margin-left: 0px;
-   
-    }
+    margin-top: 50px;
+    color: var(--text-primary-color);
+}
+.container{
+    margin-left: 0px;
+}
+
+/* Outros estilos para telas menores (como no código anterior) */
+}
+
+@media (min-width: 768px) {
 
 
 }

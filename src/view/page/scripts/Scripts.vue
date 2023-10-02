@@ -1,14 +1,14 @@
 <template>
     <div>
         <ScriptsComponents />
-        <navBarApp />
+        <!-- <navBarApp /> -->
         <div class="main-content p-5">
 
-            <div class="container p-4 shadow-lg">
+            <div class="container p-4 shadow-lg" style="border: 1px solid gray; border-radius: 20px;">
                 <!-- Conteúdo do Dashboard "script" -->
                 <div class="d-flex" style="justify-content: space-between;">
                     <h5>Criar base de conhecimento</h5>
-                    <span class="btn-close" @click="fechar" style="cursor: pointer;"></span>
+                    <span class="btn-close bg-white" @click="fechar" style="cursor: pointer;"></span>
                 </div>
                 <div>
                     <form action="" @submit.prevent="submitFormSript">
@@ -114,5 +114,28 @@ background: var(--background-color-secondary);
 .btn:hover {
     background: var(--accent-color);
     
+}
+
+@media (max-width: 768px) {
+
+/* Estilos para a App Bar em telas menores */
+.main-content {
+    /* margin-top: 20px; */
+    padding: 20px;
+    margin-left: 0px;
+    margin-top: 50px;
+    color: var(--text-primary-color);
+}
+.container {
+    background: var(--background-color-primary); 
+    width: 100%
+}
+
+/* Outros estilos para telas menores (como no código anterior) */
+}
+
+@media (min-width: 768px) {
+
+
 }
 </style>

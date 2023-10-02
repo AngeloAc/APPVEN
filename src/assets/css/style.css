@@ -1,8 +1,8 @@
 
 
   /* Define styles for the default root window element */
-  :root { 
-  --background-color-primary: #ebebeb;
+  :root  { 
+  --background-color-primary: white;
   --background-color-secondary: #fafafa;
   --accent-color: #cacaca;
   --accent-secondary-color: green;
@@ -13,12 +13,23 @@
 }
 
 /* Define styles for the root window with dark - mode preference */
- :root.dark-theme   {
-  --background-color-primary: #27374D;
-  --background-color-secondary: #526D82;
+  /* Define styles for the default root window element */
+  :root.dark-theme  {
+  --background-color-primary: black;
+  --background-color-secondary: black;
   --accent-color: #3f3f3f;
   --accent-secondary-color: greenyellow;
   --text-primary-color: #ddd;
   --text-secondary-color: #DDE6ED;
   --button-primary-color: #27374D;
 }
+
+/* :root    {
+  --background-color-primary: #274D;
+  --background-color-secondary: #526D82;
+  --accent-color: #3f3f3f;
+  --accent-secondary-color: greenyellow;
+  --text-primary-color: #ddd;
+  --text-secondary-color: #DDE6ED;
+  --button-primary-color: #27374D;
+} */

@@ -93,5 +93,21 @@ export default {
                 text: 'Erro ao actualizar os seus dados.',
             })
         }
-    }
+    },
+
+
+    async getAllusers(){
+        try {
+           
+           const response = await Api().get("/all/users")
+           return response.data;
+       
+        } catch (error) {
+            swal({
+                title:"Ooops!",
+                text: "informações do usuario no banco de dados.",
+                icon: 'error'
+            })
+        }
+    },
 }

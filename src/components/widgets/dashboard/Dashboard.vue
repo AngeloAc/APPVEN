@@ -1,9 +1,11 @@
 <template>
-    <div class="main-content">
+
+
+<div class="main-content">
         <div class="row">
 
-            <h6>Bem-vindo a STARTIC <i class="bi bi-star"></i></h6>
-            <p style="font-size: 10px;">Conecte suas páginas de negócios do WhatsApp, faça seus codigos com ajuda de
+            <h6 style="padding-left: 25px;">Bem-vindo a STARTIC <i class="bi bi-star"></i></h6>
+            <p style="font-size: 14px; padding-left: 25px;">Conecte suas páginas de negócios do WhatsApp, faça seus codigos com ajuda de
                 inteligência artificial e melhore seus conhecimentos com o nosso chat STARTIC.</p>
 
 
@@ -28,7 +30,7 @@
 
             <!-- programmer code ...  -->
             <div class="col-md-4">
-                <AppCard myIcon="bi bi-terminal" title="Programador" status="free" headerDescription="stark - K9"
+                <AppCard myIcon="bi bi-terminal" title="AI Programador" status="free" headerDescription="stark - K9"
                     bodyDescription="Comece gerando codigos de computador com a Stark - k9" buttonText="Abir"
                     @buttonAction="callStartK9" />
             </div>
@@ -43,6 +45,46 @@
 
         </div>
     </div>
+
+
+<div class="app-dash">
+
+    <div class="avatar-list">
+        
+        <AppCard myIcon="bi bi-chat-left-dots" title="Chat"
+            buttonText="Abir"
+            @buttonAction="callChat" />
+
+            <AppCard myIcon="bi bi-terminal" title="AI Programador"
+            buttonText="Abir"
+            @buttonAction="callStartK9" />
+
+            <AppCard myIcon="bi bi-whatsapp"  title="Whatsapp"
+            :buttonText="buttonText"
+            @buttonAction="callInstallWhatsapp" />
+        
+            <!-- <AppCard myIcon="bi bi-calculator"  title="AI Calculadora"
+            buttonText="Brevemente"
+            />
+     -->
+     </div>
+</div>
+
+<!-- <div class="app-dash">
+<div class="avatar-list">
+    <div v-for="(user, index) in arrayUsers" :key="index">
+        <CardUserFriends userImage="src/assets/img/lady1.jpg" :username="user"/>
+    </div>
+    
+   
+  
+
+
+ </div>
+</div> -->
+
+
+
 
     <!--START Modal para a criação de chat -->
     <div class="modal modal-overlay" tabindex="-1" role="dialog" :class="{ 'show': showModal, 'd-block': showModal }">
@@ -84,6 +126,7 @@ import whatsappweb from '../../../services/whatsappwebService';
 import gerirWhatsappService from '../../../services/gerirWhatsappService';
 import swal from 'sweetalert';
 import AppCard from '../card/AppCard.vue'
+import CardUserFriends from '../card/CardUserFriends.vue';
 
 export default {
     data() {
@@ -104,6 +147,7 @@ export default {
             usuario_conectado: false,
             progress: 0,
             installationInterval: null,
+            arrayUsers: []
         };
     },
     methods: {
@@ -136,6 +180,12 @@ export default {
                 this.app_status = "Actualizar";
             }
 
+        },
+
+        async getAllUsers(){
+           const users = await getInfo.getAllusers();
+           this.arrayUsers = users.data;
+         
         },
 
         async saaveStatus(auth) {
@@ -254,11 +304,11 @@ export default {
             }
 
             else if (this.app_status === 'edit') {
-                await gerirWhatsappService.desconnect(porta_test);
-                await getInfo.updateAddons(token._id, { status: 'connect' })
-                this.usuario_conectado = false;
-                this.app_status = "connect";
-
+                // await gerirWhatsappService.desconnect(porta_test);
+                // await getInfo.updateAddons(token._id, { status: 'connect' })
+                // this.usuario_conectado = false;
+                // this.app_status = "connect";
+                this.callScript()
             }
         },
 
@@ -275,20 +325,25 @@ export default {
             this.$router.push('/images');
         },
     },
+    mounted() {
+        this.getAllUsers();
+    },
     created() {
-
         this.User();
-
-
     },
     components: {
         AppCard,
+        CardUserFriends
     },
 }
 </script>
 
 <style scoped>
 /* ...código anterior do estilo da Sidebar... */
+
+.app-dash{
+    margin-top: 55px;
+}
 
 .main-content {
     padding: 20px;
@@ -349,4 +404,39 @@ export default {
     }
 
 }
+
+.avatar-list {
+    display: flex;
+    overflow-x: auto;
+    padding: 10px;
+}
+
+.avatar-item {
+    margin-right: 10px;
+}
+
+.avatar-image {
+    width: 50px;
+    /* Defina a largura desejada para os avatares */
+    height: 50px;
+    /* Defina a altura desejada para os avatares */
+    border-radius: 50%;
+}
+
+:where(.avatar-list)::-webkit-scrollbar {
+    width: 0px;
+}
+
+@media (max-width: 768px) {
+    .main-content{
+        display: none;
+    }
+}
+
+@media (min-width: 768px) {
+    .app-dash{
+        display: none;
+    }
+}
+
 </style>

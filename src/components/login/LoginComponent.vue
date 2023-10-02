@@ -1,5 +1,9 @@
 <template>
-    <div class="main-container">
+
+<SplashScreen v-if="showSplashScreen" @splash-screen-loaded="hideSplashScreen" />
+   
+
+    <div v-else class="main-container">
    
       <div class="form-container">
         <div class="logo">
@@ -71,8 +75,6 @@
     max-width: 400px;
     margin: 0 auto;
     text-align: center; /* Centralize o texto */
-    font-family: 'Montserrat', sans-serif;
-font-family: 'Open Sans', sans-serif;
   }
   
   .form-title {
@@ -89,7 +91,7 @@ font-family: 'Open Sans', sans-serif;
     margin-bottom: 10px;
     border: .1px solid greenyellow;
     border-radius: 3px;
-    font-size: 13px;
+    font-size: 12px;
     background: var(--background-color-primary);
     color: var(--text-primary-color);
 
@@ -153,7 +155,7 @@ font-family: 'Open Sans', sans-serif;
     .form-input,
     .form-label,
     .submit-button {
-      font-size: 16px; /* Aumente o tamanho da fonte para telas menores */
+      font-size: 12px; /* Aumente o tamanho da fonte para telas menores */
     }
     .submit-button {
       padding: 12px 20px; /* Aumente o preenchimento do botão */

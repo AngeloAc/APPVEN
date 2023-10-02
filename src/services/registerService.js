@@ -11,10 +11,11 @@ export default {
                 localStorage.setItem('jwt', token);
                 swal({
                     title:"Excelente!",
-                    text: "A SUA SUBSCRIÇÃO FOI SOLICITADA COM SUCESSO!\nESTÁ A UM PASSO PARA DESFRUTAR A STARTIC.",
+                    text: "🥳 O seu Cadastro foi um sucesso.",
                     icon: 'success'
                 })
             }
+            return token;
         } catch (error) {
             swal({
                 title:"Ooops!",
