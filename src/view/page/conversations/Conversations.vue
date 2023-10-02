@@ -827,6 +827,7 @@ span .bi.bi-clipboard {
 
 .create-chat-btn {
     padding: 8px 15px;
+    margin-right: 10px;
     background-color: transparent;
     color: var(--text-primary-color);
     border: .1px solid rgb(213, 193, 193);
