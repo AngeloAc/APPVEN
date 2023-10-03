@@ -38,4 +38,21 @@ export default{
 
     },
 
+    async verificationCode(data){
+        try {
+
+           const response = await ApiInvite().post('/verificationcode', data);
+           return response.data;
+     
+        } catch (error) {
+            swal({
+                title: "ooops!",
+                text:"Something went wrong",
+                icon:"error"
+            })
+        }
+        
+
+    },
+
 }

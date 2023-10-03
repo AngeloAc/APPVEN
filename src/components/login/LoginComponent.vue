@@ -15,26 +15,29 @@
             <!-- <label for="email" class="form-label">E-mail</label> -->
             <input
               required
-              type="email"
-              id="email"
-              name="email"
+              type="tel"
+              id="telefone"
+              name="telefone"
               class="form-input"
-              placeholder="Email do usuario"
-              v-model="loginSubmitForm.email"
+              placeholder="942 963 892"
+              v-model="loginSubmitForm.telefone"
             />
           </div>
-          <div class="form-group">
-            <!-- <label for="password" class="form-label">Senha</label> -->
-            <input
-              required
-              type="password"
+     
+          <div class="password-input">
+                <input  required
+              
               id="password"
               name="password"
-              class="form-input"
+              :type="showPassword ? 'text' : 'password'"
               placeholder="Senha"
-              v-model="loginSubmitForm.password"
-            />
-          </div>
+              v-model="loginSubmitForm.password" class="user-info-input" 
+                  >
+                <span class="password-toggle-btn btn" @click="togglePasswordVisibility">
+                  <i :class="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
+                </span>
+              </div>
+
           <p class="login-link">
             Não tem uma conta cadastrada?
             <router-link to="/register" class="cadastre"> Cadastre aqui.</router-link>
@@ -161,6 +164,48 @@
       padding: 12px 20px; /* Aumente o preenchimento do botão */
     }
   }
+
+  .password-toggle-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  color: var(--text-primary-color);
+}
+
+.password-toggle-btn i {
+  font-size: 18px;
+}
+
+  .password-input {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.password-toggle-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  color: var(--text-primary-color);
+}
+
+.password-toggle-btn i {
+  font-size: 18px;
+}
+
+.user-info-input {
+  font-size: 14px;
+  padding: 8px;
+  border: 1px solid green;
+  border-radius: 3px;
+  width: 400px;
+  background: var(--background-color-primary);
+  color: var(--text-primary-color);
+}
   </style>
   
 

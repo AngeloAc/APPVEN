@@ -173,7 +173,7 @@ export default {
             }
             else if (user.addons[0].status === "edit") {
                 this.app_status = "edit";
-                this.buttonText = "Desconectar";
+                this.buttonText = "Gerir bot";
                 this.usuario_conectado = true;
                 // console.log("STATE OF THE BUTON " + this.app_status);
             } else {

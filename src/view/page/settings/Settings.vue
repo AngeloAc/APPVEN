@@ -12,10 +12,10 @@
         </div>
         <form action="" @submit.prevent="onSubmitForm">
           <div class="user-details">
-            <div class="user-info-row">
+            <!-- <div class="user-info-row">
               <span class="user-info-label" style="font-weight: bold;">E-mail</span>
-              <input class="user-info-input" :value="user.email" disabled>
-            </div>
+              <input class="user-info-input" v-model="user.email">
+            </div> -->
             <div class="user-info-row">
               <span class="user-info-label" style="font-weight: bold;">Nome</span>
               <input class="user-info-input" v-model="user.name">
@@ -32,7 +32,7 @@
             </div>
             <div class="user-info-row">
               <span class="user-info-label" style="font-weight: bold;">Tel./Whatsapp</span>
-              <input type="tel" class="user-info-input" v-model="user.telefone" placeholder="Numero de telefone">
+              <input type="tel" class="user-info-input" v-model="user.telefone" placeholder="Numero de telefone" disabled >
             </div>
             <div class="user-info-row">
               <span class="user-info-label" style="font-weight: bold;">País</span>

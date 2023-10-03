@@ -50,7 +50,7 @@
                             <div style="display: flex; width: 100%;">
                                 <img class="avatar" :src="conversation.avatar" alt="" @click="profileAvatarPicture">
                                 <div style="display: flex; width: 100%; justify-content: space-between;">
-                                    <div class="info" @click="selectConversation(index)">
+                                    <div class="info" @click="selectConversation(index)" >
                                         <div>
                                             <h5>{{ conversation.name }}</h5>
 
@@ -521,6 +521,9 @@ export default {
     height: 40px;
     border-radius: 50%;
     margin-right: 10px;
+}
+.info{
+    width: 100%;
 }
 
 .info h5 {

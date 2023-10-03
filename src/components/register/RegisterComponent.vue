@@ -23,7 +23,7 @@
             placeholder="Joel Modelo"
             v-model="registerForm.name"
           />
-          <label for="name" class="form-label">E-mail</label>
+          <!-- <label for="name" class="form-label">E-mail</label>
            <input
           required 
           type="email"
@@ -32,27 +32,62 @@
           class="form-input"
           placeholder="Digite o seu email válido"
           v-model="registerForm.email"
-        />
-        <label for="telefone" class="form-label">Telefone</label>
+        /> -->
+        <label for="telefone" class="form-label">Whatsapp</label>
+        <div class="telefone-index-container">
+          <select id="indicativo" class="form-input" style="max-width: 100PX;" v-model="registerForm.indicativo">
+            <option value="244" selected>+244 (AO)</option>
+            <option value="351">+351(PT)</option>
+            <option value="55">+55 (BR)</option>
+            <option value="238">+238 (CV)</option>
+            <option value="258">+258 (MO)</option>
+            <!-- Adicione mais opções conforme necessário -->
+        </select>
            <input
           required 
           type="tel"
           id="telefone"
           name="telefone"
-          class="form-input"
-          placeholder="Digite o seu telefone"
+          class="form-input telefone-input "
+          placeholder="942 963 892"
           v-model="registerForm.telefone"
         />
-        <label for="name" class="form-label">Senha</label>
+        </div>
+      
+        <label for="validationCode" class="form-label">Código de Validação</label>
+        <div class="validation-code-container">
         <input
-          required
-          type="password"
-          id="password"
-          name="password"
-          class="form-input"
-          placeholder="Digite a sua senha"
-          v-model="registerForm.password"
+            required
+            type="text"
+            id="validationCode"
+            name="validationCode"
+            class="form-input validation-code-input"
+            placeholder="ST-XXXX"
+            v-model="registerForm.validationCode"
+            :disabled="!isValidationCodeValid"
+            :class="{ 'correct': isCodeCorrect, 'incorrect': isCodeIncorrect }"
         />
+        <span v-if="!isValidationCodeValid" class="validation-code-button" @click="requestValidationCode" style="font-size: 10px;">Solicitar código pelo WhatsApp</span>
+        <span v-else class="validation-code-button" @click="requestConfirmation">Confirmar</span>
+    </div>
+        <label for="name" class="form-label">Senha</label>
+   
+
+        <div class="password-input">
+                <input  required
+              
+                id="password"
+                name="password"
+              :type="showPassword ? 'text' : 'password'"
+              placeholder="Digite a sua senha"
+            class="user-info-input" 
+            :disabled="!isSenhaValidation"
+            v-model="registerForm.password"
+                  >
+                <span class="password-toggle-btn btn" @click="togglePasswordVisibility">
+                  <i :class="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
+                </span>
+              </div>
         <label class="password-hint"> (6 caracteres mínimos)</label>    
 
         </div>
@@ -64,7 +99,7 @@
         <p class="login-link">
           Já tem uma conta? <router-link to="/" class="cadastre"> Conecte-se</router-link>
         </p>
-        <button @click="submitRegisterUser" class="submit-button">Inscrever-se</button>
+        <button @click="submitRegisterUser" :disabled="!isSenhaValidation" class="submit-button">Inscrever-se</button>
       </form>
     </div>
   </div>
@@ -112,7 +147,7 @@ font-family: 'Open Sans', sans-serif;
 }
 
 .form-title {
-  font-size: 20px;
+  font-size: 14px;
   font-weight: bold;
   margin-bottom: 15px;
   color: var(--text-primary-color) ;
@@ -184,4 +219,105 @@ font-family: 'Open Sans', sans-serif;
   text-decoration: none;
   color: var(--accent-secondary-color);
 }
+
+.validation-code-container {
+  display: flex;
+  align-items: center;
+}
+
+.telefone-index-container {
+  display: flex;
+  align-items: center;
+}
+
+.validation-code-input {
+  /* flex: 1; */
+  margin-right: 10px;
+}
+.telefone-input {
+  /* flex: 1; */
+  margin-left: 10px;
+}
+.validation-code-button {
+  background-color: #63e5af;
+  color: var(--button-primary-color);
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 3px;
+  font-size: 12px;
+  transition: background-color 0.3s;
+}
+
+.validation-code-button:hover {
+  background-color: #0056b3;
+  color: white;
+}
+
+.submit-button:disabled {
+  background-color: #ccc; /* Altere a cor de fundo para indicar que o botão está desativado */
+  cursor: not-allowed; /* Altere o cursor para indicar que o botão está desativado */
+}
+
+.correct {
+    color: green;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.incorrect {
+    color: red;
+    animation: fadeIn 0.5s ease-in-out;
+}
+  
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.password-toggle-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  color: var(--text-primary-color);
+}
+
+.password-toggle-btn i {
+  font-size: 18px;
+}
+
+  .password-input {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.password-toggle-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  color: var(--text-primary-color);
+}
+
+.password-toggle-btn i {
+  font-size: 18px;
+}
+
+.user-info-input {
+  font-size: 14px;
+  padding: 8px;
+  border: 1px solid green;
+  border-radius: 3px;
+  width: 100%;
+  background: var(--background-color-primary);
+  color: var(--text-primary-color);
+}
+
 </style>
