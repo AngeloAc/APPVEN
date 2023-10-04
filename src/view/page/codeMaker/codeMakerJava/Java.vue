@@ -222,7 +222,7 @@ export default {
             },
             newChat: {
                 name: '',
-                code: '',
+                code: 'java',
                 description: '',
                 script_Title: '',
                 script_Text: '',
@@ -282,7 +282,7 @@ export default {
                 await codeMakerService.javaChat(this.newChat, _token._id, token);
                 this.javaChat.unshift(this.newChat)
 
-                console.log(this.javaChat);
+            
 
 
                 // // Após criar o chat, redefinimos o formulário para o estado original
@@ -392,15 +392,14 @@ export default {
                 conversationID: conversationID
             };
 
-            console.log(data);
-            console.log(_token._id);
+         
             await codeMakerService.deleteCode(_token._id, data)
             .then(
                     res => {
                         window.location.reload();
                     }
                 ).catch(error => {
-                    console.log(error);
+                    // console.log(error);
                 })
 
         },
@@ -412,7 +411,7 @@ export default {
         },
 
         typeText() {
-            console.log(this.fullText)
+          
             if (this.currentIndex < this.fullText.length) {
                 this.displayText += this.fullText[this.currentIndex];
                 this.currentIndex++;
@@ -436,7 +435,7 @@ export default {
     created() {
         this.getId()
         this.getHistoryJavaChat();
-        // console.log(this.messages)
+    
     },
     mounted() {
         this.loading = true;

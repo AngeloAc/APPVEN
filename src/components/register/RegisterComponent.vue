@@ -35,7 +35,7 @@
         /> -->
         <label for="telefone" class="form-label">Whatsapp</label>
         <div class="telefone-index-container">
-          <select id="indicativo" class="form-input" style="max-width: 100PX;" v-model="registerForm.indicativo">
+          <select id="indicativo" class="form-input" style="max-width: 100px; font-size: 11px;" v-model="registerForm.indicativo">
             <option value="244" selected>+244 (AO)</option>
             <option value="351">+351(PT)</option>
             <option value="55">+55 (BR)</option>
@@ -58,11 +58,11 @@
         <div class="validation-code-container">
         <input
             required
-            type="text"
+            type="Number"
             id="validationCode"
             name="validationCode"
             class="form-input validation-code-input"
-            placeholder="ST-XXXX"
+            placeholder="ST-"
             v-model="registerForm.validationCode"
             :disabled="!isValidationCodeValid"
             :class="{ 'correct': isCodeCorrect, 'incorrect': isCodeIncorrect }"
@@ -157,7 +157,7 @@ font-family: 'Open Sans', sans-serif;
   width: 100%;
   padding: 10px;
   margin-bottom: 10px;
-  border: .1px solid greenyellow;
+  border: .1px solid green;
   border-radius: 3px;
   font-size: 13px;
   background: var(--background-color-primary);
@@ -233,6 +233,7 @@ font-family: 'Open Sans', sans-serif;
 .validation-code-input {
   /* flex: 1; */
   margin-right: 10px;
+  max-width: 140px;
 }
 .telefone-input {
   /* flex: 1; */
@@ -243,8 +244,10 @@ font-family: 'Open Sans', sans-serif;
   color: var(--button-primary-color);
   border: none;
   padding: 10px 20px;
+  margin-left: 10px;
   cursor: pointer;
   border-radius: 3px;
+  height: 100%;
   font-size: 12px;
   transition: background-color 0.3s;
 }

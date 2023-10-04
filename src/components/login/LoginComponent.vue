@@ -18,7 +18,7 @@
               type="tel"
               id="telefone"
               name="telefone"
-              class="form-input"
+              class="user-info-input"
               placeholder="942 963 892"
               v-model="loginSubmitForm.telefone"
             />
@@ -37,6 +37,10 @@
                   <i :class="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
                 </span>
               </div>
+              <p class="login-link">
+         
+            <router-link to="/password" class="cadastre"> Esqueceu senha?</router-link>
+          </p>
 
           <p class="login-link">
             Não tem uma conta cadastrada?
@@ -47,7 +51,7 @@
       </div>
       <div class="text-center" style="max-width: 350px;font-size: 12px; margin-top: 40px; color: var(--text-primary-color);">
         Sobre a plataforma <a href="" style="text-decoration: none; color: var(--text-primary-color);">Como funciona</a>
-        <p>© 2022 - 2023 startic Angola - Todos os direitos reservados.</p>
+        <p>© 2023 Startic Angola - Todos os direitos reservados.</p>
       </div>
     </div>
   </template>
@@ -202,7 +206,7 @@
   padding: 8px;
   border: 1px solid green;
   border-radius: 3px;
-  width: 400px;
+  width: 100%;
   background: var(--background-color-primary);
   color: var(--text-primary-color);
 }

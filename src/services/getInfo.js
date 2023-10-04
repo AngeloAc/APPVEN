@@ -110,4 +110,16 @@ export default {
             })
         }
     },
+
+    async PasswordReset(user){
+        try {
+            const response = await Api().post('/password/reset', user);
+            return response.data;
+        } catch (error) {
+            swal({
+                title: 'Ooops!',
+                text: 'Erro ao actualizar os seus dados.',
+            })
+        }
+    },
 }

@@ -17,7 +17,7 @@
             </div>
 
             <div class="card-footer" style="border: none;">
-                <button class="btn btn-outline-secondary btn-sm" @click="buttonAction" style="font-size: 12px;">
+                <button class="btn btn-outline-secondary btn-sm" @click="buttonAction" >
                     <span><i class="bi bi-power" ></i> {{ buttonText }}</span>
                 </button>
             </div>
@@ -68,8 +68,6 @@ export default {
     /* margin-bottom: 20px; */
     margin: 10px;
     min-width: 150px;
-    
-    
 }
 
 .card {
@@ -108,6 +106,8 @@ export default {
     border-radius: 20px;
     color: var(--text-primary-color);
     border: 1px solid var(--accent-color);
+    font-size: 12px;
+    width: 100%;
 }
 </style>
   

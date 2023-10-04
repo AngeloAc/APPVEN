@@ -200,14 +200,14 @@ export default {
             loading: false,
             selectedConversationIndex: null,
             textArray: [
-            'Sujestão: Meu Projecto final 2023',
-            'Sujestão: Mensagens para o meu namorado',
-            'Sujestão: Receitas de bolo',
-            'Sujestão: Conceitos sobre química',
+            'Sujestão: Explorando a Mente de Humana',
+            'Sujestão: Diálogos com a Inteligência Artificial',
+            'Sujestão: Conversas Fascinantes: Responde às Suas Perguntas',
+            'Sujestão: Uma Odisseia Intelectual no Mundo da Inteligência Artificial',
             'Sujestão: Mecânica quântica',
-            'Sujestão: Geometria Euclideana',
-            'Sujestão: Relaorio de vendas',
-            'Sujestão: Modelo de email para emprego'
+            'Sujestão: Explorando a Geometria Euclidiana',
+            'Sujestão:  Explorando o Universo',
+            'Sujestão: Uma Viagem pela Euclidiana'
             ],
             fullText: '',
             displayText: '',
@@ -323,7 +323,7 @@ export default {
             const token = localStorage.getItem('jwt');
             const _token = vuejwtdecode.decode(token);
             this.selectedConversationIndex = index;
-            console.log(conversationID)
+           
             const data = {
                 index: index,
                 conversationID: conversationID
@@ -335,7 +335,7 @@ export default {
                         window.location.reload();
                     }
                 ).catch(error => {
-                    console.log(error);
+                    // console.log(error);
                 })
 
         },
@@ -365,7 +365,7 @@ export default {
             return text.startsWith('https');
         },
         profileAvatarPicture() {
-            console.log("image");
+           
             this.showModalProfile = true;
         },
 
@@ -376,7 +376,7 @@ export default {
         },
 
         typeText() {
-            console.log(this.fullText)
+            
             if (this.currentIndex < this.fullText.length) {
                 this.displayText += this.fullText[this.currentIndex];
                 this.currentIndex++;

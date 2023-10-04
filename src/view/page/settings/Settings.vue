@@ -1,7 +1,7 @@
 <template>
   <SettingsComponent />
   <div class="main-content">
-    <div class="container p-4">
+    <div class="container" style="margin-top: 10px;">
       <h6>Conta</h6>
       <p>Atualize todas as informações da sua conta</p>
 
@@ -70,11 +70,11 @@
   <!--END Modal para a image profile -->
 
       <div class="billing-section">
-        <h6 class="section-title">Facturação</h6>
+        <h6 class="section-title">Saldo</h6>
         <div class="billing-info">
           <div class="billing-card">
             <div class="billing-card-header">
-              <h5>{{ user.saldo }}</h5>
+              <h5>{{ user.saldo }} Kz</h5>
             </div>
             <div class="billing-card-body">
               <p class="billing-text">Plano Atual: {{ user.plano }}</p>
@@ -160,16 +160,16 @@ export default {
 
     },
     configAPI() {
-      console.log('CONFIG API...')
+      
     },
     alterarPlano() {
-      console.log('alterar plano...')
+      
     },
     updatePlano() {
       this.$router.push('/pagamento')
     },
     async deletarConta() {
-      console.log('deletar conta...')
+     
       try {
         const token = localStorage.getItem('jwt');
         const response = await getInfo.deleteConta(token, this.userData());
@@ -248,7 +248,10 @@ export default {
 <style scoped>
 /* Estilos globais */
 
-.main-content {}
+.main-content {
+  
+}
+
 
 .user-info {
   display: block;
@@ -319,7 +322,7 @@ export default {
 }
 
 .section-title {
-  font-size: 18px;
+  font-size: 14px;
   margin-bottom: 10px;
   color: var(--text-primary-color);
 }
@@ -348,7 +351,7 @@ export default {
 
 .billing-card-header h5 {
   margin: 0;
-  font-size: 1.25rem;
+  font-size: 16px;
 }
 
 .billing-card-body {
@@ -356,7 +359,7 @@ export default {
 }
 
 .billing-text {
-  font-size: 14px;
+  font-size: 12px;
   margin-bottom: 5px;
 }
 
@@ -455,9 +458,11 @@ export default {
 
   /* Estilos para telas menores */
   .main-content {
-    margin-top: 40px;
+    margin-top: 70px;
+    margin-bottom: 30px;
     margin-left: 0;
-    padding: 10px;
+    font-size: 10px;
+    /* padding: 10px; */
     /* Adicionado espaço interno menor */
   }
 

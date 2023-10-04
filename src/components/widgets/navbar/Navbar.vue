@@ -68,7 +68,7 @@
       <!-- Botão de Logout no Sidebar -->
       <li class="sidebar-link" :class="{ 'active': isActive('/out') }" @click="logoutUser">
         <!-- <button class="btn logout h-100" @click="logoutUser">Logout</button> -->
-        <i class="bi bi-box-arrow-left" style="color: rgb(223, 101, 101);; font-size: 18px;"></i> <span
+        <i class="bi bi-power" style="color: rgb(223, 101, 101);; font-size: 18px;"></i> <span
           style=" font-size: 12px; color: rgb(223, 101, 101);">Terminar sessão</span>
       </li>
     </ul>
@@ -129,7 +129,7 @@
       <!-- Botão de Logout no Sidebar -->
       <li class="sidebar-link" :class="{ 'active': isActive('/out') }" @click="logoutUser">
         <!-- <button class="btn logout h-100" @click="logoutUser">Logout</button> -->
-        <i class="bi bi-box-arrow-left"></i>
+        <i class="bi bi-power" style="color: rgb(223, 101, 101);"></i>
       </li>
     </ul>
   </div>
@@ -147,6 +147,9 @@
           <!-- <span>Dashboard</span> -->
         </router-link>
       <!-- <i class="bi bi-bell"></i> -->
+      <div v-if="url === null">
+        ola
+      </div>
       <img :src="url" alt="" class="avatar" style="border: 1px solid green;" @click="callProfilePicture">
     </div>
   </div>
@@ -242,15 +245,17 @@ export default {
       const token = localStorage.getItem('jwt');
     const _token = vuejwtdecode.decode(token);
         const storageRef = ref(storage, `folder/${_token._id}.jpg`);
-        console.log(this.file);
+ 
         uploadBytes(storageRef, this.file).then(
           snpashot =>{
             swal({
               title: "Sucesso",
               text: "A sua foto foi actualizada com sucesso.",
               icon: 'success'
-            })
-            window.location.reload();
+            }).then(
+            ()=>{window.location.reload();}
+            )
+            
           }
         )
       },
@@ -267,7 +272,12 @@ export default {
     this.path = `folder/${_token._id}.jpg`;
     
     getDownloadURL(ref(storage, this.path))
-    .then((download_url) => (this.url = download_url))
+    .then((download_url) => { (
+      this.url = download_url
+      
+      )
+      console.log(this.url)
+    })
     .catch(
       error => {
        console.log(error)
@@ -298,7 +308,7 @@ export default {
   transition: transform 0.3s ease, width 0.3s ease;
   /* font-family: 'Montserrat', sans-serif; */
   /* font-size: 8px; */
-  font-weight: bold;
+  /* font-weight: bold; */
   letter-spacing: 0.5px;
   z-index: 1000;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -349,7 +359,7 @@ export default {
   text-decoration: none;
   padding: 10px;
   cursor: pointer;
-  font-weight: bold;
+  /* font-weight: bold; */
   /* font-size: 12px; */
 }
 

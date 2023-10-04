@@ -4,7 +4,7 @@
         <div class="side-chat shadow-lg">
             <div class="header">
                 <h3 style="padding: 10px;">Chat.ai</h3>
-                <button class="create-chat-btn" @click="showModal = true">+ Criar chat</button>
+                <button class="create-chat-btn" @click="callCreateNewChat">+ Criar chat</button>
             </div>
             <div v-if="loading" class="loading-container">
                 <div class="loading-indicator"></div>
@@ -19,72 +19,74 @@
 
                 <!-- Lista de conversas -->
                 <div v-else>
-                        <div class="conversation" v-for="(conversation, index) in conversations" :key="index">
-                            <div style="display: flex; width: 100%;">
-                                <img class="avatar" :src="conversation.avatar" alt="" @click="profileAvatarPicture">
-                                <div style="display: flex; width: 100%; justify-content: space-between;">
-                                    <div class="info" @click="selectConversation(index)">
-                                        <div>
-                                            <h5>{{ conversation.name }}</h5>
-                                            
-                                            <p>
-                                                
-                                                {{ conversation.messages.length > 0
-                                                    ? limitarTexto(conversation.messages[conversation.messages.length - 1].text,
-                                                        30)
-                                                    : 'Nenhuma conversa iniciada....' }}
-                                                    <!-- <i class="bi bi-file-earmark-image" style="color: gray"></i> -->
-                                            </p>
-                                            
-                                        </div>
-                                        <div>
-                                            <div style="font-size: 8px; color: gray;">{{ conversation.messages.length > 0
-                                                ? conversation.messages[conversation.messages.length - 1].time
-                                                : '' }}</div>
-                                        </div>
-                                    </div>
-                                    <div @click="deleteConversation(index, conversation._id)">
-                                        <i class="bi bi-trash" style="color: black; font-size: 20px;"></i>
+                    <div class="conversation" v-for="(conversation, index) in conversations" :key="index">
+                        <div style="display: flex; width: 100%;">
+                            <img class="avatar" :src="conversation.avatar" alt="" @click="profileAvatarPicture">
+                            <div style="display: flex; width: 100%; justify-content: space-between;">
+                                <div class="info" @click="selectConversation(index)">
+                                    <div>
+                                        <h5>{{ conversation.name }}</h5>
 
+                                        <p>
+
+                                            {{ conversation.messages.length > 0
+                                                ? limitarTexto(conversation.messages[conversation.messages.length - 1].text,
+                                                    30)
+                                                : 'Nenhuma conversa iniciada....' }}
+                                            <!-- <i class="bi bi-file-earmark-image" style="color: gray"></i> -->
+                                        </p>
+
+                                    </div>
+                                    <div>
+                                        <div style="font-size: 8px; color: gray;">{{ conversation.messages.length > 0
+                                            ? conversation.messages[conversation.messages.length - 1].time
+                                            : '' }}</div>
                                     </div>
                                 </div>
-                            </div>
+                                <div @click="deleteConversation(index, conversation._id)">
+                                    <i class="bi bi-trash" style="color: black; font-size: 20px;"></i>
 
+                                </div>
+                            </div>
                         </div>
+
                     </div>
+                </div>
             </div>
             <!-- <div class="btn mt-3 mb-3" style="position: fixed; bottom: 0px; background: rgb(238, 184, 83); font-size: 12px;">news</div> -->
 
         </div>
         <!-- END Side bar contendo todos os chats do usuario...  -->
 
-        <!--START Modal para a criação de chat -->
-        <div class="modal modal-overlay" tabindex="-1" role="dialog" :class="{ 'show': showModal, 'd-block': showModal }">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content shadow-lg">
-                    <div class="modal-header">
-                        <h6 class="modal-title">Novo Chat</h6>
-                        <button class="btn-close" @click="showModal = false"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form @submit.prevent="createChat">
-                            <div class="form-group">
-                                <label for="chatTitle">Título:</label>
-                                <input type="text" id="chatTitle" class="form-control"
-                                    placeholder="Escreva um título amigável" v-model="newChat.name" required />
-                            </div>
+      <!--START Modal para a criação de chat -->
+      <div class="modal modal-overlay" tabindex="-1" role="dialog"
+                :class="{ 'show': showModal, 'd-block': showModal }">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content shadow-lg">
+                        <div class="modal-header">
+                            <h6 class="modal-title">Novo Chat</h6>
+                            <button class="btn-close" @click="showModal = false"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form @submit.prevent="createChat">
+                                <div class="form-group">
+                                    <label for="chatTitle">Título:</label>
+                                    <input type="text" id="chatTitle" class="form-control"
+                                        placeholder="Escreva um título amigável" v-model="newChat.name" required />
+                                        <p style="padding: 5px; font-size: 10px; color: green;">* {{ displayText }}</p>
+                                </div>
 
-
-                            <div class="modal-footer">
-                                <button type="submit" class="btn"> Criar</button>
-                                <button type="button" class="btn" @click="showModal = false">Fechar</button>
-                            </div>
-                        </form>
+                                
+                                <div class="modal-footer" style="border: none;">
+                                    <button type="submit" class="btn"> Criar</button>
+                                    <button type="button" class="btn" @click="showModal = false">Fechar</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!--END Modal para a criação de chat -->
+            <!--END Modal para a criação de chat -->
 
 
 
@@ -127,17 +129,17 @@
                         <div class="chat-content">
                             <div class="chat-details">
                                 <img :src="url" alt="" v-show="message.isUser">
-                                
-                                    <img :src="avatar_selected" alt="" v-show="!message.isUser">
-                           
+
+                                <img :src="avatar_selected" alt="" v-show="!message.isUser">
+
                                 <!-- Verifique se a mensagem começa com 'https' para exibi-la como imagem -->
-                                
+
                                 <div v-if="isImage(message.text)" style="background: transparent;">
                                     <img :src="message.text" alt=""
-                                    style="padding: 1px; border-radius: 10px; width: 300px; height: 300px;">
+                                        style="padding: 1px; border-radius: 10px; width: 300px; height: 300px;">
                                     <div style="text-align: end; ">
-                                            <i style="color: black; font-size: 8px; margin: 8px;"> {{ message.time }}</i>
-                                        </div>
+                                        <i style="color: black; font-size: 8px; margin: 8px;"> {{ message.time }}</i>
+                                    </div>
                                 </div>
 
                                 <!-- Caso contrário, exiba a mensagem como texto -->
@@ -164,14 +166,14 @@
 
 
                             </div>
-                           
-                            <div >
-                                <span class="copy" style="font-size: 20px;" v-show="!message.isUser" @click="copyCode(message.text)"
-                                    :class="{ 'checkmark-icon': copied }">
+
+                            <div>
+                                <span class="copy" style="font-size: 20px;" v-show="!message.isUser"
+                                    @click="copyCode(message.text)" :class="{ 'checkmark-icon': copied }">
                                     <i :class="iconCopy"></i>
                                 </span>
-                         
-                            
+
+
                             </div>
                         </div>
 
@@ -181,33 +183,31 @@
             </div>
 
         </div>
-    
+
         <div class="typing-container" tabindex="-1">
             <div style="margin-left: 15px; text-align: end; margin-right: 10px;">
-                <img v-if="isImageSelected" :src="selectedImageUrl" alt="Imagem selecionada" style="max-width: 100px; max-height: 100px; margin-left: 15px; border-radius: 7px;">
+                <img v-if="isImageSelected" :src="selectedImageUrl" alt="Imagem selecionada"
+                    style="max-width: 100px; max-height: 100px; margin-left: 15px; border-radius: 7px;">
             </div>
-            
+
             <div class="typing-content">
-               
+
                 <div class="typing-textarea">
-                    <textarea v-model="inputMessage" @keyup.enter="sendMessage" id="chat-input"
-                        placeholder="Mensagem" required></textarea>
-       
-                        
+                    <textarea v-model="inputMessage" @keyup.enter="sendMessage" id="chat-input" placeholder="Mensagem"
+                        required></textarea>
+
+
                     <span @click="sendMessage"><img src="../../../assets/img/send.png" style="height: 20px;" alt=""></span>
-         
-                  
+
+
                 </div>
                 <div class="typing-controls">
-    <input type="file" ref="fileInput" style="display: none;" accept="image/*" @change="handleFileUpload">
-    <span
-      class="bi"
-      :class="{'bi-camera': !isImageSelected, 'bi-upload': isImageSelected}"
-      style="cursor: pointer; background: green; color: white; margin-left: 3px;"
-      @click="isImageSelected ? uploadImage() : openGallery()"
-    ></span>
-   
-  </div>
+                    <input type="file" ref="fileInput" style="display: none;" accept="image/*" @change="handleFileUpload">
+                    <span class="bi" :class="{ 'bi-camera': !isImageSelected, 'bi-upload': isImageSelected }"
+                        style="cursor: pointer; background: green; color: white; margin-left: 3px;"
+                        @click="isImageSelected ? uploadImage() : openGallery()"></span>
+
+                </div>
 
             </div>
         </div>
@@ -231,9 +231,9 @@ import image from '../../../services/imageupload';
 export default {
     props: {
         id: {
-      type: String,
-      required: true
-    },
+            type: String,
+            required: true
+        },
 
     },
     data() {
@@ -253,7 +253,7 @@ export default {
                 description: '',
                 messages: [],
                 avatar: '',
-             
+
             },
             avatar: [
                 'https://startic.ao/image/lady1.jpg',
@@ -262,7 +262,7 @@ export default {
                 'https://startic.ao/image/man1.jpg',
                 'https://startic.ao/image/man2.jpg',
                 'https://startic.ao/image/man3.jpg',
-                
+
             ],
             avatar_selected: '',
 
@@ -279,14 +279,28 @@ export default {
             ],
             loading: false,
             selectedConversationIndex: null,
+            textArray: [
+                'Sujestão: Explorando a Mente de Humana',
+                'Sujestão: Diálogos com a Inteligência Artificial',
+                'Sujestão: Conversas Fascinantes: Responde às Suas Perguntas',
+                'Sujestão: Uma Odisseia Intelectual no Mundo da Inteligência Artificial',
+                'Sujestão: Mecânica quântica',
+                'Sujestão: Explorando a Geometria Euclidiana',
+                'Sujestão:  Explorando o Universo',
+                'Sujestão: Uma Viagem pela Euclidiana'
+            ],
+            fullText: '',
+            displayText: '',
+            currentIndex: 0,
+
             isImageSelected: false,
-      selectedFile: null,
-      selectedImageUrl: null,
-      path: 'folder/2.jpg',
-      url: 'https://placehold.co/400',
-      file: '',
-      copied: false,
-      iconCopy: 'bi bi-clipboard',
+            selectedFile: null,
+            selectedImageUrl: null,
+            path: 'folder/2.jpg',
+            url: 'https://placehold.co/400',
+            file: '',
+            copied: false,
+            iconCopy: 'bi bi-clipboard',
 
         };
     },
@@ -297,16 +311,16 @@ export default {
 
         submitFormMessage() { },
         avatarRandom(avatar) {
-                const indiceAleatorio = Math.floor(Math.random() * avatar.length);
-                return avatar[indiceAleatorio];
-            },
+            const indiceAleatorio = Math.floor(Math.random() * avatar.length);
+            return avatar[indiceAleatorio];
+        },
         async createChat() {
             // Lógica para criar o novo chat
             try {
                 const token = localStorage.getItem('jwt');
                 const _token = vuejwtdecode.decode(token);
                 this.newChat.avatar = this.avatarRandom(this.avatar);
-              
+
                 await conversationService.conversations(this.newChat, _token._id, token);
                 this.conversations.unshift(this.newChat)
                 // Após criar o chat, redefinimos o formulário para o estado original
@@ -320,6 +334,12 @@ export default {
                 console.log("error > " + error)
             }
 
+        },
+        callCreateNewChat(){
+            this.showModal = true;
+           
+            this.typeANewTextRandom(this.textArray);
+            this.typeText();
         },
         // Outros métodos do chat (como enviar mensagem, etc.)
         async sendMessage() {
@@ -339,7 +359,7 @@ export default {
                     const token = vuejwtdecode.decode(_token);
                     const _data = await Chat.getReplay(this.data, _token, token._id, this.message_id)
                         .then(res => {
-                            console.log(res)
+
                             this.messages.pop(); // Remova a mensagem de digitação
                             this.messages.push({ text: res.resposta, isUser: false, isTyping: false });
                         });
@@ -354,11 +374,11 @@ export default {
                 for (let i = 0; i < data.length; i++) {
                     const element = data[i];
 
-                   this.avatar_selected = data[i].avatar
+                    this.avatar_selected = data[i].avatar
                     if (this.id === element._id) {
                         this.chatHeaderTitle = element.name;
                         for (let i = 0; i < element.messages.length; i++) {
-                           
+
                             this.messages.push(element.messages[i])
                         }
                         break;
@@ -380,7 +400,7 @@ export default {
 
             // Adicione a classe "active-conversation" à conversa selecionada
             const selectedConversation = conversations[index];
-           
+
             if (selectedConversation) {
                 selectedConversation.classList.add('active-conversation');
             }
@@ -388,7 +408,7 @@ export default {
             await this.getHistoryChat().then(data => {
                 this.chatHeaderTitle = data[index].name;
                 this.avatar_selected = data[index].avatar;
-                
+
                 this.message_id = data[index]._id;
                 for (let i = 0; i < data[index].messages.length; i++) {
                     this.messages.push(data[index].messages[i])
@@ -407,7 +427,7 @@ export default {
         async initWithId() {
 
             this.message_id = this.id;
-            
+
 
 
 
@@ -419,7 +439,7 @@ export default {
             const res = await conversationService.historyChat(_token._id, token)
                 .then(result => {
                     this.conversations = result;
-                    
+
                     this.loading = false;
                     return result.reverse();
                 });
@@ -441,62 +461,76 @@ export default {
         },
 
         openGallery() {
-      // Chamar o clique no elemento de input para abrir a galeria
-      this.$refs.fileInput.click();
-    },
+            // Chamar o clique no elemento de input para abrir a galeria
+            this.$refs.fileInput.click();
+        },
 
-    handleFileUpload(event) {
-      const file = event.target.files[0];
-      if (file) {
-        // Verifique se o arquivo selecionado é uma imagem (pode ser necessário validar outros tipos de imagens)
-        if (file.type.startsWith("image/")) {
-          this.selectedFile = file;
-          this.isImageSelected = true;
-          
-          // Crie uma URL temporária para a imagem selecionada e defina-a como src da imagem
-          this.selectedImageUrl = URL.createObjectURL(file);
-        } else {
-          this.selectedFile = null;
-          this.isImageSelected = false;
-          this.selectedImageUrl = null;
-        //   console.log("Arquivo selecionado não é uma imagem:", file);
-        }
-      }
-    },
+        handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                // Verifique se o arquivo selecionado é uma imagem (pode ser necessário validar outros tipos de imagens)
+                if (file.type.startsWith("image/")) {
+                    this.selectedFile = file;
+                    this.isImageSelected = true;
 
+                    // Crie uma URL temporária para a imagem selecionada e defina-a como src da imagem
+                    this.selectedImageUrl = URL.createObjectURL(file);
+                } else {
+                    this.selectedFile = null;
+                    this.isImageSelected = false;
+                    this.selectedImageUrl = null;
+                    //   console.log("Arquivo selecionado não é uma imagem:", file);
+                }
+            }
+        },
+        typeANewTextRandom(textArray) {
+            const indiceAleatorio = Math.floor(Math.random() * textArray.length);
+            this.fullText = textArray[indiceAleatorio];
+            return textArray[indiceAleatorio];
+        },
+        typeText() {
+            
+            if (this.currentIndex < this.fullText.length) {
+                this.displayText += this.fullText[this.currentIndex];
+                this.currentIndex++;
+                setTimeout(this.typeText, 200); // Adiciona um atraso de 200ms entre cada letra
+            } else {
+                
+            }
+        },
 
-    async uploadImage() {
-      if (!this.selectedFile) {
-        return;
-      }
-      const formData = new FormData();
-      formData.append('file', this.selectedFile);
-      
-      try {
-        this.messages.push({ text: "", isUser: false, isTyping: true });
-        await image.sendImageVariation(formData)
-        .then(res => {
-            this.messages.pop(); // Remova a mensagem de digitação
-            this.messages.push({ text: res.image, isUser: false, isTyping: false });
-        })
-        .catch(error => {
-            console.log("error ao pegar a imagem de volta" + error)
-        });
-        // Limpar a seleção de imagem após o envio bem-sucedido
-        this.selectedFile = null;
-        this.isImageSelected = false;
-        this.selectedImageUrl = null;
-      } catch (error) {
-        console.error('Erro ao enviar a imagem:', error);
-      }
-    },
+        async uploadImage() {
+            if (!this.selectedFile) {
+                return;
+            }
+            const formData = new FormData();
+            formData.append('file', this.selectedFile);
 
-    async deleteConversation(index, conversationID) {
+            try {
+                this.messages.push({ text: "", isUser: false, isTyping: true });
+                await image.sendImageVariation(formData)
+                    .then(res => {
+                        this.messages.pop(); // Remova a mensagem de digitação
+                        this.messages.push({ text: res.image, isUser: false, isTyping: false });
+                    })
+                    .catch(error => {
+                        console.log("error ao pegar a imagem de volta" + error)
+                    });
+                // Limpar a seleção de imagem após o envio bem-sucedido
+                this.selectedFile = null;
+                this.isImageSelected = false;
+                this.selectedImageUrl = null;
+            } catch (error) {
+                console.error('Erro ao enviar a imagem:', error);
+            }
+        },
+
+        async deleteConversation(index, conversationID) {
             this.bg = "bg-black"
             const token = localStorage.getItem('jwt');
             const _token = vuejwtdecode.decode(token);
             this.selectedConversationIndex = index;
-            console.log(conversationID)
+
             const data = {
                 index: index,
                 conversationID: conversationID
@@ -505,7 +539,7 @@ export default {
             await conversationService.delete(_token._id, data).
                 then(
                     res => {
-                        window.location.reload();
+                        this.$router.push('/chat')
                     }
                 ).catch(error => {
                     console.log(error);
@@ -554,18 +588,18 @@ export default {
         this.loading = true; // Iniciar o indicador de carregamento
         const token = localStorage.getItem('jwt');
         const _token = vuejwtdecode.decode(token);
-    this.path = `folder/${_token._id}.jpg`;
-    
-    getDownloadURL(ref(storage, this.path))
-    .then((download_url) => (this.url = download_url))
-    .catch(
-      error => {
-       console.log(error)
-      }
-    )
-  },
+        this.path = `folder/${_token._id}.jpg`;
 
-    
+        getDownloadURL(ref(storage, this.path))
+            .then((download_url) => (this.url = download_url))
+            .catch(
+                error => {
+                    console.log(error)
+                }
+            )
+    },
+
+
 }
 </script>
 
@@ -798,8 +832,8 @@ span .bi.bi-clipboard {
 .side-chat {
     width: 240px;
     height: 100vh;
-     padding-top: 10px;
-     padding-bottom: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     box-sizing: border-box;
     font-family: 'Montserrat', sans-serif;
     font-family: 'Open Sans', sans-serif;
@@ -1027,17 +1061,19 @@ span .bi.bi-clipboard {
 }
 
 .copy {
-        color: black;
-    }
+    color: black;
+}
 
 
 @media (max-width: 768px) {
     .side-chat {
         display: none;
     }
+
     .copy {
         display: none;
     }
+
     .chat-container {
         top: 50px;
         left: 0px;
@@ -1055,10 +1091,12 @@ span .bi.bi-clipboard {
         padding-right: 0px;
 
     }
+
     .avatar {
         width: 60px;
         height: 60px;
     }
+
     .typing-container {
         left: 0px;
         padding: 30px 0px;

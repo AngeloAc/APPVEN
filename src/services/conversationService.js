@@ -44,8 +44,7 @@ export default{
 
     async delete (id, data){
         try {
-            console.log(data);
-            console.log(id)
+    
            const res =  await Api().post('/deleteconversation/'+id, data);
            return res.data;
             

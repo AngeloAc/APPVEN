@@ -93,7 +93,7 @@ export default {
             // Defina isValidationCodeValid como verdadeiro se o código for válido
             if (this.registerForm.telefone > 1) {
                 const numeroAleatorio = this.gerarNumero();
-                const telefone = this.formatPhoneNumber(this.registerForm.telefone,)
+                const telefone = this.formatPhoneNumber(this.registerForm.telefone)
 
                 const data = {
                     index: this.registerForm.indicativo,
@@ -104,8 +104,8 @@ export default {
                     .then(
 
                         result => {
-                            this.randomCodeSend = result.data.randomNumber
-                            console.log(result)
+                            this.randomCodeSend = result.data.randomNumber;
+                            this.isValidationCodeValid = true;
                         }
                     )
                     .catch(error => {
@@ -113,7 +113,7 @@ export default {
                     })
 
 
-                this.isValidationCodeValid = true;
+                // this.isValidationCodeValid = true;
             } else {
                 // console.log('vazio campo telefone')
             }

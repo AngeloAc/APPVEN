@@ -93,6 +93,11 @@ const router = createRouter({
         component: ()=> import('../view/page/payment/Payment.vue'),
       },
       {
+        path: '/password',
+        name: 'password',
+        component: ()=> import('../view/page/SenhaRecover/SenhaRecover.vue'),
+      },
+      {
         path: '/javacodebox/:id',
         name: 'javacodebox',
         props: true,

@@ -365,8 +365,7 @@ export default {
                     const codeInJava = await codeMakerService.Injava(this.data, _token, token._id, this.message_id)
                         .then(res => {
                             const javaCodeBlocks = this.extractJavaCodeBlocks(this.code, res.resposta);
-                            console.log(res);
-                            console.log('block man: ' + javaCodeBlocks);
+                           
                             // Verifica se o array possui elementos
                             if (javaCodeBlocks.length === 0) {
                                 this.messages.pop(); // Remova a mensagem de digitação
@@ -566,12 +565,11 @@ export default {
                 conversationID: conversationID
             };
 
-            console.log(data);
-            console.log(_token._id);
+          
             await codeMakerService.deleteCode(_token._id, data)
             .then(
                     res => {
-                        window.location.reload();
+                        this.$router.push('/codejava')
                     }
                 ).catch(error => {
                     console.log(error);
