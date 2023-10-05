@@ -2,7 +2,7 @@
     <div>
         <ScriptsComponents />
         <!-- <navBarApp /> -->
-        <div class="main-content p-5">
+        <div class="main-content">
 
             <div class="container p-4 shadow-lg" style="border: 1px solid gray; border-radius: 20px;">
                 <!-- Conteúdo do Dashboard "script" -->

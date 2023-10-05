@@ -110,6 +110,10 @@ const router = createRouter({
         // component: JobDetails,
         props: true
       },
+      {
+        path: '/*',
+        componente: 404
+        },
      
       
   ]

@@ -276,7 +276,6 @@ export default {
       this.url = download_url
       
       )
-      console.log(this.url)
     })
     .catch(
       error => {

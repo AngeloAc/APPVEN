@@ -94,7 +94,7 @@
       
         
         <p class="terms">
-          Ao se inscrever, você concorda com os <router-link to="/" class="service-policy">Termos de Serviço</router-link> e a <router-link to="/" class="service-policy">Política de Privacidade</router-link> 
+          Ao se inscrever, você concorda com os <span class="service-policy">Termos de Serviço</span> e a <span class="service-policy">Política de Privacidade</span> 
         </p>
         <p class="login-link">
           Já tem uma conta? <router-link to="/" class="cadastre"> Conecte-se</router-link>

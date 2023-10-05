@@ -11,7 +11,7 @@
     <p>Atenciosamente,</p>
     <p>A equipe Startic</p>
 
-    <p>CEO: Euclides A. G. de Carvalho</p>
+    <!-- <p>CEO: Euclides A. G. de Carvalho</p> -->
 
     <div class="input-button-container">
       <div class="telefone-index-container">

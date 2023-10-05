@@ -227,7 +227,7 @@ export default {
                 script_Title: '',
                 script_Text: '',
             },
-
+ 
             showChatContainer: false,
             data: {
                 text: '',

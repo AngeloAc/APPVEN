@@ -6,7 +6,7 @@
         <div class="side-chat shadow-lg">
             <div class="header">
                 <h3>Pro.ai</h3>
-                <button class="create-chat-btn" @click="showModal = true">+ Criar chat</button>
+                <button class="create-chat-btn" @click="callCreateNewChat">+ Criar chat</button>
             </div>
 
 
@@ -24,7 +24,7 @@
 
                 <!-- Lista de conversas -->
                 <div v-else>
-                    
+
                     <div class="conversation" v-for="(javaChat, index) in javaChat" :key="index">
                         <div style="display: flex; width: 100%;">
                             <svg v-if="javaChat.code === 'java'" class="avatar" xmlns="http://www.w3.org/2000/svg"
@@ -106,9 +106,9 @@
                                     </div>
                                     <div>
                                         <div style="font-size: 8px; color: gray;">{{ javaChat.messages.length > 0
-                                                ? javaChat.messages[javaChat.messages.length - 1].time
-                                                : '' }}</div>
-                                        
+                                            ? javaChat.messages[javaChat.messages.length - 1].time
+                                            : '' }}</div>
+
                                     </div>
                                 </div>
 
@@ -141,6 +141,7 @@
                                 <input type="text" id="chatTitle" class="form-control"
                                     placeholder="Escreva um título amigável. Ex.: Clone Whatsapp." v-model="newChat.name"
                                     required />
+                                    <p style="padding: 5px; font-size: 10px; color: green;">* {{ displayText }}</p>
                             </div>
                             <div class="form-group" style="margin: 7px 0px 7px 0px">
                                 <label for="languageSelect" style="margin: 5px 0px 5px 0px;">Linguagem:</label>
@@ -172,61 +173,65 @@
 
         <div class="chat-container">
             <div class="text-salute"><i class="bi bi-tools"></i> Seja bem vindo ao novo Chat Code, use palavras claras e
-                    simples. Agora poderás gerar programas com interface gráfica.</div>
+                simples. Agora poderás gerar programas com interface gráfica.</div>
 
-                    <div v-if="loading" class="loading-container">
-                    <div class="loading-indicator"></div>
-                </div>
-                     <!-- Verifica se o array conversations está vazio -->
-                     <div v-if="messages.length === 0 " class="empty-conversations">
-                        <!-- Exibe a mensagem "Nenhuma conversa iniciada..." -->
-                        <p class="badge bg-white m-2" style="color: black; font-weight: normal;">Faça um codigo que lê os números primos <i>135</i> </p>
-                        <p class="badge bg-white m-2" style="color: black; font-weight: normal;">Faça um programa com interface gráfica que ... <i class="bi bi-laptop"></i></p>
-                        <p class="badge bg-white m-2" style="color: black; font-weight: normal;">Faça um programa com interface gráfica para o jogo da cobra <i class="bi bi-controller"></i></p>
-                        <p class="badge bg-white m-2" style="color: black; font-weight: normal;">Faça um site elegante e responsivo para uma escola ... <i class="bi bi-book"></i></p>
-                        
-                    </div>
-                    <div>
-            <div v-for="(message, index) in messages" :key="index" class="chat"
-                :class="{ outgoing: message.isUser, incoming: !message.isUser }">
-                <div class="chat-content">
-                    <div class="chat-details">
-                        <img :src="url" alt="" v-show="message.isUser">
-                        <img src="../../../../assets/img/bot.png" alt="" v-show="!message.isUser">
+            <div v-if="loading" class="loading-container">
+                <div class="loading-indicator"></div>
+            </div>
+            <!-- Verifica se o array conversations está vazio -->
+            <div v-if="messages.length === 0" class="empty-conversations">
+                <!-- Exibe a mensagem "Nenhuma conversa iniciada..." -->
+                <p class="badge bg-white m-2" style="color: black; font-weight: normal;">Faça um codigo que lê os números
+                    primos <i>135</i> </p>
+                <p class="badge bg-white m-2" style="color: black; font-weight: normal;">Faça um programa com interface
+                    gráfica que ... <i class="bi bi-laptop"></i></p>
+                <p class="badge bg-white m-2" style="color: black; font-weight: normal;">Faça um programa com interface
+                    gráfica para o jogo da cobra <i class="bi bi-controller"></i></p>
+                <p class="badge bg-white m-2" style="color: black; font-weight: normal;">Faça um site elegante e responsivo
+                    para uma escola ... <i class="bi bi-book"></i></p>
+
+            </div>
+            <div>
+                <div v-for="(message, index) in messages" :key="index" class="chat"
+                    :class="{ outgoing: message.isUser, incoming: !message.isUser }">
+                    <div class="chat-content">
+                        <div class="chat-details">
+                            <img :src="url" alt="" v-show="message.isUser">
+                            <img src="../../../../assets/img/bot.png" alt="" v-show="!message.isUser">
 
 
-                        <div v-if="!message.isTyping" class="">
-                            <JavaCodeBlock :class="{ 'd-none': message.isUser }" :javaCode="message.text" />
-                            <p :class="{ 'd-none': !message.isUser }" style=" background-color: #f7f7f7;
+                            <div v-if="!message.isTyping" class="">
+                                <JavaCodeBlock :class="{ 'd-none': message.isUser }" :javaCode="message.text" />
+                                <p :class="{ 'd-none': !message.isUser }" style=" background-color: #f7f7f7;
                             border: 1px solid greenyellow;
                             color: black;
                             margin-left: 10px;
                             border-radius: 8px">{{ message.text }}</p>
+                            </div>
+                            <div v-else class="typing-animation">
+                                <div class="typing-dot" style="--delay: 0.2s"></div>
+                                <div class="typing-dot" style="--delay: 0.3s"></div>
+                                <div class="typing-dot" style="--delay: 0.4s"></div>
+                            </div>
                         </div>
-                        <div v-else class="typing-animation">
-                            <div class="typing-dot" style="--delay: 0.2s"></div>
-                            <div class="typing-dot" style="--delay: 0.3s"></div>
-                            <div class="typing-dot" style="--delay: 0.4s"></div>
-                        </div>
-                    </div>
-                    <div class="copyanddownload" v-show="!message.isUser">
-                                <span class="icon-actions" @click="copyCode(message.text)"
-                                    :class="{ 'checkmark-icon': copied }">
-                                    <i :class="iconCopy"></i>
-                                </span>
-                                <span class="icon-actions" @click="downloadCode(message.text)">
-                                    <i class="bi bi-download"></i>
-                                </span>
-                                <!-- <span class="icon-actions-bug" >
+                        <div class="copyanddownload" v-show="!message.isUser">
+                            <span class="icon-actions" @click="copyCode(message.text)"
+                                :class="{ 'checkmark-icon': copied }">
+                                <i :class="iconCopy"></i>
+                            </span>
+                            <span class="icon-actions" @click="downloadCode(message.text)">
+                                <i class="bi bi-download"></i>
+                            </span>
+                            <!-- <span class="icon-actions-bug" >
                                     <i class="bi bi-bug"></i>
                                 </span> -->
-                            
-                            </div>
 
+                        </div>
+
+                    </div>
                 </div>
             </div>
-            </div>
-                </div>
+        </div>
         <!-- <div class="chat-container">
                     <h1>tips</h1> 
                 </div> -->
@@ -298,8 +303,21 @@ export default {
             iconCopy: 'bi bi-clipboard',
             loading: false,
             path: 'folder/2.jpg',
-      url: 'https://placehold.co/400',
-      file: ''
+            url: 'https://placehold.co/400',
+            file: '',
+            textArray: [
+                'Sujestão: Algoritmos',
+                'Sujestão: Meus códigos em HTML',
+                'Sujestão: Meus códigos em  Java',
+                'Sujestão: Meus códigos em  Python',
+                'Sujestão: Configuração de Mikrotik R1',
+                'Sujestão: Calculadora usando HTML',
+                'Sujestão: Jogo da Cobra com interface grafica',
+                'Sujestão: Jogo da Velha'
+            ],
+            fullText: '',
+            displayText: '',
+            currentIndex: 0,
 
         };
     },
@@ -327,11 +345,18 @@ export default {
                     description: '',
                 };
                 this.showModal = false;
+                window.location.reload();
             } catch (error) {
                 console.log("error > " + error)
             }
 
 
+        },
+
+        callCreateNewChat(){
+            this.showModal = true;
+            this.typeANewTextRandom(this.textArray)
+            this.typeText();
         },
 
         extractJavaCodeBlocks(code, inputString) {
@@ -365,7 +390,7 @@ export default {
                     const codeInJava = await codeMakerService.Injava(this.data, _token, token._id, this.message_id)
                         .then(res => {
                             const javaCodeBlocks = this.extractJavaCodeBlocks(this.code, res.resposta);
-                           
+
                             // Verifica se o array possui elementos
                             if (javaCodeBlocks.length === 0) {
                                 this.messages.pop(); // Remova a mensagem de digitação
@@ -394,7 +419,7 @@ export default {
                         for (let i = 0; i < element.messages.length; i++) {
                             this.messages.push(element.messages[i]);
 
-                          
+
                         }
                         break;
                     }
@@ -402,7 +427,7 @@ export default {
                 }
 
             });
-              this.loading = false;
+            this.loading = false;
         },
         async selectChat(index) {
             this.messages.splice(0, this.messages.length);
@@ -554,20 +579,20 @@ export default {
         },
 
         async deleteConversation(index, conversationID) {
-            
-            
+
+
             const token = localStorage.getItem('jwt');
             const _token = vuejwtdecode.decode(token);
             this.selectedConversationIndex = index;
-            
+
             const data = {
                 index: index,
                 conversationID: conversationID
             };
 
-          
+
             await codeMakerService.deleteCode(_token._id, data)
-            .then(
+                .then(
                     res => {
                         this.$router.push('/codejava')
                     }
@@ -577,7 +602,24 @@ export default {
 
         },
 
-        
+        typeANewTextRandom(textArray) {
+            const indiceAleatorio = Math.floor(Math.random() * textArray.length);
+            this.fullText = textArray[indiceAleatorio];
+            return textArray[indiceAleatorio];
+        },
+
+        typeText() {
+          
+            if (this.currentIndex < this.fullText.length) {
+                this.displayText += this.fullText[this.currentIndex];
+                this.currentIndex++;
+                setTimeout(this.typeText, 200); // Adiciona um atraso de 200ms entre cada letra
+            } else {
+                
+            }
+        },
+
+
 
     },
 
@@ -589,16 +631,16 @@ export default {
         this.loading = true; // Iniciar o indicador de carregamento
         const token = localStorage.getItem('jwt');
         const _token = vuejwtdecode.decode(token);
-    this.path = `folder/${_token._id}.jpg`;
-    
-    getDownloadURL(ref(storage, this.path))
-    .then((download_url) => (this.url = download_url))
-    .catch(
-      error => {
-       console.log(error)
-      }
-    )
-  },
+        this.path = `folder/${_token._id}.jpg`;
+
+        getDownloadURL(ref(storage, this.path))
+            .then((download_url) => (this.url = download_url))
+            .catch(
+                error => {
+                    console.log(error)
+                }
+            )
+    },
 }
 </script>
 
@@ -609,7 +651,7 @@ export default {
     font-size: 10px;
     height: 100vh;
     font-family: 'Montserrat', sans-serif;
-font-family: 'Open Sans', sans-serif;
+    font-family: 'Open Sans', sans-serif;
 }
 
 .output-text {
@@ -1062,26 +1104,32 @@ span {
 }
 
 .empty-conversations {
-  text-align: center;
-  /* justify-items: center; */
-  padding: 20px 0px 0px 0px;
-  font-size: 13px;
-  color: green;
-  animation: pulse 1s infinite alternate; /* Adiciona a animação "pulse" */
+    text-align: center;
+    /* justify-items: center; */
+    padding: 20px 0px 0px 0px;
+    font-size: 13px;
+    color: green;
+    animation: pulse 1s infinite alternate;
+    /* Adiciona a animação "pulse" */
 }
 
-.empty-conversations img{
+.empty-conversations img {
     margin-left: 20px;
 }
+
 /* Define a animação "pulse" */
 @keyframes pulse {
-  from {
-    opacity: 1; /* Começa com opacidade 1 (visível) */
-  }
-  to {
-    opacity: 0.5; /* Alterna para opacidade 0.5 (semi-visível) */
-  }
+    from {
+        opacity: 1;
+        /* Começa com opacidade 1 (visível) */
+    }
+
+    to {
+        opacity: 0.5;
+        /* Alterna para opacidade 0.5 (semi-visível) */
+    }
 }
+
 .chat-phone {
     display: none;
 }
@@ -1090,9 +1138,11 @@ span {
     .side-chat {
         display: none;
     }
-    .copyanddownload{
+
+    .copyanddownload {
         display: none;
     }
+
     .chat-container {
         top: 50px;
         left: 0px;
