@@ -11,7 +11,7 @@
 export default {
   data() {
     return {
-      fullText: 'STARTIC.ai',
+      fullText: '#STARTIC.AI',
       displayText: '',
       currentIndex: 0,
     };
@@ -48,6 +48,7 @@ export default {
 .logo {
   font-size: 30px;
   color: green;
+  font-family: 'Courier New', Courier, monospace;
 }
 
 </style>

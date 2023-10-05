@@ -1,11 +1,13 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 import nProgress from 'nprogress';
 
 
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  // history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory(),
   routes: [
+
     {
       path: '/',
       name: 'login',
@@ -109,12 +111,11 @@ const router = createRouter({
         name: 'JobDetails',
         // component: JobDetails,
         props: true
-      },
+      }, 
       {
         path: '/*',
         componente: 404
         },
-     
       
   ]
 });

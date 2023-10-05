@@ -265,7 +265,16 @@ export default {
                 'https://startic.ao/image/7.jpg',
                 'https://startic.ao/image/8.jpg',
                 'https://startic.ao/image/9.jpg',
-                'https://startic.ao/image/logo.jpg',
+                'https://startic.ao/image/10.jpg',
+                'https://startic.ao/image/11.jpg',
+                'https://startic.ao/image/12.jpg',
+                'https://startic.ao/image/13.jpg',
+                'https://startic.ao/image/14.jpg',
+                'https://startic.ao/image/15.jpg',
+                'https://startic.ao/image/16.jpg',
+                'https://startic.ao/image/17.jpg',
+                'https://startic.ao/image/18.jpg',
+                'https://startic.ao/image/19.jpg',
 
             ],
             avatar_selected: '',
@@ -284,14 +293,14 @@ export default {
             loading: false,
             selectedConversationIndex: null,
             textArray: [
-                'Sujestão: Explorando a Mente de Humana',
+                'Sujestão: Explorando a Mente Humana',
                 'Sujestão: Diálogos com a Inteligência Artificial',
                 'Sujestão: Conversas Fascinantes: Responde às Suas Perguntas',
                 'Sujestão: Uma Odisseia Intelectual no Mundo da Inteligência Artificial',
                 'Sujestão: Mecânica quântica',
                 'Sujestão: Explorando a Geometria Euclidiana',
-                'Sujestão:  Explorando o Universo',
-                'Sujestão: Uma Viagem pela Euclidiana'
+                'Sujestão: Explorando o Universo',
+            
             ],
             fullText: '',
             displayText: '',
@@ -975,7 +984,7 @@ span .bi.bi-clipboard {
 }
 
 .conversation.active-conversation {
-    background-color: rgb(248, 77, 77);
+    background-color: rgb(205, 225, 192);
     /* Cor de destaque quando selecionada */
     color: white;
     /* Cor do texto de destaque quando selecionada */

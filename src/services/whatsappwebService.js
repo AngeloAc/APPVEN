@@ -11,7 +11,7 @@ export default{
      } catch (error) {
         swal({
             title: 'Ooops!',
-            text: "Something went worng",
+            text:"Não foi possível concluir com acção.",
             icon: 'error'
         });
      }
@@ -25,7 +25,7 @@ export default{
         } catch (error) {
            swal({
                title: 'Ooops!',
-               text: "Something went worng",
+               text:"Não foi possível concluir com acção.",
                icon: 'error'
            });
         }

@@ -122,4 +122,16 @@ export default {
             })
         }
     },
+
+    async Whatsapptoggle(id, toogle){
+        try {
+            await Api().post('/app/whatsapp/toogle/' + id, toogle);
+          
+        } catch (error) {
+            swal({
+                title: 'Ooops!',
+                text: 'Erro ao actualizar os seus dados.',
+            })
+        }
+    }
 }

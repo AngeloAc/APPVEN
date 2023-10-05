@@ -73,13 +73,16 @@
       </li>
     </ul>
   </div>
+
   <div class="sidebar-max shadow-lg">
     <div class="logo">
       <img src="../../../assets/img/logo.png" style="width: 30px; height: 30px; margin-bottom: 30px;">
-    </div>
+    </div >
 
     <ul>
-      <li>
+      <div style="background: yellow; display: block; justify-content: space-between; height: 600px;">
+        <div style="background: red;">
+        <li>
         <router-link to="/home" class="sidebar-link" :class="{ 'active': isActive('/home') }">
           <i class="bi bi-house"></i>
         </router-link>
@@ -90,11 +93,7 @@
         </router-link>
       </li>
 
-      <!-- <li>
-        <router-link to="/app" class="sidebar-link" :class="{ 'active': isActive('/app') }">
-          <i class="bi bi-whatsapp" style="margin-left: 12px;"></i> <span style="margin-left: 16px;">WhatsApp</span>
-        </router-link>
-      </li> -->
+  
 
       <li>
         <router-link to="/codejava" class="sidebar-link" :class="{ 'active': isActive('/codejava') }">
@@ -114,23 +113,66 @@
 
         </router-link>
       </li>
-      <!-- <li>
-        <router-link to="/learn" class="sidebar-link" :class="{ 'active': isActive('/learn') }">
-          <i class="bi bi-question-circle"  ></i>
-          
-        </router-link>
-      </li> -->
-      <p></p>
-      <p></p>
-      <p></p>
+      </div>
 
-      <!-- <img :src="url" alt="" class="avatar" style="border: 1px solid green;" @click="callProfilePicture"> -->
-      <!-- Adicione mais itens do sidebar conforme necessário -->
+      <div style="background: green;">
       <!-- Botão de Logout no Sidebar -->
       <li class="sidebar-link" :class="{ 'active': isActive('/out') }" @click="logoutUser">
         <!-- <button class="btn logout h-100" @click="logoutUser">Logout</button> -->
         <i class="bi bi-power" style="color: rgb(223, 101, 101);"></i>
       </li>
+
+      
+      </div>
+      </div>
+
+  
+
+    </ul>
+  </div>
+
+  <div class="sidebar-max shadow-lg">
+    <div class="logo">
+      <img src="../../../assets/img/logo.png" alt="Logo" class="logo-image">
+    </div>
+
+    <ul class="sidebar-menu">
+      <div class="menu-group">
+        <li>
+          <router-link to="/home" class="sidebar-link" :class="{ 'active': isActive('/home') }">
+            <i class="bi bi-house"></i>
+          </router-link>
+        </li>
+        <li>
+          <router-link to="/chat" class="sidebar-link" :class="{ 'active': isActive('/chat') }">
+            <i class="bi bi-chat-left-dots"></i> 
+          </router-link>
+        </li>
+        <li>
+          <router-link to="/codejava" class="sidebar-link" :class="{ 'active': isActive('/codejava') }">
+            <i class="bi bi-terminal"></i> 
+          </router-link>
+        </li>
+        <li>
+          <router-link to="/settings" class="sidebar-link" :class="{ 'active': isActive('/settings') }">
+            <i class="bi bi-gear"></i> 
+          </router-link>
+        </li>
+        <li>
+          <router-link to="/invite" class="sidebar-link" :class="{ 'active': isActive('/invite') }">
+            <i class="bi bi-people"></i>
+          </router-link>
+        </li>
+      </div>
+    
+      <div class="logout-group">
+        
+        <li class="sidebar-link" :class="{ 'active': isActive('/out') }" @click="logoutUser">
+          <i class="bi bi-power"></i> 
+        </li>
+
+        <img :src="url" alt="" class="avatar" style="border: 1px solid green;" @click="callProfilePicture">
+      </div>
     </ul>
   </div>
 
@@ -147,9 +189,7 @@
           <!-- <span>Dashboard</span> -->
         </router-link>
       <!-- <i class="bi bi-bell"></i> -->
-      <div v-if="url === null">
-        ola
-      </div>
+    
       <img :src="url" alt="" class="avatar" style="border: 1px solid green;" @click="callProfilePicture">
     </div>
   </div>
@@ -169,7 +209,7 @@
         
         </div>
       </div>
-      <div style=" display: flex; width: 100%; height: 50vh; align-items: center; justify-content: center;" @click="showModalProfile = false">
+      <div style=" display: flex; width: 100%; height: 50vh; align-items: center; justify-content: center; cursor: pointer;" @click="showModalProfile = false">
         <button class="btn-close"></button>
       </div>
     </div>
@@ -358,8 +398,7 @@ export default {
   text-decoration: none;
   padding: 10px;
   cursor: pointer;
-  /* font-weight: bold; */
-  /* font-size: 12px; */
+
 }
 
 .sidebar-link i {
@@ -386,9 +425,10 @@ export default {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  margin-right: 10px;
+  /* margin-right: 10px; */
   background: gray;
   object-fit: cover;
+  cursor: pointer;
 }
 
 .username {
@@ -568,4 +608,31 @@ export default {
 .modal-content {
   background: var(--background-color-secondary);
   color: var(--text-primary-color);
-}</style>
+}
+.logo-image {
+  width: 30px;
+  height: 30px;
+  margin-bottom: 30px;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+}
+
+.menu-group li {
+  margin-bottom: 10px;
+  /* background: red; */
+}
+
+.logout-group {
+  margin-top: auto;
+  /* background: green; */
+
+}
+
+.logout-group li {
+  color: rgb(223, 101, 101);
+  cursor: pointer;
+}
+</style>

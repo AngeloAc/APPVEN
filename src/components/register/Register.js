@@ -76,7 +76,7 @@ export default {
         async submitRegisterUser() {
             try {
                 await registerService.registerNewUser(this.registerForm);
-                this.upload();
+                // this.upload();
                 this.$router.push('/');
             } catch (error) {
                 swal({

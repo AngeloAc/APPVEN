@@ -20,7 +20,7 @@
             id="name"
             name="name"
             class="form-input"
-            placeholder="Joel Modelo"
+            placeholder=" Joel Modelo"
             v-model="registerForm.name"
           />
           <!-- <label for="name" class="form-label">E-mail</label>

@@ -1,6 +1,7 @@
 import swal from "sweetalert";
 import loginService from "../../services/loginService";
 import SplashScreen from '../../components/widgets/splash/Splash.vue'
+import config from "../../../config";
 
 export default {
     name: "LoginComponent",
@@ -74,6 +75,7 @@ export default {
 
     },
     mounted() {
-
+  
+       
     },
 };

@@ -79,7 +79,7 @@ export default {
 }
 
 .card-title {
-    font-size: 13px;
+    font-size: 12px;
     font-weight: bold;
     color: var(--text-primary-color);
 }
@@ -105,9 +105,13 @@ export default {
 .btn{
     border-radius: 20px;
     color: var(--text-primary-color);
-    border: 1px solid var(--accent-color);
+    border: 1px solid green;
     font-size: 12px;
     width: 100%;
+}
+.btn:hover{
+    background: green;
+    color: white;
 }
 </style>
   

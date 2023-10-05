@@ -12,7 +12,7 @@ export default{
         } catch (error) {
             swal({
                 title: "ooops!",
-                text:"Something went wrong",
+                text:"Não foi possível concluir com acção.",
                 icon:"error"
             })
         }
@@ -30,7 +30,7 @@ export default{
         } catch (error) {
             swal({
                 title: "ooops!",
-                text:"Something went wrong",
+                text:"Não foi possível concluir com acção.",
                 icon:"error"
             })
         }
@@ -47,7 +47,7 @@ export default{
         } catch (error) {
             swal({
                 title: "ooops!",
-                text:"Something went wrong",
+                text:"Não foi possível concluir com acção.",
                 icon:"error"
             })
         }

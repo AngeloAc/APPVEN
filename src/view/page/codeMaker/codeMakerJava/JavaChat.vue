@@ -1045,7 +1045,7 @@ span {
 }
 
 .conversation.active-conversation {
-    background-color: rgb(248, 77, 77);
+    background-color: rgb(205, 225, 192);
     /* Cor de destaque quando selecionada */
     color: white;
     /* Cor do texto de destaque quando selecionada */

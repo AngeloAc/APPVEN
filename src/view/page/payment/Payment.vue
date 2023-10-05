@@ -15,7 +15,7 @@
         <i class="bi bi-file-earmark-arrow-up"></i>
         <span>Carregar Imagem</span>
       </label>
-      <input type="file" id="fileInput" style="display: none;" @change="handleFileUpload" accept="image/*" />
+      <input type="file" id="fileInput" style="display: none;" @change="handleFileUpload" accept="image/*" disabled />
       <!-- Adicione um input do tipo file para selecionar a imagem -->
 
       <p class="upload-instructions">Envie o comprovante de pagamento</p>
