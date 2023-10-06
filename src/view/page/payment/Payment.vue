@@ -3,11 +3,11 @@
   <div class="container">
     <h2 class="title">Atualizar Pagamento</h2>
     <div class="payment-info">
-      <p style="color: black; font-weight: bold;">2.500,00 kz/mês</p>
+      <p style="color: black; font-weight: bold;">7.500,00 kz</p>
       <p>Transferência Bancária</p>
       <p>Titular: STARTIC, LDA</p>
-      <p>Número de Conta: 3993 9393 9399 4</p>
-      <p>IBAN: AO06.9292.9292.9293.993.939.39</p>
+      <p>Número de Conta: <span style="color: red;">Indisponivel</span> </p>
+      <p>IBAN:  <span style="color: red;">Indisponivel</span></p>
     </div>
 
     <div class="upload-section">
@@ -15,7 +15,7 @@
         <i class="bi bi-file-earmark-arrow-up"></i>
         <span>Carregar Imagem</span>
       </label>
-      <input type="file" id="fileInput" style="display: none;" @change="handleFileUpload" accept="image/*" disabled />
+      <input type="file" id="fileInput" style="display: none;" @change="infoWait" accept="image/*"  />
       <!-- Adicione um input do tipo file para selecionar a imagem -->
 
       <p class="upload-instructions">Envie o comprovante de pagamento</p>
@@ -94,6 +94,7 @@ export default {
         }
       }
     },
+
   },
 };
 </script>

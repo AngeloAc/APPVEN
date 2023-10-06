@@ -254,12 +254,15 @@ export default {
 
 
             } else if (this.app_status === 'connect') {
-                console.log('ws' + token.porta)
+                // console.log('ws' + token.porta)
 
 
                 try {
 
-                    const ws = new WebSocket(`ws://104.255.216.215:${porta_test}`);
+                    const user = await getInfo.getUser(token._id);
+                    this.showModal = true;
+                    if(user.saldo !== "0"){
+                        const ws = new WebSocket(`ws://104.255.216.215:${porta_test}`);
                     // // Lidar com eventos de mensagem recebida do servidor
                     ws.addEventListener('message', async (event) => {
                         const data = JSON.parse(event.data);
@@ -270,10 +273,7 @@ export default {
 
                     });
 
-
-
-
-                    this.showModal = true;
+                   
 
                     setTimeout(async () => {
                         const _token = localStorage.getItem('jwt');
@@ -293,9 +293,9 @@ export default {
 
 
                     }, 120000);
-                    // const res = await gerirWhatsappService.getQRCODE('3000');
-                    // this.dataQrcode = res;
-                    // console.log(res)
+                    } 
+                
+               
                 } catch (error) {
                     console.log(error)
                 }

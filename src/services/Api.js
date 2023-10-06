@@ -5,6 +5,6 @@ import config from '../../config';
 export default () => axios.create(
     {
         
-        baseURL: `http://104.255.216.215:3030/user`
+        baseURL: `https://104.255.216.215:3030/user`
     }
 );

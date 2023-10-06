@@ -242,7 +242,7 @@
             <div class="typing-content">
                 <div class="typing-textarea">
                     <textarea v-model="inputMessage" @keyup.enter="sendMessage" id="chat-input"
-                        placeholder="Escreva o prompt do seu codigo..." required></textarea>
+                        placeholder="Escreva a instrução do seu codigo..." required></textarea>
                     <span @click="sendMessage"><img src="../../../../assets/img/send.png" style="height: 20px;"
                             alt=""></span>
                 </div>
@@ -810,7 +810,7 @@ span {
 .typing-container {
     position: fixed;
     bottom: 0;
-    left: 300px;
+    left: 360px;
     width: 100%;
     /* display: flex; */
     padding: 30px 0px;
