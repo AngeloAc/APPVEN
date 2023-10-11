@@ -1,6 +1,6 @@
 <template>
     <div class="recovery-container">
-
+        <a></a>
         <div class="recovery-form">
             <div class="logo">
                 <img src="../../../assets/img/logo.png" alt="Logo" style="width: 50px; height: 50px;" />
@@ -146,7 +146,6 @@ export default {
                 telefone: this.recoverForm.telefone,
                 password: this.newSenha,
             }
-            console.log(userData)
               const res = await getInfo.PasswordReset(userData)
               .then(
                 result => {

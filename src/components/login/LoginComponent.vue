@@ -13,15 +13,27 @@
           <h6 class="form-title">Login</h6>
           <div class="form-group">
             <!-- <label for="email" class="form-label">E-mail</label> -->
+         <div style="display: flex;">
+          <select id="indicativo" class="user-info-input" style="width: 95px; font-size: 11px; margin-right: 3px;" >
+            <option value="244" selected>+244 (AO)</option>
+            <option value="351">+351(PT)</option>
+            <option value="55">+55 (BR)</option>
+            <option value="238">+238 (CV)</option>
+            <option value="258">+258 (MO)</option>
+            <!-- Adicione mais opções conforme necessário -->
+        </select>
             <input
               required
               type="tel"
               id="telefone"
               name="telefone"
               class="user-info-input"
-              placeholder="942 963 892"
+              style="letter-spacing: 2px;"
+              placeholder="Seu telefone"
               v-model="loginSubmitForm.telefone"
             />
+         </div>
+
           </div>
      
           <div class="password-input">
@@ -49,8 +61,10 @@
           <button @click="submitLoginUser" class="submit-button">Entrar</button>
         </form>
       </div>
+     
       <div class="text-center" style="max-width: 350px;font-size: 12px; margin-top: 40px; color: var(--text-primary-color);">
-        Sobre a plataforma <a href="" style="text-decoration: none; color: var(--text-primary-color);">Como funciona</a>
+        <p style="font-size: 12px;">Ajuda | Sobre | Mais</p>
+       
         <p>© 2023 Startic Angola - Todos os direitos reservados.</p>
       </div>
     </div>

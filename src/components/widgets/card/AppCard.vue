@@ -75,7 +75,7 @@ export default {
     background: var(--background-color-primary);
     color: var(--text-primary-color);
     border-radius: 20px;
-    border: 1px solid gray;
+    border: 1px solid greenyellow;
 }
 
 .card-title {
@@ -107,11 +107,19 @@ export default {
     color: var(--text-primary-color);
     border: 1px solid green;
     font-size: 12px;
-    width: 100%;
+
 }
 .btn:hover{
     background: green;
     color: white;
+}
+
+
+@media (max-width: 768px) {
+    .btn{
+
+    width: 100%;
+}
 }
 </style>
   

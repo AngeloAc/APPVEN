@@ -23,16 +23,7 @@
             placeholder=" Joel Modelo"
             v-model="registerForm.name"
           />
-          <!-- <label for="name" class="form-label">E-mail</label>
-           <input
-          required 
-          type="email"
-          id="email"
-          name="email"
-          class="form-input"
-          placeholder="Digite o seu email válido"
-          v-model="registerForm.email"
-        /> -->
+ 
         <label for="telefone" class="form-label">Whatsapp</label>
         <div class="telefone-index-container">
           <select id="indicativo" class="form-input" style="max-width: 100px; font-size: 11px;" v-model="registerForm.indicativo">
@@ -49,7 +40,8 @@
           id="telefone"
           name="telefone"
           class="form-input telefone-input "
-          placeholder="942 963 892"
+          placeholder="Seu telefone"
+          style="letter-spacing: 1px;"
           v-model="registerForm.telefone"
         />
         </div>

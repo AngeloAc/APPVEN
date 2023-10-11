@@ -52,7 +52,7 @@
       <hr style="color: black;">
       <li>
         <router-link to="/invite" class="sidebar-link" :class="{ 'active': isActive('/invite') }">
-          <i class="bi bi-people" style="font-size: 18px;"></i> <span
+          <i class="bi bi-person-plus" style="font-size: 18px;"></i> <span
             style=" font-size: 12px;">Convidar Amigos</span>
           <!-- <span>Settings</span> -->
         </router-link>
@@ -74,62 +74,7 @@
     </ul>
   </div>
 
-  <div class="sidebar-max shadow-lg">
-    <div class="logo">
-      <img src="../../../assets/img/logo.png" style="width: 30px; height: 30px; margin-bottom: 30px;">
-    </div >
 
-    <ul>
-      <div style="background: yellow; display: block; justify-content: space-between; height: 600px;">
-        <div style="background: red;">
-        <li>
-        <router-link to="/home" class="sidebar-link" :class="{ 'active': isActive('/home') }">
-          <i class="bi bi-house"></i>
-        </router-link>
-      </li>
-      <li>
-        <router-link to="/chat" class="sidebar-link" :class="{ 'active': isActive('/chat') }">
-          <i class="bi bi-chat-left-dots"></i>
-        </router-link>
-      </li>
-
-  
-
-      <li>
-        <router-link to="/codejava" class="sidebar-link" :class="{ 'active': isActive('/codejava') }">
-          <i class="bi bi-terminal"></i>
-
-        </router-link>
-      </li>
-      <li>
-        <router-link to="/settings" class="sidebar-link" :class="{ 'active': isActive('/settings') }">
-          <i class="bi bi-gear"></i>
-
-        </router-link>
-      </li>
-      <li>
-        <router-link to="/invite" class="sidebar-link" :class="{ 'active': isActive('/invite') }">
-          <i class="bi bi-people"></i>
-
-        </router-link>
-      </li>
-      </div>
-
-      <div style="background: green;">
-      <!-- Botão de Logout no Sidebar -->
-      <li class="sidebar-link" :class="{ 'active': isActive('/out') }" @click="logoutUser">
-        <!-- <button class="btn logout h-100" @click="logoutUser">Logout</button> -->
-        <i class="bi bi-power" style="color: rgb(223, 101, 101);"></i>
-      </li>
-
-      
-      </div>
-      </div>
-
-  
-
-    </ul>
-  </div>
 
   <div class="sidebar-max shadow-lg">
     <div class="logo">
@@ -137,7 +82,8 @@
     </div>
 
     <ul class="sidebar-menu">
-      <div class="menu-group">
+      <div >
+        <div class="menu-group">
         <li>
           <router-link to="/home" class="sidebar-link" :class="{ 'active': isActive('/home') }">
             <i class="bi bi-house"></i>
@@ -160,19 +106,22 @@
         </li>
         <li>
           <router-link to="/invite" class="sidebar-link" :class="{ 'active': isActive('/invite') }">
-            <i class="bi bi-people"></i>
+            <i class="bi bi-person-plus"></i>
           </router-link>
         </li>
       </div>
+    <hr>
     
       <div class="logout-group">
         
+        <img :src="url" alt="" class="avatar" style="border: 1px solid green;" @click="callProfilePicture">
         <li class="sidebar-link" :class="{ 'active': isActive('/out') }" @click="logoutUser">
           <i class="bi bi-power"></i> 
         </li>
 
-        <img :src="url" alt="" class="avatar" style="border: 1px solid green;" @click="callProfilePicture">
       </div>
+      </div>
+
     </ul>
   </div>
 
@@ -634,5 +583,10 @@ export default {
 .logout-group li {
   color: rgb(223, 101, 101);
   cursor: pointer;
+}
+
+:where(.sidebar-max, textarea)::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
 }
 </style>

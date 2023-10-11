@@ -75,7 +75,7 @@ export default {
 
     },
     mounted() {
-        console.log("versão beta.");
+        console.log("versão beta: 0.0.1");
        
     },
 };

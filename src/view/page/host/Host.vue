@@ -51,7 +51,7 @@
                                 </div>
                                 <div class="col-10 text-start">
                                     <h6>{{ this.cardData.title }}</h6>
-                                    <p style="font-size: 12px;">App ID: 9990</p>
+                                    <p style="font-size: 12px;">App ID: {{ _id }}</p>
                                 </div>
                             </div>
                             <div class="row pt-4">
@@ -123,9 +123,11 @@ export default {
             try {
                 const token = localStorage.getItem('jwt');
                 const _token = vuejwtdecode.decode(token);
-               
+           
                 const data = await getInfo.getScript(token, _token._id)
                     .then(res => {
+                   
+                        this._id = res.user.porta
                         if (res.user.script[0] === undefined) {
                             return;
                         } else {

@@ -1,14 +1,14 @@
 <template>
   <SettingsComponent />
   <div class="main-content">
-    <div class="container" style="margin-top: 10px;">
+    <div class="container" style="margin-top: 10px; margin-bottom: 30px;">
       <h6>Conta</h6>
       <p>Atualize todas as informações da sua conta</p>
 
       <!-- Informações do usuário logado -->
       <div class="user-info">
         <div class="avatar-container">
-          <img :src="url" alt="" class="avatar" style="border: 1px solid green;" @click="callProfilePicture">
+          <img :src="url" alt="" class="avatar" style="border: 1px solid green; cursor: pointer;" @click="callProfilePicture">
         </div>
         <form action="" @submit.prevent="onSubmitForm">
           <div class="user-details">
@@ -58,7 +58,6 @@
         <div class="card-footer" style="display: flex; color: green; padding-top: 7px; padding-bottom: 7px; justify-content: space-around;">
           <input type="file" ref="fileInput" style="display: none;" @change="handleFileUpload" accept="image/*" />
           <i class="bi bi-camera icon" @click="openGallery"></i>
-          <i class="bi bi-exclamation-circle icon"></i>
           <button class="btn btn-sm" style="border: 1px solid green; border-radius: 15px; padding: 0px 20px 0px 20px;" @click="upload">editar</button>
         </div>
       </div>
@@ -266,8 +265,8 @@ export default {
 }
 
 .avatar {
-  width: 40px;
-  height: 40px;
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
   margin-right: 10px;
   background: gray;
@@ -402,6 +401,7 @@ export default {
 .avatar-container {
   display: flex;
   align-items: center;
+  /* justify-content: center; */
 }
 
 .user-details {
@@ -474,6 +474,9 @@ export default {
     width: 100%;
     /* Alterado para ocupar todo o espaço disponível */
   }
+  .avatar-container {
+  justify-content: center;
+}
 }
 
 .card-profile {

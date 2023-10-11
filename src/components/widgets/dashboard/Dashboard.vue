@@ -102,8 +102,8 @@
                                 class="qrcodeImg img-fluid">
                             <div v-else style="font-size: 12px;">
                                 <p class="m-0">Aponte a camera do seu telefone no codigo QR... Aqui!</p>
-                                <p class="m-0">1. Caso não tem dinheiro da sua conta, vai em <a href="/pagamento" style="text-decoration: none; color: black;">Pagamentos</a></p>
-                                <p  class="m-0">2. Em caso, de levar muito tempo para obter o QR code, <a href="" style="text-decoration: none; color: black;">informe ao suporte.</a></p>
+                                <!-- <p class="m-0">1. Caso não tem dinheiro da sua conta, vai em <a href="/pagamento" style="text-decoration: none; color: black;">Pagamentos</a></p> -->
+                                <p  class="m-0">2. Caso levar muito tempo para obter o QR code, <a href="" style="text-decoration: none; color: black;">informe ao suporte.</a></p>
                             
                             </div>
 
@@ -143,7 +143,7 @@ export default {
             showModal: false,
             app_status: null,
             buttonText: 'Instalar',
-            code_status: 'offline',
+            code_status: 'pago',
             usuario_conectado: false,
             progress: 0,
             installationInterval: null,
@@ -159,7 +159,7 @@ export default {
 
 
             const user = await getInfo.getUser(token._id);
-
+            
             if (user.addons[0].status === "install") {
                 this.app_status = "install";
                 this.buttonText = "Instalar"
@@ -219,7 +219,7 @@ export default {
         //     console.log('i am installing 90')
         // },
         async callInstallWhatsapp() {
-            console.log('install')
+           
             const _token = localStorage.getItem('jwt');
             const token = vuejwtdecode.decode(_token);
             let porta_test = token.porta;
@@ -227,10 +227,7 @@ export default {
             // console.log(token.porta)
 
             if (this.app_status === 'install') {
-                console.log('comecei a instalacao')
-
-
-
+             
                 const res = await whatsappweb.install(token);
                 this.progress = 0;
                 this.installationInterval = setInterval(() => {
@@ -246,7 +243,7 @@ export default {
                     this.buttonText = "Conectar"
                     swal({
                         title: "Instalado com sucesso!",
-                        text: "instado!",
+                        text: " O seu app foi instado com sucesso.",
                         icon: 'success'
                     });
                 }, 2000);
@@ -260,9 +257,10 @@ export default {
                 try {
 
                     const user = await getInfo.getUser(token._id);
-                    this.showModal = true;
+                
                     if(user.saldo !== "0"){
-                        const ws = new WebSocket(`ws://104.255.216.215:${porta_test}`);
+                        this.showModal = true;
+                        const ws = new WebSocket(`wss://104.255.216.215:${porta_test}`);
                     // // Lidar com eventos de mensagem recebida do servidor
                     ws.addEventListener('message', async (event) => {
                         const data = JSON.parse(event.data);
@@ -273,7 +271,7 @@ export default {
 
                     });
 
-                   
+                 
 
                     setTimeout(async () => {
                         const _token = localStorage.getItem('jwt');
@@ -287,14 +285,19 @@ export default {
 
                         } else {
                             ws.close();
-                            console.log('Event close...');
                             this.showModal = false;
                         }
 
 
                     }, 120000);
                     } 
-                
+                    else{
+                    swal({
+                        title: "NB.",
+                        text: "Não tem saldo suficiente na sua conta. Vai em /Definições/Pagamentos",
+                    
+                    });
+                   }
                
                 } catch (error) {
                     console.log(error)
