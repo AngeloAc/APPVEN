@@ -2,13 +2,16 @@
 
 
 <div class="main-content">
-        <div class="row">
+        <div class="row" style="padding: 10px; border-radius: 10px; border-width: 1px;
+  border-style: dashed;
+  border-color: gray;">
 
             <h6 style="padding-left: 25px;">Bem-vindo a STARTIC <i class="bi bi-star"></i></h6>
             <p style="font-size: 14px; padding-left: 25px;">Conecte suas páginas de negócios do WhatsApp, faça seus codigos com ajuda de
                 inteligência artificial e melhore seus conhecimentos com o nosso chat STARTIC.</p>
 
 
+                
             <!-- whatsapp code ...  -->
             <div class="col-md-4">
                 <AppCard myIcon="bi bi-whatsapp" title="WhatsApp" :status="code_status"
@@ -260,7 +263,7 @@ export default {
                 
                     if(user.saldo !== "0"){
                         this.showModal = true;
-                        const ws = new WebSocket(`wss://104.255.216.215:${porta_test}`);
+                        const ws = new WebSocket(`wss://127.0.0.1:${porta_test}`);
                     // // Lidar com eventos de mensagem recebida do servidor
                     ws.addEventListener('message', async (event) => {
                         const data = JSON.parse(event.data);

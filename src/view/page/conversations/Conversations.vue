@@ -648,7 +648,7 @@ export default {
 }
 
 :where(.chat-container, textarea)::-webkit-scrollbar {
-    width: 3px;
+    width: 6px;
     height: 6px;
 }
 
@@ -658,7 +658,7 @@ export default {
 }
 
 :where(.chat-container, textarea)::-webkit-scrollbar-thumb {
-    background: var(--background-color-primary);
+    background: gray;
     border-radius: 25px;
 }
 

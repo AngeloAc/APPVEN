@@ -1,7 +1,11 @@
 <template>
   <SettingsComponent />
-  <div class="container">
-    <h2 class="title">Atualizar Pagamento</h2>
+
+  <div class="container col">
+  
+    <div>
+    
+      <h2 class="title">Atualizar Pagamento</h2>
     <div class="payment-info">
       <p style="color: black; font-weight: bold;">7.500,00 kz</p>
       <p>Transferência Bancária</p>
@@ -22,7 +26,19 @@
       <p style="font-size: 12px; color: orange;">{{ file.name }}</p>
       <button class="pay-button" :disabled="!isImageSelected" @click="uploadImage">Pagar</button>
     </div>
+
+  
+    </div>
+
+  
+    
+
+
+   
   </div>
+
+
+
 </template>
 
 <script>

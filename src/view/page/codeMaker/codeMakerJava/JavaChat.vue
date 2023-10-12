@@ -2,6 +2,7 @@
     <CodeMakerComponent />
     <!-- <CodeMakerMenu /> -->
     <div class="menu-container">
+
         <!-- START Side bar contendo todos os chats do usuario...  -->
         <div class="side-chat shadow-lg">
             <div class="header">
@@ -141,7 +142,7 @@
                                 <input type="text" id="chatTitle" class="form-control"
                                     placeholder="Escreva um título amigável. Ex.: Clone Whatsapp." v-model="newChat.name"
                                     required />
-                                    <p style="padding: 5px; font-size: 10px; color: green;">* {{ displayText }}</p>
+                                <p style="padding: 5px; font-size: 10px; color: green;">* {{ displayText }}</p>
                             </div>
                             <div class="form-group" style="margin: 7px 0px 7px 0px">
                                 <label for="languageSelect" style="margin: 5px 0px 5px 0px;">Linguagem:</label>
@@ -170,8 +171,8 @@
         </div>
         <!--END Modal para a criação de chat -->
 
-
-        <div class="chat-container">
+   
+            <div class="chat-container" ref="chatContainer">
             <div class="text-salute"><i class="bi bi-tools"></i> Seja bem vindo ao novo Chat Code, use palavras claras e
                 simples. Agora poderás gerar programas com interface gráfica.</div>
 
@@ -222,19 +223,19 @@
                             <span class="icon-actions" @click="downloadCode(message.text)">
                                 <i class="bi bi-download"></i>
                             </span>
-                            <!-- <span class="icon-actions-bug" >
-                                    <i class="bi bi-bug"></i>
-                                </span> -->
+                            <span class="icon-actions-bug" @click="toggleSidebarRight">
+                                <i class="bi bi-bug"></i>
+                            </span>
 
                         </div>
+
+
 
                     </div>
                 </div>
             </div>
+
         </div>
-        <!-- <div class="chat-container">
-                    <h1>tips</h1> 
-                </div> -->
 
 
 
@@ -248,6 +249,9 @@
                 </div>
             </div>
         </div>
+        
+      
+
     </div>
 </template>
 
@@ -318,6 +322,7 @@ export default {
             fullText: '',
             displayText: '',
             currentIndex: 0,
+            isSidebarRightOpen: true,
 
         };
     },
@@ -353,7 +358,7 @@ export default {
 
         },
 
-        callCreateNewChat(){
+        callCreateNewChat() {
             this.showModal = true;
             this.typeANewTextRandom(this.textArray)
             this.typeText();
@@ -373,7 +378,7 @@ export default {
         },
         // Outros métodos do chat (como enviar mensagem, etc.)
         async sendMessage() {
-
+            this.scrollChatToBottom();
             try {
                 if (this.inputMessage.trim() !== "") {
                     this.messages.push({
@@ -405,6 +410,14 @@ export default {
                 }
             } catch (error) {
                 console.log(error)
+            }
+        },
+
+        scrollChatToBottom() {
+            // Role a div de mensagens para o final.
+            const chatContainer = this.$refs.chatContainer;
+            if (chatContainer) {
+                chatContainer.scrollTop = chatContainer.scrollHeight;
             }
         },
         async getId() {
@@ -609,14 +622,19 @@ export default {
         },
 
         typeText() {
-          
+
             if (this.currentIndex < this.fullText.length) {
                 this.displayText += this.fullText[this.currentIndex];
                 this.currentIndex++;
                 setTimeout(this.typeText, 200); // Adiciona um atraso de 200ms entre cada letra
             } else {
-                
+
             }
+        },
+
+        toggleSidebarRight() {
+            console.log("open")
+            this.isSidebarRightOpen = !this.isSidebarRightOpen;
         },
 
 
@@ -639,7 +657,8 @@ export default {
                 error => {
                     console.log(error)
                 }
-            )
+            );
+
     },
 }
 </script>
@@ -682,8 +701,8 @@ export default {
 }
 
 :where(.chat-container, textarea)::-webkit-scrollbar {
-    width: 3px;
-    height: 1px;
+    width: 6px;
+    height: 6px;
 }
 
 :where(.chat-container, textarea)::-webkit-scrollbar-track {
@@ -1180,4 +1199,66 @@ span {
         position: relative;
         left: 0px;
     }
-}</style>
+}
+
+
+/* Adicione este código CSS para o sidebar-right */
+
+/* Estilo para o sidebar-right */
+.sidebar-right {
+    position: fixed;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 100;
+    z-index: 2;
+    /* background-color: #f8f9fa; */
+    overflow-x: hidden;
+    padding-top: 60px;
+    transition: 0.5s;
+    box-shadow: -2px 0 5px 0 rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para o conteúdo dentro do sidebar-right */
+.sidebar-right-content {
+    padding: 20px;
+}
+
+/* Estilo para o botão de fechar o sidebar-right */
+.close-sidebar-right {
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+/* Estilo para o ícone de bug no sidebar-right */
+.icon-actions-bug {
+    cursor: pointer;
+}
+
+/* Estilo para a animação de entrada do sidebar-right */
+.sidebar-right.slideIn {
+    width: 300px;
+}
+
+/* Estilo para a animação de saída do sidebar-right */
+.sidebar-right.slideOut {
+    width: 0;
+}
+
+/* Adicione este código para o botão que abre o sidebar-right */
+#openSidebarRight {
+    position: fixed;
+    right: 20px;
+    top: 20px;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+/* Estilo para o botão de abrir o sidebar-right */
+#openSidebarRight:hover {
+    color: #007bff;
+}
+</style>
